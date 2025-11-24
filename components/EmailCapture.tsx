@@ -6,9 +6,10 @@ interface EmailCaptureProps {
   archetype: string;
   onSubmit: (email: string) => void;
   onSkip: () => void;
+  onBack?: () => void;
 }
 
-export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptureProps) {
+export default function EmailCapture({ archetype, onSubmit, onSkip, onBack }: EmailCaptureProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -152,6 +153,23 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
             Skip
           </button>
         </div>
+
+        {onBack && (
+          <div className="pt-4">
+            <button
+              type="button"
+              onClick={onBack}
+              className="
+                w-full px-10 py-4 border border-neutral-800 text-neutral-400 font-medium text-sm
+                transition-all duration-300 uppercase tracking-[0.1em]
+                hover:border-neutral-700 hover:text-neutral-300 hover:bg-neutral-900/50
+                active:scale-[0.98]
+              "
+            >
+              ← Back to Quiz
+            </button>
+          </div>
+        )}
 
         <p className="text-xs text-neutral-600 text-center font-light">
           Your results and intro class will be sent to your email. We respect your privacy.

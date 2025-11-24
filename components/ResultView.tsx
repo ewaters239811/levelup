@@ -7,11 +7,27 @@ interface ResultViewProps {
   onStartIntroClass?: () => void;
   aiInterpretation?: AIInterpretation | null;
   isInterpreting?: boolean;
+  onBack?: () => void;
 }
 
-export default function ResultView({ archetype, onStartIntroClass, aiInterpretation, isInterpreting }: ResultViewProps) {
+export default function ResultView({ archetype, onStartIntroClass, aiInterpretation, isInterpreting, onBack }: ResultViewProps) {
   return (
     <div className="w-full max-w-4xl mx-auto space-y-16 relative z-10">
+      {onBack && (
+        <div className="mb-8">
+          <button
+            onClick={onBack}
+            className="
+              px-8 py-3 border border-neutral-800 text-neutral-400 font-medium text-sm
+              transition-all duration-300 uppercase tracking-[0.1em]
+              hover:border-neutral-700 hover:text-neutral-300 hover:bg-neutral-900/50
+              active:scale-[0.98]
+            "
+          >
+            ← Back
+          </button>
+        </div>
+      )}
       <div className="text-center space-y-8">
         <p className="text-xs uppercase tracking-[0.3em] text-neutral-500 font-medium">
           Analysis Complete

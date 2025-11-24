@@ -8,9 +8,10 @@ import IntroClassCompletion from './IntroClassCompletion';
 interface IntroClassViewProps {
   introClass: ArchetypeIntroClass;
   onComplete?: () => void;
+  onBack?: () => void;
 }
 
-export default function IntroClassView({ introClass, onComplete }: IntroClassViewProps) {
+export default function IntroClassView({ introClass, onComplete, onBack }: IntroClassViewProps) {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [showCompletion, setShowCompletion] = useState(false);
   const currentLesson = introClass.lessons[currentLessonIndex];
@@ -46,6 +47,21 @@ export default function IntroClassView({ introClass, onComplete }: IntroClassVie
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-12 relative z-10">
+      {onBack && (
+        <div className="mb-8">
+          <button
+            onClick={onBack}
+            className="
+              px-8 py-3 border border-neutral-800 text-neutral-400 font-medium text-sm
+              transition-all duration-300 uppercase tracking-[0.1em]
+              hover:border-neutral-700 hover:text-neutral-300 hover:bg-neutral-900/50
+              active:scale-[0.98]
+            "
+          >
+            ← Back to Results
+          </button>
+        </div>
+      )}
       {/* Header */}
       <div className="text-center space-y-6 pb-8 border-b border-neutral-800">
         <p className="text-xs uppercase tracking-[0.3em] text-neutral-500 font-medium">

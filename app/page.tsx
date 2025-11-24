@@ -130,6 +130,13 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleEmailBack = () => {
+    // Go back to last quiz question (question 11)
+    setState('quiz');
+    setCurrentQuestionIndex(quizData.length - 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleEmailSubmit = (email: string) => {
     setUserEmail(email);
     // Save result with email for analytics
@@ -146,6 +153,11 @@ export default function Home() {
       saveResult(result, answers);
     }
     setState('result');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleResultBack = () => {
+    setState('email');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -285,6 +297,7 @@ export default function Home() {
               archetype={result}
               onSubmit={handleEmailSubmit}
               onSkip={handleEmailSkip}
+              onBack={handleEmailBack}
             />
           </div>
         </section>
@@ -299,6 +312,7 @@ export default function Home() {
               onStartIntroClass={handleStartIntroClass}
               aiInterpretation={aiInterpretation}
               isInterpreting={isInterpreting}
+              onBack={handleResultBack}
             />
           </div>
         </section>
@@ -311,6 +325,7 @@ export default function Home() {
             <IntroClassView
               introClass={archetypeIntroClasses[result]}
               onComplete={handleIntroClassComplete}
+              onBack={handleResultBack}
             />
           </div>
         </section>
