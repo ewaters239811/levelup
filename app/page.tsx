@@ -8,9 +8,11 @@ import QuestionCard from '@/components/QuestionCard';
 import ProgressBar from '@/components/ProgressBar';
 import ResultView from '@/components/ResultView';
 import EmailCapture from '@/components/EmailCapture';
+import IntroClassView from '@/components/IntroClassView';
 import { saveResult } from '@/lib/analytics';
+import { archetypeIntroClasses } from '@/data/archetypeIntroClasses';
 
-type AppState = 'landing' | 'quiz' | 'email' | 'result';
+type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass';
 
 export default function Home() {
   const [state, setState] = useState<AppState>('landing');
@@ -104,10 +106,22 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleStartIntroClass = () => {
+    setState('introClass');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleIntroClassComplete = () => {
+    // Could navigate back to result or to a completion page
+    // For now, just scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const currentQuestion = quizData[currentQuestionIndex];
   const selectedAnswer = answers[currentQuestion?.id] || null;
   const canProceed = selectedAnswer !== null;
   const isLastQuestion = currentQuestionIndex === quizData.length - 1;
+
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-neutral-100 relative overflow-hidden">
@@ -226,7 +240,22 @@ export default function Home() {
       {state === 'result' && result && (
         <section className="min-h-screen px-4 py-20 relative z-10">
           <div className="w-full max-w-4xl mx-auto">
-            <ResultView archetype={archetypes[result]} />
+            <ResultView 
+              archetype={archetypes[result]} 
+              onStartIntroClass={handleStartIntroClass}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* Intro Class Section */}
+      {state === 'introClass' && result && archetypeIntroClasses[result] && (
+        <section className="min-h-screen px-4 py-20 relative z-10">
+          <div className="w-full max-w-4xl mx-auto">
+            <IntroClassView
+              introClass={archetypeIntroClasses[result]}
+              onComplete={handleIntroClassComplete}
+            />
           </div>
         </section>
       )}

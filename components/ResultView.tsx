@@ -4,9 +4,10 @@ import { Archetype } from '@/types';
 
 interface ResultViewProps {
   archetype: Archetype;
+  onStartIntroClass?: () => void;
 }
 
-export default function ResultView({ archetype }: ResultViewProps) {
+export default function ResultView({ archetype, onStartIntroClass }: ResultViewProps) {
   return (
     <div className="w-full max-w-4xl mx-auto space-y-16 relative z-10">
       <div className="text-center space-y-8">
@@ -75,10 +76,26 @@ export default function ResultView({ archetype }: ResultViewProps) {
         </div>
       </div>
 
-      <div className="pt-12 text-center border-t border-neutral-800">
+      <div className="pt-12 text-center border-t border-neutral-800 space-y-6">
         <p className="text-neutral-500 text-sm font-light italic tracking-wide max-w-2xl mx-auto">
           You're not broken. You're just patterned. Patterns can be rewritten.
         </p>
+        <div className="pt-6">
+          <button
+            onClick={onStartIntroClass}
+            className="
+              px-10 py-4 bg-white text-black font-medium text-sm uppercase tracking-[0.1em]
+              transition-all duration-300 border border-white
+              hover:bg-neutral-100 hover:scale-[1.01] active:scale-[0.98]
+              hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]
+            "
+          >
+            Start Intro Class
+          </button>
+          <p className="text-xs text-neutral-600 mt-4 font-light">
+            A spiritual and psychological orientation to your archetype
+          </p>
+        </div>
       </div>
     </div>
   );
