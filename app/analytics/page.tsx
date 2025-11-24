@@ -45,6 +45,9 @@ export default function AnalyticsPage() {
     SILENT_GRINDER: 'The Silent Grinder',
     OVERGIVER: 'The Overgiver',
     CAGED_POTENTIAL: 'The Caged Potential',
+    lone_wolf_thinker: 'The Lone Wolf Thinker',
+    impulsive_firestarter: 'The Impulsive Firestarter',
+    doubt_ridden_strategist: 'The Doubt-Ridden Strategist',
   };
 
   return (

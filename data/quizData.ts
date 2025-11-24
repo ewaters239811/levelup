@@ -22,8 +22,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "I have a clear vision but I'm being strategic about when to make big moves.",
-        archetype: "CAGED_POTENTIAL"
+        label: "I think deeply about possibilities but prefer to work through ideas alone before sharing.",
+        archetype: "lone_wolf_thinker"
       }
     ]
   },
@@ -33,8 +33,8 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I'm consistent with my main goals, though I sometimes pivot when better opportunities arise.",
-        archetype: "UNFOCUSED_VISIONARY"
+        label: "I start new things with high energy, but struggle to maintain consistency over time.",
+        archetype: "impulsive_firestarter"
       },
       {
         id: "B",
@@ -74,8 +74,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "I'm positioning myself for bigger opportunities when the timing is right.",
-        archetype: "CAGED_POTENTIAL"
+        label: "I have detailed financial plans but hesitate to execute them until I'm more certain.",
+        archetype: "doubt_ridden_strategist"
       }
     ]
   },
@@ -85,8 +85,8 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I get excited and explore it, then decide if it aligns with my current focus.",
-        archetype: "UNFOCUSED_VISIONARY"
+        label: "I jump on it immediately with enthusiasm and start taking action right away.",
+        archetype: "impulsive_firestarter"
       },
       {
         id: "B",
@@ -100,8 +100,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "I analyze it carefully to ensure it's the right strategic move.",
-        archetype: "CAGED_POTENTIAL"
+        label: "I think through all the angles and potential outcomes before deciding.",
+        archetype: "lone_wolf_thinker"
       }
     ]
   },
@@ -126,8 +126,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "I'm selective and intentional, building deep connections with the right people.",
-        archetype: "CAGED_POTENTIAL"
+        label: "I prefer deep one-on-one connections and often process things internally before sharing.",
+        archetype: "lone_wolf_thinker"
       }
     ]
   },
@@ -137,8 +137,8 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I have goals and I'm experimenting with different approaches to find what works.",
-        archetype: "UNFOCUSED_VISIONARY"
+        label: "I start new fitness routines with excitement but often lose momentum after a few weeks.",
+        archetype: "impulsive_firestarter"
       },
       {
         id: "B",
@@ -178,8 +178,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "I step back to reassess and wait for clarity before making the next move.",
-        archetype: "CAGED_POTENTIAL"
+        label: "I analyze the situation deeply, sometimes overthinking before taking action.",
+        archetype: "doubt_ridden_strategist"
       }
     ]
   },
@@ -204,8 +204,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "I'm reflective and strategic, aware of my potential and planning my moves.",
-        archetype: "CAGED_POTENTIAL"
+        label: "I have deep internal conversations, often questioning whether I'm making the right choices.",
+        archetype: "doubt_ridden_strategist"
       }
     ]
   },
@@ -230,8 +230,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "Taking bold action when I know I'm ready, instead of waiting for perfect conditions.",
-        archetype: "CAGED_POTENTIAL"
+        label: "Finishing what I start - I get excited about beginnings but lose steam in the middle.",
+        archetype: "impulsive_firestarter"
       }
     ]
   },
@@ -256,8 +256,8 @@ export const quizData: Question[] = [
       },
       {
         id: "D",
-        label: "Acting on my vision with confidence, even before everything feels perfect.",
-        archetype: "CAGED_POTENTIAL"
+        label: "Sharing my insights and ideas with others instead of keeping them to myself.",
+        archetype: "lone_wolf_thinker"
       }
     ]
   }

@@ -54,11 +54,17 @@ export function getArchetypeCounts(): Record<string, number> {
     SILENT_GRINDER: 0,
     OVERGIVER: 0,
     CAGED_POTENTIAL: 0,
+    lone_wolf_thinker: 0,
+    impulsive_firestarter: 0,
+    doubt_ridden_strategist: 0,
   };
 
   results.forEach((result) => {
     if (result.archetype in counts) {
       counts[result.archetype]++;
+    } else {
+      // For any archetype not in the initial list, add it dynamically
+      counts[result.archetype] = (counts[result.archetype] || 0) + 1;
     }
   });
 

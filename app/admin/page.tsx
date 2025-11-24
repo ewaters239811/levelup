@@ -89,6 +89,9 @@ export default function AdminPage() {
     SILENT_GRINDER: 'The Silent Grinder',
     OVERGIVER: 'The Overgiver',
     CAGED_POTENTIAL: 'The Caged Potential',
+    lone_wolf_thinker: 'The Lone Wolf Thinker',
+    impulsive_firestarter: 'The Impulsive Firestarter',
+    doubt_ridden_strategist: 'The Doubt-Ridden Strategist',
   };
 
   return (
@@ -146,6 +149,9 @@ export default function AdminPage() {
               <option value="SILENT_GRINDER">Silent Grinder</option>
               <option value="OVERGIVER">Overgiver</option>
               <option value="CAGED_POTENTIAL">Caged Potential</option>
+              <option value="lone_wolf_thinker">Lone Wolf Thinker</option>
+              <option value="impulsive_firestarter">Impulsive Firestarter</option>
+              <option value="doubt_ridden_strategist">Doubt-Ridden Strategist</option>
             </select>
           </div>
 

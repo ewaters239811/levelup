@@ -58,6 +58,9 @@ export default function Home() {
       SILENT_GRINDER: 0,
       OVERGIVER: 0,
       CAGED_POTENTIAL: 0,
+      lone_wolf_thinker: 0,
+      impulsive_firestarter: 0,
+      doubt_ridden_strategist: 0,
     };
 
     quizData.forEach((question) => {
