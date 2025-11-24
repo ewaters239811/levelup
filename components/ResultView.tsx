@@ -177,7 +177,6 @@ export default function ResultView({ archetype, onStartIntroClass, aiInterpretat
             </p>
           </div>
         )}
-        </div>
       </div>
 
       <div className="pt-12 text-center border-t border-neutral-800 space-y-6">
