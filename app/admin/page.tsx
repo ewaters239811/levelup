@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { getResults, getArchetypeCounts } from '@/lib/analytics';
 
 interface EmailRecord {
-  _id?: string;
   email: string;
   archetype: string;
   created_at: string | Date;
@@ -11,35 +11,55 @@ interface EmailRecord {
 
 interface EmailCount {
   archetype: string;
-  count: string;
+  count: number;
 }
 
 export default function AdminPage() {
   const [emails, setEmails] = useState<EmailRecord[]>([]);
   const [counts, setCounts] = useState<EmailCount[]>([]);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [selectedArchetype, setSelectedArchetype] = useState<string>('all');
 
   useEffect(() => {
     loadEmails();
   }, [selectedArchetype]);
 
-  const loadEmails = async () => {
+  const loadEmails = () => {
     setLoading(true);
     try {
-      const url = selectedArchetype === 'all' 
-        ? '/api/emails'
-        : `/api/emails?archetype=${selectedArchetype}`;
+      const allResults = getResults();
+      const archetypeCounts = getArchetypeCounts();
       
-      const response = await fetch(url);
-      const data = await response.json();
-      
-      if (data.success) {
-        setEmails(data.emails || []);
-        setCounts(data.counts || []);
-        setTotal(data.total || 0);
+      // Filter results with emails
+      const allEmailsWithData = allResults
+        .filter((r) => r.email)
+        .map((r) => ({
+          email: r.email!,
+          archetype: r.archetype,
+          created_at: r.date,
+        }));
+
+      // Filter by archetype if selected
+      let emailResults = allEmailsWithData;
+      if (selectedArchetype !== 'all') {
+        emailResults = allEmailsWithData.filter((e) => e.archetype === selectedArchetype);
       }
+
+      // Convert counts to array format (only for emails)
+      const emailCountsByArchetype: Record<string, number> = {};
+      allEmailsWithData.forEach((e) => {
+        emailCountsByArchetype[e.archetype] = (emailCountsByArchetype[e.archetype] || 0) + 1;
+      });
+
+      const countsArray: EmailCount[] = Object.entries(emailCountsByArchetype).map(([archetype, count]) => ({
+        archetype,
+        count,
+      }));
+
+      setEmails(emailResults);
+      setCounts(countsArray);
+      setTotal(allEmailsWithData.length); // Total emails across all archetypes
     } catch (error) {
       console.error('Error loading emails:', error);
     } finally {
@@ -77,7 +97,7 @@ export default function AdminPage() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-4xl font-extralight mb-2">Email Database</h1>
-            <p className="text-neutral-400 font-light">View and manage all collected emails</p>
+            <p className="text-neutral-400 font-light">View and manage all collected emails (stored locally in your browser)</p>
           </div>
           <div className="flex gap-4">
             <button
@@ -107,7 +127,7 @@ export default function AdminPage() {
               </h3>
               <p className="text-3xl font-extralight text-neutral-100">{count.count}</p>
               <p className="text-xs text-neutral-500 mt-2 font-light">
-                {total > 0 ? Math.round((parseInt(count.count) / total) * 100) : 0}%
+                {total > 0 ? Math.round((count.count / total) * 100) : 0}%
               </p>
             </div>
           ))}
@@ -137,7 +157,7 @@ export default function AdminPage() {
             <div className="space-y-2">
               {emails.map((email, index) => (
                 <div
-                  key={email._id || index}
+                  key={`${email.email}-${index}`}
                   className="flex justify-between items-center p-4 bg-neutral-950 border border-neutral-800 hover:border-neutral-700 transition-colors"
                 >
                   <div className="flex-1">

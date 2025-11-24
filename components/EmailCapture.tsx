@@ -17,7 +17,7 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -32,37 +32,10 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
     }
 
     setIsSubmitting(true);
-
-    try {
-      // Save email locally first
-      onSubmit(email);
-      
-      // Also send to API
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          archetype,
-          timestamp: new Date().toISOString(),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to save email');
-      }
-
-      // Success - continue to results
-      onSubmit(email);
-    } catch (err) {
-      console.error('Error saving email:', err);
-      // Still continue even if API fails (email saved locally)
-      onSubmit(email);
-    } finally {
-      setIsSubmitting(false);
-    }
+    
+    // Save email locally (stored in localStorage via analytics)
+    onSubmit(email);
+    setIsSubmitting(false);
   };
 
   return (
