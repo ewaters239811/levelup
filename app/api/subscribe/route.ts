@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// For now, we'll just log the email. In production, you'd save to a database
-// or send to an email service like Resend, Mailchimp, etc.
+import { saveEmail } from '@/lib/mongodb';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,27 +13,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Replace this with actual email storage
-    // Options:
-    // 1. Save to database (PostgreSQL, MongoDB, etc.)
-    // 2. Send to email service (Resend, SendGrid, Mailchimp)
-    // 3. Save to Vercel KV or similar
-    
+    // Log to console (for Vercel logs)
     console.log('📧 New subscription:', {
       email,
       archetype,
       timestamp,
     });
 
-    // For now, just return success
-    // In production, you'd do something like:
-    // await saveToDatabase({ email, archetype, timestamp });
-    // await sendToEmailService({ email, archetype });
+    // Save to Vercel Postgres
+    const dbResult = await saveEmail(email, archetype);
+    
+    if (!dbResult.success) {
+      console.error('Failed to save to database:', dbResult.error);
+      // Still return success to user, but log the error
+      // This way the user experience isn't broken if DB fails
+    }
 
     return NextResponse.json(
       { 
         success: true,
-        message: 'Email saved successfully' 
+        message: 'Email saved successfully',
+        savedToDatabase: dbResult.success
       },
       { status: 200 }
     );

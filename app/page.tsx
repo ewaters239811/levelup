@@ -156,7 +156,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
               <p className="text-xs text-neutral-600 tracking-wide font-light">
-                Takes about 2 minutes · No email required
+                Takes about 2 minutes
               </p>
             </div>
           </div>

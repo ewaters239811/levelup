@@ -95,17 +95,57 @@ export default function AnalyticsPage() {
                   key={index}
                   className="flex justify-between items-center p-4 bg-neutral-950 rounded border border-neutral-800"
                 >
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-neutral-100">
                       {archetypeNames[result.archetype] || result.archetype}
                     </p>
                     <p className="text-sm text-neutral-400">
                       {new Date(result.date).toLocaleString()}
                     </p>
+                    {result.email && (
+                      <p className="text-sm text-cyan-400 mt-1">{result.email}</p>
+                    )}
                   </div>
                   <span className="text-xs text-neutral-500">{result.archetype}</span>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+
+        <div className="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+          <h2 className="text-2xl font-semibold mb-4">Email List</h2>
+          {results.length === 0 ? (
+            <p className="text-neutral-400">No emails collected yet.</p>
+          ) : (
+            <div className="space-y-2">
+              {results
+                .filter((r) => r.email)
+                .map((result, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center p-3 bg-neutral-950 rounded border border-neutral-800"
+                  >
+                    <div className="flex-1">
+                      <p className="text-neutral-100 font-medium">{result.email}</p>
+                      <p className="text-xs text-neutral-500 mt-1">
+                        {archetypeNames[result.archetype]} • {new Date(result.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(result.email || '');
+                        alert('Email copied to clipboard!');
+                      }}
+                      className="text-xs text-cyan-400 hover:text-cyan-300 px-3 py-1 border border-cyan-400/30 rounded hover:border-cyan-400 transition-colors"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                ))}
+              {results.filter((r) => r.email).length === 0 && (
+                <p className="text-neutral-400">No emails in this session. Emails are stored locally in your browser.</p>
+              )}
             </div>
           )}
         </div>
