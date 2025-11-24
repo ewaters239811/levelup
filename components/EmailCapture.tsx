@@ -12,12 +12,13 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -32,10 +33,43 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
     }
 
     setIsSubmitting(true);
-    
-    // Save email locally (stored in localStorage via analytics)
-    onSubmit(email);
-    setIsSubmitting(false);
+
+    try {
+      // Send results to email
+      const response = await fetch('/api/send-results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          archetypeKey: archetype,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send email');
+      }
+
+      // Show success message
+      setSuccess(true);
+      
+      // Save email locally (stored in localStorage via analytics)
+      // Small delay to show success message
+      setTimeout(() => {
+        onSubmit(email);
+      }, 1500);
+    } catch (err) {
+      console.error('Error sending email:', err);
+      setError('Failed to send email. You can still view your results below.');
+      setIsSubmitting(false);
+      // Still allow them to proceed even if email fails
+      setTimeout(() => {
+        onSubmit(email);
+      }, 2000);
+    }
   };
 
   return (
@@ -70,6 +104,9 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
           {error && (
             <p className="mt-2 text-sm text-red-400">{error}</p>
           )}
+          {success && (
+            <p className="mt-2 text-sm text-cyan-400">✓ Email sent! Check your inbox.</p>
+          )}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
@@ -84,7 +121,7 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
               disabled:opacity-50 disabled:cursor-not-allowed
             "
           >
-            {isSubmitting ? 'Saving...' : 'Get My Results'}
+            {isSubmitting ? 'Sending...' : 'Get My Results'}
           </button>
           <button
             type="button"
@@ -101,7 +138,7 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
         </div>
 
         <p className="text-xs text-neutral-600 text-center font-light">
-          We respect your privacy. Unsubscribe anytime.
+          Your results and intro class will be sent to your email. We respect your privacy.
         </p>
       </form>
     </div>
