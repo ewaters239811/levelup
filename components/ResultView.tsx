@@ -108,75 +108,75 @@ export default function ResultView({ archetype, onStartIntroClass, aiInterpretat
             </div>
           </div>
         ) : aiInterpretation && aiInterpretation.goal ? (
-            <div className="space-y-8 max-w-3xl">
-              {/* Goal */}
-              <div className="space-y-3">
-                <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
-                  What You Want to Improve
-                </h3>
-                <p className="text-neutral-300 leading-relaxed font-light text-lg">
-                  {aiInterpretation.goal}
-                </p>
-              </div>
-
-              {/* Blockage */}
-              <div className="space-y-3 pt-4 border-t border-neutral-800">
-                <h3 className="text-lg font-light text-neutral-400 uppercase tracking-[0.1em]">
-                  What's Usually Stopping You
-                </h3>
-                <p className="text-neutral-300 leading-relaxed font-light">
-                  {aiInterpretation.blockage}
-                </p>
-              </div>
-
-              {/* Desired Feelings */}
-              {aiInterpretation.desired_feelings && aiInterpretation.desired_feelings.length > 0 && (
-                <div className="space-y-3 pt-4 border-t border-neutral-800">
-                  <h3 className="text-lg font-light text-neutral-400 uppercase tracking-[0.1em]">
-                    The Feelings You're Seeking
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {aiInterpretation.desired_feelings.map((feeling, index) => (
-                      <span
-                        key={index}
-                        className="px-4 py-2 border border-neutral-700 bg-neutral-900/30 text-neutral-300 font-light text-sm"
-                      >
-                        {feeling}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Truth Reflection */}
-              <div className="space-y-3 pt-4 border-t border-neutral-800">
-                <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
-                  A Truth to Remember
-                </h3>
-                <p className="text-neutral-300 leading-relaxed font-light italic">
-                  {aiInterpretation.truth_reflection}
-                </p>
-              </div>
-
-              {/* Integration Step */}
-              <div className="space-y-3 pt-4 border-t border-neutral-800 pb-4">
-                <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
-                  Your Integration Step
-                </h3>
-                <div className="p-6 border border-cyan-400/30 bg-cyan-400/5">
-                  <p className="text-neutral-200 leading-relaxed font-light text-lg">
-                    {aiInterpretation.integration_step}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="py-8 text-center">
-              <p className="text-neutral-500 text-sm font-light">
-                Your personal reflection will appear here after you complete question 11.
+          <div className="space-y-8 max-w-3xl">
+            {/* Goal */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
+                What You Want to Improve
+              </h3>
+              <p className="text-neutral-300 leading-relaxed font-light text-lg">
+                {aiInterpretation.goal}
               </p>
             </div>
-          )}
+
+            {/* Blockage */}
+            <div className="space-y-3 pt-4 border-t border-neutral-800">
+              <h3 className="text-lg font-light text-neutral-400 uppercase tracking-[0.1em]">
+                What's Usually Stopping You
+              </h3>
+              <p className="text-neutral-300 leading-relaxed font-light">
+                {aiInterpretation.blockage}
+              </p>
+            </div>
+
+            {/* Desired Feelings */}
+            {aiInterpretation.desired_feelings && aiInterpretation.desired_feelings.length > 0 && (
+              <div className="space-y-3 pt-4 border-t border-neutral-800">
+                <h3 className="text-lg font-light text-neutral-400 uppercase tracking-[0.1em]">
+                  The Feelings You're Seeking
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {aiInterpretation.desired_feelings.map((feeling, index) => (
+                    <span
+                      key={index}
+                      className="px-4 py-2 border border-neutral-700 bg-neutral-900/30 text-neutral-300 font-light text-sm"
+                    >
+                      {feeling}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Truth Reflection */}
+            <div className="space-y-3 pt-4 border-t border-neutral-800">
+              <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
+                A Truth to Remember
+              </h3>
+              <p className="text-neutral-300 leading-relaxed font-light italic">
+                {aiInterpretation.truth_reflection}
+              </p>
+            </div>
+
+            {/* Integration Step */}
+            <div className="space-y-3 pt-4 border-t border-neutral-800 pb-4">
+              <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
+                Your Integration Step
+              </h3>
+              <div className="p-6 border border-cyan-400/30 bg-cyan-400/5">
+                <p className="text-neutral-200 leading-relaxed font-light text-lg">
+                  {aiInterpretation.integration_step}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="py-8 text-center">
+            <p className="text-neutral-500 text-sm font-light">
+              Your personal reflection will appear here after you complete question 11.
+            </p>
+          </div>
+        )}
         </div>
       </div>
 
