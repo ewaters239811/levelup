@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ArchetypeIntroClass } from '@/types/introClass';
 import IntroClassLesson from './IntroClassLesson';
+import IntroClassCompletion from './IntroClassCompletion';
 
 interface IntroClassViewProps {
   introClass: ArchetypeIntroClass;
@@ -11,18 +12,30 @@ interface IntroClassViewProps {
 
 export default function IntroClassView({ introClass, onComplete }: IntroClassViewProps) {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  const [showCompletion, setShowCompletion] = useState(false);
   const currentLesson = introClass.lessons[currentLessonIndex];
   const isFirstLesson = currentLessonIndex === 0;
   const isLastLesson = currentLessonIndex === introClass.lessons.length - 1;
 
   const handleNext = () => {
     if (isLastLesson) {
-      onComplete?.();
+      setShowCompletion(true);
     } else {
       setCurrentLessonIndex(currentLessonIndex + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  const handleCompletionClose = () => {
+    setShowCompletion(false);
+    onComplete?.();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Show completion screen
+  if (showCompletion) {
+    return <IntroClassCompletion archetypeName={introClass.name} onClose={handleCompletionClose} />;
+  }
 
   const handleBack = () => {
     if (!isFirstLesson) {
