@@ -280,6 +280,216 @@ This might mean changing who you spend time with, what spaces you inhabit, what 
         completionMarker: 'You know you\'re shifting when your environment demands your best and you rise to meet it.'
       }
     ]
+  },
+  lone_wolf_thinker: {
+    id: 'lone_wolf_thinker',
+    name: 'The Lone Wolf Thinker',
+    tagline: 'You think deeply in isolation, but your insights rarely reach the world.',
+    lessons: [
+      {
+        id: 'isolation-pattern',
+        title: 'The Isolation Pattern',
+        subtitle: 'Why you think better alone, but act better together',
+        content: `You've learned to trust your own mind above all else. This isn't arrogance - it's survival. You've been burned by groupthink, by people who don't understand your depth, by systems that reward surface-level thinking. So you've retreated into your own mental space, where ideas can breathe and complexity is honored.
+
+But isolation has a cost. Your best insights remain trapped in your head. Your solutions never get tested in the real world. Your wisdom never reaches the people who need it most. You've become so good at thinking that you've forgotten how to translate thought into action, and how to let others into your process.
+
+The spiritual truth here is that wisdom is meant to be shared. Your depth is a gift, but it becomes a burden when you carry it alone. The world needs what you see, but it can't access it if you never let anyone in.`,
+        reflectionQuestions: [
+          'What insight or solution have you been sitting on that could help someone else?',
+          'When was the last time you shared your thinking process with someone? How did it feel?',
+          'What are you afraid will happen if you let others into your mental space?'
+        ],
+        dailyPractices: [
+          'Share one insight this week: Write it down, tell someone, or post it somewhere.',
+          'Practice "thinking out loud": Let someone witness your thought process, even if it feels vulnerable.',
+          'Find one person who can handle your depth: Start small, share one complex idea.'
+        ],
+        completionMarker: 'You know you\'re shifting when you can think deeply AND let others witness it.'
+      },
+      {
+        id: 'action-translation',
+        title: 'Translating Thought into Action',
+        subtitle: 'From insight to impact',
+        content: `You're brilliant at seeing the patterns, understanding the systems, mapping the complexity. But somewhere between your mind and the world, the connection breaks. You think, you analyze, you refine - but you rarely execute.
+
+This isn't laziness. It's perfectionism disguised as depth. You want the idea to be complete, the plan to be perfect, the execution to be flawless. But perfection is the enemy of progress. The world doesn't need your perfect idea - it needs your good enough action.
+
+The spiritual practice here is learning to honor both depth and movement. You don't have to abandon your thinking - you just have to let it serve action, not replace it. Start before you're ready. Share before it's perfect. Act before you understand everything.`,
+        reflectionQuestions: [
+          'What idea have you been perfecting that could be implemented at 80% right now?',
+          'What\'s the smallest version of your biggest insight that you could test today?',
+          'What would happen if you stopped thinking and started doing, even for one day?'
+        ],
+        dailyPractices: [
+          'Implement one insight this week: Take one idea from your head and make it real, even if imperfect.',
+          'Set a "thinking deadline": Give yourself a time limit for analysis, then force yourself to act.',
+          'Practice "good enough": Do something at 70% quality instead of waiting for 100%.'
+        ],
+        completionMarker: 'You know you\'re growing when you can act on an idea before you fully understand it.'
+      },
+      {
+        id: 'collaborative-depth',
+        title: 'Finding Your Tribe',
+        subtitle: 'Connecting with others who honor your depth',
+        content: `You've been alone because you haven't found people who match your depth. But isolation has become a habit, and now you don't even look for your tribe. You've convinced yourself that you're better alone, that collaboration dilutes your thinking, that others will slow you down.
+
+But the truth is, you need people who can hold space for your complexity. Not people who simplify what you say, but people who can sit with you in the depth. Not people who rush you to action, but people who honor your process while gently pushing you toward impact.
+
+The spiritual call here is to find your intellectual home - the people who get it, who challenge you, who help you bridge the gap between your mind and the world. You don't have to abandon your depth. You just have to find others who share it.`,
+        reflectionQuestions: [
+          'Who in your life can actually handle your depth? Who makes you feel understood?',
+          'Where could you find people who think like you do? What communities or spaces?',
+          'What would it look like to collaborate while maintaining your intellectual integrity?'
+        ],
+        dailyPractices: [
+          'Reach out to one person who gets your depth: Share something complex and see how they respond.',
+          'Find one community or space where deep thinking is valued: Online or in person.',
+          'Practice collaboration: Work on one project with someone, even if it feels slower than doing it alone.'
+        ],
+        completionMarker: 'You know you\'re shifting when you can think deeply in community, not just in isolation.'
+      }
+    ]
+  },
+  impulsive_firestarter: {
+    id: 'impulsive_firestarter',
+    name: 'The Impulsive Firestarter',
+    tagline: 'You move fast and start fires, but rarely stay to tend the flame.',
+    lessons: [
+      {
+        id: 'impulse-understanding',
+        title: 'Understanding Your Impulse',
+        subtitle: 'Why you start everything and finish nothing',
+        content: `You're wired for ignition. You see opportunity, you feel energy, you move. This isn't recklessness - it's a gift. You have the rare ability to see potential and act on it immediately, without overthinking or second-guessing. This is powerful.
+
+But your gift has become a pattern. You start fires everywhere - new projects, new ideas, new directions - but you never stay to tend them. The initial spark excites you, but the maintenance bores you. The beginning energizes you, but the middle drains you. So you abandon one fire to start another, leaving a trail of half-burned embers behind you.
+
+The spiritual root here is often a fear of the mundane. You're addicted to the high of starting, but you haven't learned to find meaning in the middle. You think the magic is in the beginning, but the real transformation happens in the daily tending.`,
+        reflectionQuestions: [
+          'What fires have you started in the last year that you abandoned? What happened?',
+          'What does it feel like when something moves from "exciting new" to "daily routine"?',
+          'What would it mean about you if you actually finished something you started?'
+        ],
+        dailyPractices: [
+          'Choose one fire to tend: Pick one thing you started and commit to maintaining it for 30 days.',
+          'Practice "boring consistency": Do one thing every day, even when it doesn\'t feel exciting.',
+          'Notice your impulse to start new things: Before starting something new, ask: "Am I running from something I should finish?"'
+        ],
+        completionMarker: 'You know you\'re shifting when you can find energy in maintaining, not just in starting.'
+      },
+      {
+        id: 'sustained-energy',
+        title: 'Finding Energy in the Middle',
+        subtitle: 'Learning to love the daily work',
+        content: `You think energy comes from new beginnings, but that's only half true. Real energy comes from momentum - and momentum is built in the middle, not at the start. The initial spark is easy. The daily tending is where the real power lives.
+
+The shift you need is to reframe maintenance as creation. Every day you tend the fire, you're not just maintaining - you're building. Every day you show up, you're not just going through motions - you're creating momentum. The middle isn't the boring part - it's where transformation actually happens.
+
+Spiritually, this is about learning to find God in the repetition, not just in the breakthrough. The daily discipline becomes sacred when you see it as part of the creation, not just maintenance of it.`,
+        reflectionQuestions: [
+          'What would it look like to find excitement in the daily work of something you started?',
+          'How can you reframe "maintenance" as "creation"?',
+          'What would happen if you committed to one thing for 90 days, even when it got boring?'
+        ],
+        dailyPractices: [
+          'Create a "tending ritual": Make the daily work feel sacred, not just functional.',
+          'Track your momentum: Notice how consistency builds energy, not drains it.',
+          'Celebrate the middle: Acknowledge progress in the boring phases, not just the exciting starts.'
+        ],
+        completionMarker: 'You know you\'re growing when you can find meaning in repetition, not just in novelty.'
+      },
+      {
+        id: 'completion-discipline',
+        title: 'The Discipline of Completion',
+        subtitle: 'Finishing what you start',
+        content: `Completion is a skill, and you haven't practiced it. You're great at starting, but terrible at finishing. This isn't because you're lazy - it's because you haven't learned to push through the resistance that comes in the middle.
+
+Every project has a "death valley" - the point where the initial excitement is gone, the end isn't in sight, and everything feels hard. This is where most people quit, and you're no exception. But this is also where the real growth happens. This is where you learn who you really are.
+
+The spiritual practice here is commitment. Not commitment to the project itself, but commitment to the process of finishing. You don't have to love every moment. You just have to stay. You don't have to feel excited. You just have to complete.`,
+        reflectionQuestions: [
+          'What have you started that you know you should finish? What\'s stopping you?',
+          'What does it feel like when you hit the "death valley" of a project? What do you do?',
+          'What would completing something significant mean about your capacity?'
+        ],
+        dailyPractices: [
+          'Finish one thing this week: Complete something you started, even if it feels hard.',
+          'Practice "staying": When you want to quit, commit to one more day, one more week.',
+          'Build completion muscle: Start smaller projects and practice finishing them before moving to bigger ones.'
+        ],
+        completionMarker: 'You know you\'re shifting when you can push through the middle and actually finish what you start.'
+      }
+    ]
+  },
+  doubt_ridden_strategist: {
+    id: 'doubt_ridden_strategist',
+    name: 'The Doubt-Ridden Strategist',
+    tagline: 'You plan everything perfectly, but doubt keeps you from executing.',
+    lessons: [
+      {
+        id: 'doubt-pattern',
+        title: 'The Doubt Pattern',
+        subtitle: 'Why you can plan but not act',
+        content: `You're brilliant at strategy. You can see all the angles, anticipate all the problems, map all the possibilities. Your mind is a master planner. But somewhere between the plan and the action, doubt creeps in. What if you're wrong? What if you missed something? What if there's a better way?
+
+So you plan more. You refine. You optimize. You research. You prepare. But you never quite feel ready, and you never quite take the step. Your strategy becomes a form of procrastination - a way to feel productive while avoiding the risk of actually doing.
+
+The spiritual root here is often a fear of being wrong. You've built your identity around being smart, being right, being strategic. But action requires the risk of being wrong, and that terrifies you. So you stay in the safe space of planning, where you can't fail because you haven't tried.`,
+        reflectionQuestions: [
+          'What have you planned that you haven\'t executed? What\'s the doubt that\'s stopping you?',
+          'What are you afraid will happen if you act on your plan and it doesn\'t work?',
+          'What would it mean about you if you tried something and it failed?'
+        ],
+        dailyPractices: [
+          'Act on one plan this week: Pick a strategy and execute it, even if you don\'t feel 100% ready.',
+          'Practice "good enough planning": Set a time limit for planning, then force yourself to act.',
+          'Notice your doubt: When doubt comes up, acknowledge it, then act anyway.'
+        ],
+        completionMarker: 'You know you\'re shifting when you can act on a plan even when doubt is present.'
+      },
+      {
+        id: 'imperfect-action',
+        title: 'The Power of Imperfect Action',
+        subtitle: 'Moving before you feel ready',
+        content: `You think you need the perfect plan before you can act. But perfect plans don't exist - they're created through action, not before it. The best strategy is the one you execute, not the one you perfect.
+
+The shift you need is to see action as part of the planning process, not separate from it. You don't plan, then act. You act, learn, adjust, act again. Strategy isn't a blueprint - it's a living process that evolves as you move.
+
+Spiritually, this is about faith in action. You don't need to see the whole path - you just need to take the first step. God honors movement, not just intention. When you start moving, the path becomes clearer, the strategy becomes sharper, the doubt becomes manageable.`,
+        reflectionQuestions: [
+          'What would happen if you acted on your plan at 70% readiness instead of waiting for 100%?',
+          'How can you see action as part of your strategy, not separate from it?',
+          'What\'s the smallest step you could take today on something you\'ve been planning?'
+        ],
+        dailyPractices: [
+          'Take imperfect action: Do something today based on your plan, even if it\'s not perfect.',
+          'Practice "action-based planning": Act, learn, adjust, then act again.',
+          'Set planning limits: Give yourself a deadline for planning, then commit to acting regardless of how ready you feel.'
+        ],
+        completionMarker: 'You know you\'re growing when you can act on a plan before you feel completely ready.'
+      },
+      {
+        id: 'doubt-integration',
+        title: 'Making Peace with Doubt',
+        subtitle: 'Using doubt as data, not as a stop sign',
+        content: `Doubt isn't your enemy - it's information. But you've learned to treat it as a stop sign, when it's actually a caution sign. Doubt tells you what to pay attention to, what to prepare for, what to consider. But it doesn't have to stop you.
+
+The spiritual practice here is learning to hold doubt without being paralyzed by it. You can feel uncertain and still act. You can have questions and still move forward. You can be strategic and still take risks. Doubt and action can coexist.
+
+This isn't about ignoring your doubt - it's about integrating it. Listen to what it's telling you. Address what you can. Then act anyway, knowing that some doubt will always be present, and that's okay.`,
+        reflectionQuestions: [
+          'What is your doubt actually telling you? What valid concern does it represent?',
+          'How can you address your doubt while still taking action?',
+          'What would it look like to act even when doubt is present?'
+        ],
+        dailyPractices: [
+          'Listen to your doubt: Write down what it\'s telling you, address what you can, then act anyway.',
+          'Practice "doubt-informed action": Use your doubt to prepare, not to procrastinate.',
+          'Build tolerance for uncertainty: Take one action this week even when you feel uncertain.'
+        ],
+        completionMarker: 'You know you\'re shifting when you can feel doubt and still take action, using it as information rather than a stop sign.'
+      }
+    ]
   }
 };
 

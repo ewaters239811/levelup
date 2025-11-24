@@ -9,7 +9,7 @@ export type IntroLesson = {
 };
 
 export type ArchetypeIntroClass = {
-  id: 'UNFOCUSED_VISIONARY' | 'SILENT_GRINDER' | 'OVERGIVER' | 'CAGED_POTENTIAL';
+  id: 'UNFOCUSED_VISIONARY' | 'SILENT_GRINDER' | 'OVERGIVER' | 'CAGED_POTENTIAL' | 'lone_wolf_thinker' | 'impulsive_firestarter' | 'doubt_ridden_strategist';
   name: string;
   tagline: string;
   lessons: IntroLesson[];
