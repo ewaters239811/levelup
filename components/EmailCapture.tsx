@@ -50,6 +50,13 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
       const data = await response.json();
 
       if (!response.ok) {
+        // Check if it's a configuration error (service not set up)
+        if (response.status === 503 || data.error?.includes('not configured')) {
+          console.warn('Email service not configured - proceeding without email');
+          // Don't show error for missing config - just proceed silently
+          onSubmit(email);
+          return;
+        }
         throw new Error(data.error || 'Failed to send email');
       }
 
@@ -63,7 +70,16 @@ export default function EmailCapture({ archetype, onSubmit, onSkip }: EmailCaptu
       }, 1500);
     } catch (err) {
       console.error('Error sending email:', err);
-      setError('Failed to send email. You can still view your results below.');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to send email';
+      
+      // If it's a configuration issue, proceed silently
+      if (errorMessage.includes('not configured') || errorMessage.includes('Email service')) {
+        onSubmit(email);
+        return;
+      }
+      
+      // For other errors, show message but still allow proceeding
+      setError('Email could not be sent, but you can still view your results below.');
       setIsSubmitting(false);
       // Still allow them to proceed even if email fails
       setTimeout(() => {

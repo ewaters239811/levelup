@@ -159,8 +159,19 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('Resend error:', error);
+      // Provide more helpful error messages
+      let errorMessage = 'Failed to send email';
+      if (error.message) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      
       return NextResponse.json(
-        { error: 'Failed to send email', details: error },
+        { 
+          error: errorMessage,
+          details: process.env.NODE_ENV === 'development' ? error : undefined
+        },
         { status: 500 }
       );
     }
