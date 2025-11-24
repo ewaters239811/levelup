@@ -10,18 +10,18 @@ export const archetypeIntroClasses: Record<string, ArchetypeIntroClass> = {
         id: 'vision-orientation',
         title: 'Understanding Your Visionary Nature',
         subtitle: 'Why you see so much, yet complete so little',
-        content: `You are wired to see possibility. This is not a flaw—it's a gift. Your mind naturally connects dots that others miss, and you feel the potential in situations before they manifest. This spiritual sensitivity to "what could be" is part of your design.
+        content: `You are wired to see possibility. This is not a flaw - it's a gift. Your mind naturally connects dots that others miss, and you feel the potential in situations before they manifest. This spiritual sensitivity to "what could be" is part of your design.
 
 However, your challenge is that you've learned to feed on the dopamine of new ideas rather than the deeper satisfaction of completion. Each new vision gives you a hit of excitement, but when the work gets hard or boring, you abandon it for the next spark.
 
-The spiritual root here is often a fear of commitment—not just to projects, but to your own identity. If you never finish, you never have to face whether you're "enough" in the eyes of others or yourself. You stay in the safe space of potential, where everything is still possible and nothing is yet judged.`,
+The spiritual root here is often a fear of commitment - not just to projects, but to your own identity. If you never finish, you never have to face whether you're "enough" in the eyes of others or yourself. You stay in the safe space of potential, where everything is still possible and nothing is yet judged.`,
         reflectionQuestions: [
           'What project or goal have you started and abandoned in the last 6 months? What was the moment you stopped?',
           'When you think about committing to one path, what fears come up?',
           'What would it mean about you if you actually finished something significant?'
         ],
         dailyPractices: [
-          'Morning: Write down ONE thing you will complete today. Not start—complete.',
+          'Morning: Write down ONE thing you will complete today. Not start - complete.',
           'Evening: Before bed, acknowledge what you finished (even if small). Thank God for the gift of completion.',
           'Weekly: Review your week and identify the pattern: Are you starting more than finishing?'
         ],
@@ -31,18 +31,18 @@ The spiritual root here is often a fear of commitment—not just to projects, bu
         id: 'focus-discipline',
         title: 'The Discipline of Focus',
         subtitle: 'Choosing one path when many call',
-        content: `Focus is not about limiting yourself—it's about honoring what you've been given. When you scatter your energy across multiple visions, you're essentially telling God (and yourself) that none of them matter enough to see through.
+        content: `Focus is not about limiting yourself - it's about honoring what you've been given. When you scatter your energy across multiple visions, you're essentially telling God (and yourself) that none of them matter enough to see through.
 
 The spiritual practice here is discernment: learning to distinguish between a genuine calling and a distraction. Not every good idea is YOUR idea. Not every opportunity is YOUR opportunity.
 
-True focus requires saying no to good things so you can say yes to the best thing. This is where your visionary gift becomes powerful—when you channel it into one direction with sustained commitment.`,
+True focus requires saying no to good things so you can say yes to the best thing. This is where your visionary gift becomes powerful - when you channel it into one direction with sustained commitment.`,
         reflectionQuestions: [
           'What is the ONE thing you feel called to build or create right now?',
-          'What are you currently doing that's good, but not aligned with your primary calling?',
+          'What are you currently doing that\'s good, but not aligned with your primary calling?',
           'What would you need to let go of to fully commit to your main vision?'
         ],
         dailyPractices: [
-          'Create a "Not Now" list—write down ideas that excite you but aren\'t your current focus.',
+          'Create a "Not Now" list - write down ideas that excite you but aren\'t your current focus.',
           'Practice the "One Thing Rule": Before starting anything new, ask: "Does this serve my main goal?"',
           'Set a weekly "Vision Review" where you check if you\'re staying focused or scattering.'
         ],
@@ -54,16 +54,16 @@ True focus requires saying no to good things so you can say yes to the best thin
         subtitle: 'From potential to practice',
         content: `You're addicted to potential because potential never fails. It's always perfect, always exciting, always just out of reach. But potential without process is just fantasy.
 
-The shift you need is to fall in love with the daily practice, not just the end result. This is where transformation happens—in the mundane moments, the boring tasks, the unglamorous work.
+The shift you need is to fall in love with the daily practice, not just the end result. This is where transformation happens - in the mundane moments, the boring tasks, the unglamorous work.
 
-Spiritually, this is about learning to find God in the process, not just in the breakthrough. The daily discipline becomes a form of worship—a way of honoring the vision by showing up consistently, even when it's hard.`,
+Spiritually, this is about learning to find God in the process, not just in the breakthrough. The daily discipline becomes a form of worship - a way of honoring the vision by showing up consistently, even when it's hard.`,
         reflectionQuestions: [
-          'What does your ideal outcome look like? Now, what's the daily process to get there?',
+          'What does your ideal outcome look like? Now, what\'s the daily process to get there?',
           'When you think about doing the same thing every day, what resistance comes up?',
           'How can you make your daily practice feel sacred, not just functional?'
         ],
         dailyPractices: [
-          'Identify your "Daily Non-Negotiable"—one small action you do every day toward your goal.',
+          'Identify your "Daily Non-Negotiable" - one small action you do every day toward your goal.',
           'Track your consistency: Mark a calendar each day you complete your practice.',
           'Celebrate small wins: Acknowledge progress, not just perfection.'
         ],
@@ -80,9 +80,9 @@ Spiritually, this is about learning to find God in the process, not just in the 
         id: 'value-recognition',
         title: 'Recognizing Your True Value',
         subtitle: 'You are worth more than your output',
-        content: `You've learned to measure your worth by how much you do, how hard you work, how much you carry. But your value isn't in your output—it's in who you are. You are inherently valuable, not because of what you produce, but because of whose you are.
+        content: `You've learned to measure your worth by how much you do, how hard you work, how much you carry. But your value isn't in your output - it's in who you are. You are inherently valuable, not because of what you produce, but because of whose you are.
 
-The spiritual issue here is often a misunderstanding of humility. True humility isn't hiding your gifts—it's using them for the right reasons. When you stay silent about your value, you're actually being prideful in a different way: you're making your work about you (your fear, your comfort) rather than about the impact you're called to make.
+The spiritual issue here is often a misunderstanding of humility. True humility isn't hiding your gifts - it's using them for the right reasons. When you stay silent about your value, you're actually being prideful in a different way: you're making your work about you (your fear, your comfort) rather than about the impact you're called to make.
 
 God gave you these gifts not to hide them, but to use them. Your work matters, and people need to see it.`,
         reflectionQuestions: [
@@ -101,15 +101,15 @@ God gave you these gifts not to hide them, but to use them. Your work matters, a
         id: 'stepping-into-light',
         title: 'Stepping into the Light',
         subtitle: 'From behind the scenes to center stage',
-        content: `You've been comfortable behind the scenes because it feels safe. No one can judge what they don't see. But staying hidden is also staying small—and that's not what you're called to.
+        content: `You've been comfortable behind the scenes because it feels safe. No one can judge what they don't see. But staying hidden is also staying small - and that's not what you're called to.
 
 The spiritual call here is to step into the light, not for your own glory, but because your light is meant to illuminate others. When you hide your gifts, you're actually being selfish: you're choosing your comfort over others' need to see what's possible.
 
-This isn't about becoming someone you're not. It's about becoming fully who you already are. You don't need to change your work ethic—you need to change how you position it.`,
+This isn't about becoming someone you're not. It's about becoming fully who you already are. You don't need to change your work ethic - you need to change how you position it.`,
         reflectionQuestions: [
           'What would it look like for you to "claim the stage" in your current situation?',
           'Who needs to see your work that currently doesn\'t?',
-          'What's the worst that could happen if you made yourself more visible?'
+          'What\'s the worst that could happen if you made yourself more visible?'
         ],
         dailyPractices: [
           'Make one "Bold Ask" this week: Ask for a raise, a promotion, a collaboration, or recognition.',
@@ -122,9 +122,9 @@ This isn't about becoming someone you're not. It's about becoming fully who you 
         id: 'strategy-over-busy',
         title: 'Strategy Over Busyness',
         subtitle: 'Working smart, not just hard',
-        content: `You confuse being busy with being effective. But busyness is often a form of avoidance—if you're always doing, you never have to think about whether you're doing the RIGHT things.
+        content: `You confuse being busy with being effective. But busyness is often a form of avoidance - if you're always doing, you never have to think about whether you're doing the RIGHT things.
 
-The spiritual practice here is stewardship: using your time, energy, and gifts wisely. God gave you these resources not to burn them out, but to multiply them. Working harder isn't always the answer—working smarter is.
+The spiritual practice here is stewardship: using your time, energy, and gifts wisely. God gave you these resources not to burn them out, but to multiply them. Working harder isn't always the answer - working smarter is.
 
 This requires you to step back, think strategically, and make intentional choices about where you invest your energy. It's about moving from reactive (responding to everything) to proactive (choosing what matters).`,
         reflectionQuestions: [
@@ -150,11 +150,11 @@ This requires you to step back, think strategically, and make intentional choice
         id: 'self-worth',
         title: 'Your Worth Beyond Service',
         subtitle: 'You matter even when you\'re not needed',
-        content: `You've built your identity around being needed. When people need you, you feel valuable. When they don't, you feel lost. But your worth isn't tied to how much you give—it's inherent.
+        content: `You've built your identity around being needed. When people need you, you feel valuable. When they don't, you feel lost. But your worth isn't tied to how much you give - it's inherent.
 
 The spiritual root here is often a misunderstanding of love. You think love means always giving, always sacrificing, always putting others first. But true love includes loving yourself. In fact, you can't truly love others well if you're not also loving yourself.
 
-God doesn't love you because you're useful. God loves you because you're His. Your value doesn't come from what you do for others—it comes from who you are in Him.`,
+God doesn't love you because you're useful. God loves you because you're His. Your value doesn't come from what you do for others - it comes from who you are in Him.`,
         reflectionQuestions: [
           'Who would you be if no one needed you?',
           'What do you do for others that you wish someone would do for you?',
@@ -171,11 +171,11 @@ God doesn't love you because you're useful. God loves you because you're His. Yo
         id: 'healthy-boundaries',
         title: 'The Gift of Boundaries',
         subtitle: 'Loving others by loving yourself',
-        content: `Boundaries aren't walls—they're gates. They let in what serves you and keep out what drains you. When you have no boundaries, you're not being loving; you're being codependent.
+        content: `Boundaries aren't walls - they're gates. They let in what serves you and keep out what drains you. When you have no boundaries, you're not being loving; you're being codependent.
 
-The spiritual truth here is that boundaries are actually an act of love—for yourself AND for others. When you're constantly drained, you can't give your best. When you're constantly available, you enable others' dependency rather than their growth.
+The spiritual truth here is that boundaries are actually an act of love - for yourself AND for others. When you're constantly drained, you can't give your best. When you're constantly available, you enable others' dependency rather than their growth.
 
-Setting boundaries isn't selfish—it's stewardship. You're managing the resources God gave you (your time, energy, gifts) so you can use them well.`,
+Setting boundaries isn't selfish - it's stewardship. You're managing the resources God gave you (your time, energy, gifts) so you can use them well.`,
         reflectionQuestions: [
           'What boundaries do you need to set that you\'ve been avoiding?',
           'Who in your life takes more than they give? How can you change that dynamic?',
@@ -192,11 +192,11 @@ Setting boundaries isn't selfish—it's stewardship. You're managing the resourc
         id: 'receiving-grace',
         title: 'Learning to Receive',
         subtitle: 'Allowing others to pour into you',
-        content: `You're great at giving, but terrible at receiving. This isn't humility—it's actually a form of pride. When you can't receive, you're saying you don't need anyone, that you're self-sufficient.
+        content: `You're great at giving, but terrible at receiving. This isn't humility - it's actually a form of pride. When you can't receive, you're saying you don't need anyone, that you're self-sufficient.
 
 But we're designed for community, for mutual giving and receiving. When you only give and never receive, you're breaking the natural flow of relationship. You're also robbing others of the joy of giving to you.
 
-The spiritual practice here is learning to receive God's grace—and the grace others offer. You don't have to earn it. You don't have to deserve it. You just have to receive it.`,
+The spiritual practice here is learning to receive God's grace - and the grace others offer. You don't have to earn it. You don't have to deserve it. You just have to receive it.`,
         reflectionQuestions: [
           'When someone offers to help you, what\'s your first reaction? Why?',
           'What would it feel like to let someone take care of you for once?',
@@ -220,7 +220,7 @@ The spiritual practice here is learning to receive God's grace—and the grace o
         id: 'fear-identity',
         title: 'The Fear Behind the Cage',
         subtitle: 'Why you hold back when you\'re meant to break through',
-        content: `You feel the gap between who you are and who you're called to be. This gap isn't a mistake—it's a calling. But fear keeps you playing small.
+        content: `You feel the gap between who you are and who you're called to be. This gap isn't a mistake - it's a calling. But fear keeps you playing small.
 
 The spiritual root here is often a fear of your own power. If you step into your full potential, things will change. People might judge you. You might fail publicly. You might actually succeed and have to live up to that success.
 
@@ -241,9 +241,9 @@ But staying small is also a form of disobedience. God didn't give you this poten
         id: 'momentum-creation',
         title: 'Creating Momentum, Not Waiting for It',
         subtitle: 'From "someday" to "today"',
-        content: `You've been waiting for the perfect moment, the right circumstances, the clear sign. But perfect moments don't exist—they're created. Momentum isn't something that happens to you; it's something you create through consistent action.
+        content: `You've been waiting for the perfect moment, the right circumstances, the clear sign. But perfect moments don't exist - they're created. Momentum isn't something that happens to you; it's something you create through consistent action.
 
-The spiritual practice here is faith in action. You don't need to see the whole path—you just need to take the first step. God honors movement, not just intention. When you start moving, the path becomes clearer.
+The spiritual practice here is faith in action. You don't need to see the whole path - you just need to take the first step. God honors movement, not just intention. When you start moving, the path becomes clearer.
 
 Stop waiting for permission. Stop waiting for the perfect setup. Start with what you have, where you are, with what you can do today.`,
         reflectionQuestions: [
@@ -264,7 +264,7 @@ Stop waiting for permission. Stop waiting for the perfect setup. Start with what
         subtitle: 'Surrounding yourself with what demands your best',
         content: `Your environment shapes you more than you realize. If you're surrounded by people, spaces, and habits that allow you to stay small, you'll stay small. But if you upgrade your environment to demand your best, you'll rise to meet it.
 
-The spiritual principle here is stewardship of your surroundings. You're called to be in the world but not of it—which means being intentional about what influences you. Your environment should pull you up, not hold you down.
+The spiritual principle here is stewardship of your surroundings. You're called to be in the world but not of it - which means being intentional about what influences you. Your environment should pull you up, not hold you down.
 
 This might mean changing who you spend time with, what spaces you inhabit, what content you consume, or what habits you maintain. Your potential needs an environment that matches it.`,
         reflectionQuestions: [
