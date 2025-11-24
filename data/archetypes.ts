@@ -84,6 +84,69 @@ export const archetypes: Record<string, Archetype> = {
       'Joshua 1:9 - "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."',
       'Isaiah 41:10 - "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand."'
     ]
+  },
+  lone_wolf_thinker: {
+    key: 'lone_wolf_thinker',
+    name: 'The Lone Wolf Thinker',
+    tagline: 'You think deeply in isolation, but your insights rarely reach the world.',
+    description: 'You\'ve learned to trust your own mind above all else. You think better alone, but your best insights remain trapped in your head. Your solutions never get tested in the real world, and your wisdom never reaches the people who need it most.',
+    mainBlocks: [
+      'You\'ve become so good at thinking that you\'ve forgotten how to translate thought into action.',
+      'You isolate yourself because you haven\'t found people who match your depth.',
+      'You prefer working alone, but this keeps your insights from having real impact.'
+    ],
+    weeklyMoves: [
+      'Share one insight this week: Write it down, tell someone, or post it somewhere.',
+      'Practice "thinking out loud": Let someone witness your thought process, even if it feels vulnerable.',
+      'Find one person who can handle your depth: Start small, share one complex idea.'
+    ],
+    bibleVerses: [
+      'Proverbs 27:17 - "As iron sharpens iron, so one person sharpens another."',
+      'Ecclesiastes 4:9-10 - "Two are better than one, because they have a good return for their labor: If either of them falls down, one can help the other up."',
+      'Hebrews 10:24-25 - "And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together."'
+    ]
+  },
+  impulsive_firestarter: {
+    key: 'impulsive_firestarter',
+    name: 'The Impulsive Firestarter',
+    tagline: 'You move fast and start fires, but rarely stay to tend the flame.',
+    description: 'You\'re wired for ignition. You see opportunity, you feel energy, you move. But you start fires everywhere and never stay to tend them. The initial spark excites you, but the maintenance bores you, so you abandon one fire to start another.',
+    mainBlocks: [
+      'You\'re addicted to the high of starting, but you haven\'t learned to find meaning in the middle.',
+      'You confuse energy with effectiveness - starting many things but finishing few.',
+      'You abandon projects when they move from exciting to routine.'
+    ],
+    weeklyMoves: [
+      'Choose one fire to tend: Pick one thing you started and commit to maintaining it for 30 days.',
+      'Practice "boring consistency": Do one thing every day, even when it doesn\'t feel exciting.',
+      'Notice your impulse to start new things: Before starting something new, ask: "Am I running from something I should finish?"'
+    ],
+    bibleVerses: [
+      'Luke 14:28-30 - "Suppose one of you wants to build a tower. Won\'t you first sit down and estimate the cost to see if you have enough money to complete it? For if you lay the foundation and are not able to finish it, everyone who sees it will ridicule you."',
+      'Philippians 1:6 - "Being confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus."',
+      'Galatians 6:9 - "Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up."'
+    ]
+  },
+  doubt_ridden_strategist: {
+    key: 'doubt_ridden_strategist',
+    name: 'The Doubt-Ridden Strategist',
+    tagline: 'You plan everything perfectly, but doubt keeps you from executing.',
+    description: 'You\'re brilliant at strategy. You can see all the angles, anticipate all the problems, map all the possibilities. But somewhere between the plan and the action, doubt creeps in. So you plan more, you refine, you optimize - but you never quite feel ready, and you never quite take the step.',
+    mainBlocks: [
+      'You\'ve built your identity around being smart and right, so the risk of being wrong terrifies you.',
+      'Your strategy becomes a form of procrastination - planning instead of acting.',
+      'You stay in the safe space of planning, where you can\'t fail because you haven\'t tried.'
+    ],
+    weeklyMoves: [
+      'Act on one plan this week: Pick a strategy and execute it, even if you don\'t feel 100% ready.',
+      'Practice "good enough planning": Set a time limit for planning, then force yourself to act.',
+      'Notice your doubt: When doubt comes up, acknowledge it, then act anyway.'
+    ],
+    bibleVerses: [
+      'James 1:22 - "Do not merely listen to the word, and so deceive yourselves. Do what it says."',
+      'Proverbs 16:3 - "Commit to the Lord whatever you do, and he will establish your plans."',
+      'Joshua 1:9 - "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."'
+    ]
   }
 };
 
