@@ -101,6 +101,7 @@ export default function Home() {
 
     // Get AI interpretation for the open-ended question (question 11)
     const openEndedAnswer = answers[11];
+    console.log('Question 11 answer:', openEndedAnswer); // Debug log
     if (openEndedAnswer && openEndedAnswer.trim().length > 0) {
       setIsInterpreting(true);
       try {
@@ -114,15 +115,37 @@ export default function Home() {
 
         if (response.ok) {
           const interpretation = await response.json();
+          console.log('AI interpretation received:', interpretation); // Debug log
           setAiInterpretation(interpretation);
         } else {
-          console.error('Failed to get AI interpretation');
+          const errorData = await response.json().catch(() => ({}));
+          console.error('Failed to get AI interpretation:', response.status, errorData);
+          // Still show section with error message
+          setAiInterpretation({
+            goal: 'Unable to analyze your answer at this time.',
+            blockage: 'The AI interpretation service may not be configured. Please check your OpenAI API key in Vercel environment variables.',
+            desired_feelings: [],
+            truth_reflection: 'Please try again later or contact support if this issue persists.',
+            integration_step: 'Your archetype results above still provide valuable insights.'
+          });
         }
       } catch (error) {
         console.error('Error getting AI interpretation:', error);
+        // Still show section with error message
+        setAiInterpretation({
+          goal: 'Unable to analyze your answer at this time.',
+          blockage: 'There was an error connecting to the interpretation service.',
+          desired_feelings: [],
+          truth_reflection: 'Please try again later or contact support if this issue persists.',
+          integration_step: 'Your archetype results above still provide valuable insights.'
+        });
       } finally {
         setIsInterpreting(false);
       }
+    } else {
+      console.log('No answer provided for question 11'); // Debug log
+      // Don't set interpretation, let the UI show a message
+      setAiInterpretation(null);
     }
     
     // Move to email capture before showing results

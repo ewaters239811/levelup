@@ -94,21 +94,20 @@ export default function ResultView({ archetype, onStartIntroClass, aiInterpretat
         </div>
       </div>
 
-      {/* AI Interpretation Section */}
-      {(aiInterpretation || isInterpreting) && (
-        <div className="space-y-8 pt-12 border-t border-neutral-800">
-          <h2 className="text-2xl font-extralight text-neutral-100 uppercase tracking-[0.1em] mb-6">
-            Your Personal Reflection
-          </h2>
-          
-          {isInterpreting ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
-                <p className="text-neutral-500 text-sm font-light">Interpreting your answer...</p>
-              </div>
+      {/* AI Interpretation Section - Always show */}
+      <div className="space-y-8 pt-12 border-t border-neutral-800">
+        <h2 className="text-2xl font-extralight text-neutral-100 uppercase tracking-[0.1em] mb-6">
+          Your Personal Reflection
+        </h2>
+        
+        {isInterpreting ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+              <p className="text-neutral-500 text-sm font-light">Interpreting your answer...</p>
             </div>
-          ) : aiInterpretation ? (
+          </div>
+        ) : aiInterpretation && aiInterpretation.goal ? (
             <div className="space-y-8 max-w-3xl">
               {/* Goal */}
               <div className="space-y-3">
@@ -171,9 +170,15 @@ export default function ResultView({ archetype, onStartIntroClass, aiInterpretat
                 </div>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="py-8 text-center">
+              <p className="text-neutral-500 text-sm font-light">
+                Your personal reflection will appear here after you complete question 11.
+              </p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       <div className="pt-12 text-center border-t border-neutral-800 space-y-6">
         <p className="text-neutral-500 text-sm font-light italic tracking-wide max-w-2xl mx-auto">
