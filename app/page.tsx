@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { quizData } from '@/data/quizData';
 import { archetypes } from '@/data/archetypes';
-import { ArchetypeKey } from '@/types';
+import { ArchetypeKey, AIInterpretation } from '@/types';
 import QuestionCard from '@/components/QuestionCard';
+import TextQuestionCard from '@/components/TextQuestionCard';
 import ProgressBar from '@/components/ProgressBar';
 import ResultView from '@/components/ResultView';
 import EmailCapture from '@/components/EmailCapture';
@@ -20,6 +21,8 @@ export default function Home() {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<ArchetypeKey | null>(null);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [aiInterpretation, setAiInterpretation] = useState<AIInterpretation | null>(null);
+  const [isInterpreting, setIsInterpreting] = useState(false);
   const quizRef = useRef<HTMLDivElement>(null);
 
   const handleStartQuiz = () => {
@@ -33,6 +36,13 @@ export default function Home() {
     setAnswers((prev) => ({
       ...prev,
       [quizData[currentQuestionIndex].id]: optionId,
+    }));
+  };
+
+  const handleTextAnswerChange = (value: string) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [quizData[currentQuestionIndex].id]: value,
     }));
   };
 
@@ -52,7 +62,8 @@ export default function Home() {
     }
   };
 
-  const calculateResult = () => {
+  const calculateResult = async () => {
+    // Calculate archetype from multiple choice questions
     const archetypeCounts: Record<ArchetypeKey, number> = {
       UNFOCUSED_VISIONARY: 0,
       SILENT_GRINDER: 0,
@@ -63,12 +74,15 @@ export default function Home() {
       doubt_ridden_strategist: 0,
     };
 
+    // Only count multiple choice questions (exclude open-ended question 11)
     quizData.forEach((question) => {
-      const selectedOptionId = answers[question.id];
-      if (selectedOptionId) {
-        const selectedOption = question.options.find((opt) => opt.id === selectedOptionId);
-        if (selectedOption) {
-          archetypeCounts[selectedOption.archetype]++;
+      if (!question.isOpenEnded) {
+        const selectedOptionId = answers[question.id];
+        if (selectedOptionId) {
+          const selectedOption = question.options.find((opt) => opt.id === selectedOptionId);
+          if (selectedOption) {
+            archetypeCounts[selectedOption.archetype]++;
+          }
         }
       }
     });
@@ -84,6 +98,32 @@ export default function Home() {
     });
 
     setResult(dominantArchetype);
+
+    // Get AI interpretation for the open-ended question (question 11)
+    const openEndedAnswer = answers[11];
+    if (openEndedAnswer && openEndedAnswer.trim().length > 0) {
+      setIsInterpreting(true);
+      try {
+        const response = await fetch('/api/interpret-answer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ answer: openEndedAnswer }),
+        });
+
+        if (response.ok) {
+          const interpretation = await response.json();
+          setAiInterpretation(interpretation);
+        } else {
+          console.error('Failed to get AI interpretation');
+        }
+      } catch (error) {
+        console.error('Error getting AI interpretation:', error);
+      } finally {
+        setIsInterpreting(false);
+      }
+    }
     
     // Move to email capture before showing results
     setState('email');
@@ -122,7 +162,10 @@ export default function Home() {
 
   const currentQuestion = quizData[currentQuestionIndex];
   const selectedAnswer = answers[currentQuestion?.id] || null;
-  const canProceed = selectedAnswer !== null;
+  const isOpenEnded = currentQuestion?.isOpenEnded || false;
+  const canProceed = isOpenEnded 
+    ? selectedAnswer !== null && selectedAnswer.trim().length > 0
+    : selectedAnswer !== null;
   const isLastQuestion = currentQuestionIndex === quizData.length - 1;
 
 
@@ -154,7 +197,7 @@ export default function Home() {
               <span className="gradient-text">Next Level?</span>
             </h1>
             <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed font-light">
-              Answer 10 questions and discover the dominant pattern that's slowing your money, confidence, and momentum.
+              Answer 11 questions and discover the dominant pattern that's slowing your money, confidence, and momentum.
             </p>
             <div className="space-y-5 pt-6">
               <button
@@ -186,11 +229,19 @@ export default function Home() {
           <div className="w-full max-w-4xl mx-auto">
             <ProgressBar current={currentQuestionIndex + 1} total={quizData.length} />
             <div className="mb-16">
-              <QuestionCard
-                question={currentQuestion}
-                selectedAnswer={selectedAnswer}
-                onAnswerSelect={handleAnswerSelect}
-              />
+              {isOpenEnded ? (
+                <TextQuestionCard
+                  question={currentQuestion}
+                  answer={selectedAnswer || ''}
+                  onAnswerChange={handleTextAnswerChange}
+                />
+              ) : (
+                <QuestionCard
+                  question={currentQuestion}
+                  selectedAnswer={selectedAnswer}
+                  onAnswerSelect={handleAnswerSelect}
+                />
+              )}
             </div>
             <div className="flex justify-between gap-6 w-full max-w-2xl mx-auto">
               <button
@@ -246,6 +297,8 @@ export default function Home() {
             <ResultView 
               archetype={archetypes[result]} 
               onStartIntroClass={handleStartIntroClass}
+              aiInterpretation={aiInterpretation}
+              isInterpreting={isInterpreting}
             />
           </div>
         </section>

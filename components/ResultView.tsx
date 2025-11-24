@@ -1,13 +1,15 @@
 'use client';
 
-import { Archetype } from '@/types';
+import { Archetype, AIInterpretation } from '@/types';
 
 interface ResultViewProps {
   archetype: Archetype;
   onStartIntroClass?: () => void;
+  aiInterpretation?: AIInterpretation | null;
+  isInterpreting?: boolean;
 }
 
-export default function ResultView({ archetype, onStartIntroClass }: ResultViewProps) {
+export default function ResultView({ archetype, onStartIntroClass, aiInterpretation, isInterpreting }: ResultViewProps) {
   return (
     <div className="w-full max-w-4xl mx-auto space-y-16 relative z-10">
       <div className="text-center space-y-8">
@@ -75,6 +77,87 @@ export default function ResultView({ archetype, onStartIntroClass }: ResultViewP
           ))}
         </div>
       </div>
+
+      {/* AI Interpretation Section */}
+      {(aiInterpretation || isInterpreting) && (
+        <div className="space-y-8 pt-12 border-t border-neutral-800">
+          <h2 className="text-2xl font-extralight text-neutral-100 uppercase tracking-[0.1em] mb-6">
+            Your Personal Reflection
+          </h2>
+          
+          {isInterpreting ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+                <p className="text-neutral-500 text-sm font-light">Interpreting your answer...</p>
+              </div>
+            </div>
+          ) : aiInterpretation ? (
+            <div className="space-y-8 max-w-3xl">
+              {/* Goal */}
+              <div className="space-y-3">
+                <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
+                  What You Want to Improve
+                </h3>
+                <p className="text-neutral-300 leading-relaxed font-light text-lg">
+                  {aiInterpretation.goal}
+                </p>
+              </div>
+
+              {/* Blockage */}
+              <div className="space-y-3 pt-4 border-t border-neutral-800">
+                <h3 className="text-lg font-light text-neutral-400 uppercase tracking-[0.1em]">
+                  What's Usually Stopping You
+                </h3>
+                <p className="text-neutral-300 leading-relaxed font-light">
+                  {aiInterpretation.blockage}
+                </p>
+              </div>
+
+              {/* Desired Feelings */}
+              {aiInterpretation.desired_feelings && aiInterpretation.desired_feelings.length > 0 && (
+                <div className="space-y-3 pt-4 border-t border-neutral-800">
+                  <h3 className="text-lg font-light text-neutral-400 uppercase tracking-[0.1em]">
+                    The Feelings You're Seeking
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {aiInterpretation.desired_feelings.map((feeling, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-2 border border-neutral-700 bg-neutral-900/30 text-neutral-300 font-light text-sm"
+                      >
+                        {feeling}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Truth Reflection */}
+              <div className="space-y-3 pt-4 border-t border-neutral-800">
+                <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
+                  A Truth to Remember
+                </h3>
+                <p className="text-neutral-300 leading-relaxed font-light italic">
+                  {aiInterpretation.truth_reflection}
+                </p>
+              </div>
+
+              {/* Integration Step */}
+              <div className="space-y-3 pt-4 border-t border-neutral-800 pb-4">
+                <h3 className="text-lg font-light text-cyan-400 uppercase tracking-[0.1em]">
+                  Your Integration Step
+                </h3>
+                <div className="p-6 border border-cyan-400/30 bg-cyan-400/5">
+                  <p className="text-neutral-200 leading-relaxed font-light text-lg">
+                    {aiInterpretation.integration_step}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
 
       <div className="pt-12 text-center border-t border-neutral-800 space-y-6">
         <p className="text-neutral-500 text-sm font-light italic tracking-wide max-w-2xl mx-auto">

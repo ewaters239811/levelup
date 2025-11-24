@@ -260,5 +260,11 @@ export const quizData: Question[] = [
         archetype: "lone_wolf_thinker"
       }
     ]
+  },
+  {
+    id: 11,
+    text: "What is the main thing you want to improve on — and how would you feel if you succeeded in improving that thing?",
+    options: [],
+    isOpenEnded: true
   }
 ];

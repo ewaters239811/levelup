@@ -10,6 +10,15 @@ export interface Question {
   id: number;
   text: string;
   options: QuestionOption[];
+  isOpenEnded?: boolean; // For text input questions
+}
+
+export interface AIInterpretation {
+  goal: string;
+  blockage: string;
+  desired_feelings: string[];
+  truth_reflection: string;
+  integration_step: string;
 }
 
 export interface Archetype {
