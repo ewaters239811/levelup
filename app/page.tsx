@@ -115,26 +115,41 @@ export default function Home() {
 
         if (response.ok) {
           const interpretation = await response.json();
-          console.log('AI interpretation received:', interpretation); // Debug log
+          console.log('✅ AI interpretation received:', interpretation); // Debug log
           setAiInterpretation(interpretation);
         } else {
-          const errorData = await response.json().catch(() => ({}));
-          console.error('Failed to get AI interpretation:', response.status, errorData);
-          // Still show section with error message
+          const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+          console.error('❌ Failed to get AI interpretation:', {
+            status: response.status,
+            statusText: response.statusText,
+            error: errorData
+          });
+          
+          // Show user-friendly error message
+          let errorMessage = 'The AI interpretation service may not be configured.';
+          if (response.status === 503) {
+            errorMessage = errorData.details || 'The OpenAI API key is not configured in Vercel environment variables. Please check your project settings.';
+          } else if (response.status === 500) {
+            errorMessage = 'There was an error processing your answer. Please try again.';
+          }
+          
           setAiInterpretation({
             goal: 'Unable to analyze your answer at this time.',
-            blockage: 'The AI interpretation service may not be configured. Please check your OpenAI API key in Vercel environment variables.',
+            blockage: errorMessage,
             desired_feelings: [],
-            truth_reflection: 'Please try again later or contact support if this issue persists.',
+            truth_reflection: 'Please check Vercel environment variables or try again later.',
             integration_step: 'Your archetype results above still provide valuable insights.'
           });
         }
       } catch (error) {
-        console.error('Error getting AI interpretation:', error);
+        console.error('❌ Error getting AI interpretation:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Error details:', errorMessage);
+        
         // Still show section with error message
         setAiInterpretation({
           goal: 'Unable to analyze your answer at this time.',
-          blockage: 'There was an error connecting to the interpretation service.',
+          blockage: `There was an error connecting to the interpretation service: ${errorMessage}. Please check your network connection and try again.`,
           desired_feelings: [],
           truth_reflection: 'Please try again later or contact support if this issue persists.',
           integration_step: 'Your archetype results above still provide valuable insights.'

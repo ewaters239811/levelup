@@ -16,10 +16,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!openai) {
-      console.warn('OPENAI_API_KEY not configured - AI interpretation disabled');
+    // Check if API key is configured
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.error('OPENAI_API_KEY is not set in environment variables');
       return NextResponse.json(
-        { error: 'AI service not configured' },
+        { 
+          error: 'AI service not configured',
+          details: 'OPENAI_API_KEY environment variable is missing. Please add it in Vercel project settings.'
+        },
+        { status: 503 }
+      );
+    }
+
+    if (!openai) {
+      console.error('OpenAI client initialization failed despite API key being set');
+      return NextResponse.json(
+        { 
+          error: 'AI service initialization failed',
+          details: 'Failed to initialize OpenAI client. Please check your API key format.'
+        },
         { status: 503 }
       );
     }
