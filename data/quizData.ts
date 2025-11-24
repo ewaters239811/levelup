@@ -7,22 +7,22 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I have big ideas but they change every week.",
+        label: "I have multiple exciting ideas and I'm exploring which path to commit to.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I work hard but rarely stop to think about the big picture.",
+        label: "I'm focused on executing my current plan and building step by step.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I care more about everyone else's future than my own.",
+        label: "I'm helping others achieve their goals while working on my own.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I feel like something powerful is in me, but I rarely move on it.",
+        label: "I have a clear vision but I'm being strategic about when to make big moves.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
@@ -33,48 +33,48 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I start strong then fall off after a few days.",
+        label: "I'm consistent with my main goals, though I sometimes pivot when better opportunities arise.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I'm consistent with work or school, but not with self-improvement.",
+        label: "I maintain strong routines in my work and personal development.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "My routine is based on what others need from me.",
+        label: "My schedule balances my commitments to others with my own priorities.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I avoid structure because I don't like feeling boxed in.",
+        label: "I prefer flexible systems that adapt to my energy and circumstances.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
   },
   {
     id: 3,
-    text: "What's your relationship with money moves?",
+    text: "What's your relationship with money and financial growth?",
     options: [
       {
         id: "A",
-        label: "I have ideas for ways to make money but don't execute.",
+        label: "I see multiple income opportunities and I'm evaluating which to pursue.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I work hard for money but don't have time or energy to build more.",
+        label: "I'm steadily building through consistent work and smart financial decisions.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I spend money helping or pleasing others more than building myself.",
+        label: "I invest in relationships and helping others, which often creates mutual value.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I know I'm under-earning for my potential but feel frozen.",
+        label: "I'm positioning myself for bigger opportunities when the timing is right.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
@@ -85,22 +85,22 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I get excited, say yes mentally, then never follow up.",
+        label: "I get excited and explore it, then decide if it aligns with my current focus.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I say yes, then get overwhelmed trying to fit it into my workload.",
+        label: "I evaluate it against my current commitments and priorities before committing.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I'd rather give the opportunity to someone I care about.",
+        label: "I consider how it could benefit both me and the people I care about.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I hesitate, overthink, and usually let it pass.",
+        label: "I analyze it carefully to ensure it's the right strategic move.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
@@ -111,74 +111,74 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I promise more than I can realistically deliver.",
+        label: "I'm enthusiastic and optimistic, sometimes committing to more than I can deliver.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I show love by doing, providing, and solving problems.",
+        label: "I show up consistently and demonstrate care through actions and reliability.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I constantly pour into others, even when I'm empty.",
+        label: "I'm generous with my time and energy, prioritizing the needs of those I care about.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I hold back a lot and stay guarded, even when I care.",
+        label: "I'm selective and intentional, building deep connections with the right people.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
   },
   {
     id: 6,
-    text: "When you think about your body and looks:",
+    text: "When you think about your physical health and appearance:",
     options: [
       {
         id: "A",
-        label: "I know how I want to look but don't stick to the plan.",
+        label: "I have goals and I'm experimenting with different approaches to find what works.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I take care of myself, but it feels like another task on the list.",
+        label: "I maintain a consistent routine that supports my overall well-being.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I help others look or feel good more than I focus on myself.",
+        label: "I prioritize health for myself and encourage it in others.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I feel like my outer image doesn't match my inner potential yet.",
+        label: "I'm working on aligning my outer presentation with my inner confidence.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
   },
   {
     id: 7,
-    text: "What do you do when you feel stuck?",
+    text: "What do you do when you feel stuck or face obstacles?",
     options: [
       {
         id: "A",
-        label: "I jump to a new idea or path.",
+        label: "I explore alternative approaches or pivot to a different strategy.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I just keep grinding and hope it eventually pays off.",
+        label: "I persist with my current approach while seeking practical solutions.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I throw myself into helping someone else.",
+        label: "I focus on supporting others, which often gives me fresh perspective.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I withdraw, scroll, and stay in my head.",
+        label: "I step back to reassess and wait for clarity before making the next move.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
@@ -189,77 +189,76 @@ export const quizData: Question[] = [
     options: [
       {
         id: "A",
-        label: "I hype myself up but don't always back it with action.",
+        label: "I'm optimistic and encouraging, sometimes more ambitious than my current actions show.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I tell myself to suck it up and keep going.",
+        label: "I'm practical and self-motivating, pushing myself to stay consistent.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I tell myself everyone else needs me more than I need myself.",
+        label: "I'm compassionate with myself while prioritizing the well-being of others.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I tell myself I'm meant for more but something's holding me.",
+        label: "I'm reflective and strategic, aware of my potential and planning my moves.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
   },
   {
     id: 9,
-    text: "What's your biggest recurring frustration?",
+    text: "What's your biggest recurring challenge?",
     options: [
       {
         id: "A",
-        label: "Why can't I just follow through consistently?",
+        label: "Staying focused on one path when I see multiple exciting possibilities.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "I'm doing everything and still feel stuck in the same place.",
+        label: "Getting recognition and advancement for the consistent work I put in.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "I feel unseen and unappreciated after everything I do for people.",
+        label: "Balancing my own needs with my desire to help and support others.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "I feel like I'm always waiting on the 'right moment' that never comes.",
+        label: "Taking bold action when I know I'm ready, instead of waiting for perfect conditions.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
   },
   {
     id: 10,
-    text: "If I could flip one switch for you today, what would it be?",
+    text: "If you could accelerate one area of your growth right now, what would it be?",
     options: [
       {
         id: "A",
-        label: "Lock-in and focus on one clear path.",
+        label: "Channeling my energy into one focused direction for maximum impact.",
         archetype: "UNFOCUSED_VISIONARY"
       },
       {
         id: "B",
-        label: "Turn my daily grind into visible results and rewards.",
+        label: "Translating my consistent effort into visible recognition and rewards.",
         archetype: "SILENT_GRINDER"
       },
       {
         id: "C",
-        label: "Put myself first without guilt.",
+        label: "Creating better boundaries so I can serve others without depleting myself.",
         archetype: "OVERGIVER"
       },
       {
         id: "D",
-        label: "Unlock my courage to move boldly.",
+        label: "Acting on my vision with confidence, even before everything feels perfect.",
         archetype: "CAGED_POTENTIAL"
       }
     ]
   }
 ];
-

@@ -3,16 +3,18 @@ export interface QuizResult {
   timestamp: number;
   date: string;
   answers: Record<number, string>;
+  email?: string;
 }
 
 const STORAGE_KEY = 'level-up-diagnostic-results';
 
-export function saveResult(archetype: string, answers: Record<number, string>): void {
+export function saveResult(archetype: string, answers: Record<number, string>, email?: string): void {
   const result: QuizResult = {
     archetype,
     timestamp: Date.now(),
     date: new Date().toISOString(),
     answers,
+    email,
   };
 
   // Get existing results

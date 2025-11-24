@@ -7,15 +7,17 @@ import { ArchetypeKey } from '@/types';
 import QuestionCard from '@/components/QuestionCard';
 import ProgressBar from '@/components/ProgressBar';
 import ResultView from '@/components/ResultView';
+import EmailCapture from '@/components/EmailCapture';
 import { saveResult } from '@/lib/analytics';
 
-type AppState = 'landing' | 'quiz' | 'result';
+type AppState = 'landing' | 'quiz' | 'email' | 'result';
 
 export default function Home() {
   const [state, setState] = useState<AppState>('landing');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<ArchetypeKey | null>(null);
+  const [userEmail, setUserEmail] = useState<string>('');
   const quizRef = useRef<HTMLDivElement>(null);
 
   const handleStartQuiz = () => {
@@ -78,9 +80,26 @@ export default function Home() {
 
     setResult(dominantArchetype);
     
-    // Save result for analytics
-    saveResult(dominantArchetype, answers);
-    
+    // Move to email capture before showing results
+    setState('email');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleEmailSubmit = (email: string) => {
+    setUserEmail(email);
+    // Save result with email for analytics
+    if (result) {
+      saveResult(result, answers, email);
+    }
+    setState('result');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleEmailSkip = () => {
+    // Save result without email
+    if (result) {
+      saveResult(result, answers);
+    }
     setState('result');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -186,6 +205,19 @@ export default function Home() {
                 {isLastQuestion ? 'View Result' : 'Next'}
               </button>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Email Capture Section */}
+      {state === 'email' && result && (
+        <section className="min-h-screen px-4 py-20 relative z-10 flex items-center justify-center">
+          <div className="w-full max-w-4xl mx-auto">
+            <EmailCapture
+              archetype={result}
+              onSubmit={handleEmailSubmit}
+              onSkip={handleEmailSkip}
+            />
           </div>
         </section>
       )}
