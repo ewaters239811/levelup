@@ -1,5 +1,5 @@
 import { ArchetypeKey } from '@/types';
-import { UserState, FrequencyScores, ArchetypeTag } from '@/types/wisdom';
+import { UserState, FrequencyScores, ArchetypeTag, FrequencyKey } from '@/types/wisdom';
 import { AIInterpretation } from '@/types';
 
 /**
@@ -125,11 +125,12 @@ export function updateUserStateAfterLesson(
 
   // Update frequency scores if provided
   if (selfRatedShift) {
-    Object.keys(selfRatedShift).forEach(key => {
-      if (key !== 'heaven_score' && key in updated.frequency_scores) {
-        const current = updated.frequency_scores[key as FrequencyKey];
-        const shift = selfRatedShift[key as FrequencyKey] || 0;
-        updated.frequency_scores[key as FrequencyKey] = Math.min(5, Math.max(1, current + shift));
+    const frequencyKeys: FrequencyKey[] = ['belief', 'conviction', 'perception', 'emotion', 'focus', 'reactions', 'expectations'];
+    frequencyKeys.forEach(key => {
+      if (key in selfRatedShift && selfRatedShift[key] !== undefined) {
+        const current = updated.frequency_scores[key];
+        const shift = selfRatedShift[key] || 0;
+        updated.frequency_scores[key] = Math.min(5, Math.max(1, current + shift));
       }
     });
 
