@@ -61,10 +61,7 @@ export interface Exercise {
   steps: string[];
 }
 
-export interface ExpectedShift {
-  [key in FrequencyKey]?: number;
-  heaven_score?: number;
-}
+export type ExpectedShift = Partial<FrequencyScores & { heaven_score: number }>;
 
 export interface Lesson {
   id: string;
