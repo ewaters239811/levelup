@@ -34,10 +34,7 @@ export interface LastLesson {
   lesson_id: string;
   completed_at: string;
   reflection?: string;
-  self_rated_shift?: {
-    [key in FrequencyKey]?: number;
-    heaven_score?: number;
-  };
+  self_rated_shift?: Partial<FrequencyScores & { heaven_score: number }>;
 }
 
 export interface UserState {
