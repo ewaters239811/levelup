@@ -9,9 +9,10 @@ interface IntroClassViewProps {
   introClass: ArchetypeIntroClass;
   onComplete?: () => void;
   onBack?: () => void;
+  onStartWisdom?: () => void;
 }
 
-export default function IntroClassView({ introClass, onComplete, onBack }: IntroClassViewProps) {
+export default function IntroClassView({ introClass, onComplete, onBack, onStartWisdom }: IntroClassViewProps) {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const [showCompletion, setShowCompletion] = useState(false);
   const currentLesson = introClass.lessons[currentLessonIndex];
@@ -35,7 +36,7 @@ export default function IntroClassView({ introClass, onComplete, onBack }: Intro
 
   // Show completion screen
   if (showCompletion) {
-    return <IntroClassCompletion archetypeName={introClass.name} onClose={handleCompletionClose} />;
+    return <IntroClassCompletion archetypeName={introClass.name} onClose={handleCompletionClose} onStartWisdom={onStartWisdom} />;
   }
 
   const handleBack = () => {

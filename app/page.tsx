@@ -10,10 +10,14 @@ import ProgressBar from '@/components/ProgressBar';
 import ResultView from '@/components/ResultView';
 import EmailCapture from '@/components/EmailCapture';
 import IntroClassView from '@/components/IntroClassView';
+import IntroClassCompletion from '@/components/IntroClassCompletion';
+import WisdomLessonView from '@/components/WisdomLessonView';
 import { saveResult } from '@/lib/analytics';
 import { archetypeIntroClasses } from '@/data/archetypeIntroClasses';
+import { createUserStateFromQuiz, getUserState, saveUserState, updateUserStateAfterLesson } from '@/lib/wisdomState';
+import { LessonRecommendation } from '@/types/wisdom';
 
-type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass';
+type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass' | 'wisdom';
 
 export default function Home() {
   const [state, setState] = useState<AppState>('landing');
@@ -23,6 +27,8 @@ export default function Home() {
   const [userEmail, setUserEmail] = useState<string>('');
   const [aiInterpretation, setAiInterpretation] = useState<AIInterpretation | null>(null);
   const [isInterpreting, setIsInterpreting] = useState(false);
+  const [wisdomRecommendation, setWisdomRecommendation] = useState<LessonRecommendation | null>(null);
+  const [isLoadingWisdom, setIsLoadingWisdom] = useState(false);
   const quizRef = useRef<HTMLDivElement>(null);
 
   const handleStartQuiz = () => {
@@ -205,8 +211,91 @@ export default function Home() {
   };
 
   const handleIntroClassComplete = () => {
-    // Could navigate back to result or to a completion page
-    // For now, just scroll to top
+    // Show completion screen
+    setState('introClass'); // Will show completion screen
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleStartWisdom = async () => {
+    if (!result) return;
+
+    setIsLoadingWisdom(true);
+    try {
+      // Create or get user state
+      const userId = userEmail || `user_${Date.now()}`;
+      let userState = getUserState(userId);
+      
+      if (!userState) {
+        userState = createUserStateFromQuiz(result, aiInterpretation, userEmail);
+        saveUserState(userState);
+      }
+
+      // Get next lesson recommendation
+      const response = await fetch('/api/wisdom/next-lesson', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userState),
+      });
+
+      if (response.ok) {
+        const recommendation = await response.json();
+        setWisdomRecommendation(recommendation);
+        setState('wisdom');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        console.error('Failed to get wisdom lesson');
+      }
+    } catch (error) {
+      console.error('Error starting wisdom journey:', error);
+    } finally {
+      setIsLoadingWisdom(false);
+    }
+  };
+
+  const handleWisdomComplete = async (reflection: string) => {
+    if (!wisdomRecommendation || !result) return;
+
+    const userId = userEmail || `user_${Date.now()}`;
+    let userState = getUserState(userId);
+    
+    if (userState) {
+      // Update user state with completed lesson
+      const updatedState = updateUserStateAfterLesson(
+        userState,
+        wisdomRecommendation.chosen_lesson.id,
+        reflection,
+        wisdomRecommendation.chosen_lesson.pillar
+      );
+      saveUserState(updatedState);
+
+      // Get next lesson
+      setIsLoadingWisdom(true);
+      try {
+        const response = await fetch('/api/wisdom/next-lesson', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedState),
+        });
+
+        if (response.ok) {
+          const nextRecommendation = await response.json();
+          setWisdomRecommendation(nextRecommendation);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } catch (error) {
+        console.error('Error getting next lesson:', error);
+      } finally {
+        setIsLoadingWisdom(false);
+      }
+    }
+  };
+
+  const handleWisdomBack = () => {
+    setState('result');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -364,7 +453,30 @@ export default function Home() {
               introClass={archetypeIntroClasses[result]}
               onComplete={handleIntroClassComplete}
               onBack={handleResultBack}
+              onStartWisdom={handleStartWisdom}
             />
+          </div>
+        </section>
+      )}
+
+      {/* Wisdom Lesson Section */}
+      {state === 'wisdom' && wisdomRecommendation && (
+        <section className="min-h-screen px-4 py-20 relative z-10">
+          <div className="w-full max-w-4xl mx-auto">
+            {isLoadingWisdom ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+                  <p className="text-neutral-500 text-sm font-light">Loading your next lesson...</p>
+                </div>
+              </div>
+            ) : (
+              <WisdomLessonView
+                recommendation={wisdomRecommendation}
+                onComplete={handleWisdomComplete}
+                onBack={handleWisdomBack}
+              />
+            )}
           </div>
         </section>
       )}

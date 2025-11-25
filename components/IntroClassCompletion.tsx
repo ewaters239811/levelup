@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 interface IntroClassCompletionProps {
   archetypeName: string;
   onClose?: () => void;
+  onStartWisdom?: () => void;
 }
 
-export default function IntroClassCompletion({ archetypeName, onClose }: IntroClassCompletionProps) {
+export default function IntroClassCompletion({ archetypeName, onClose, onStartWisdom }: IntroClassCompletionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [showCheckmark, setShowCheckmark] = useState(false);
   const [showContent, setShowContent] = useState(false);
@@ -155,6 +156,21 @@ export default function IntroClassCompletion({ archetypeName, onClose }: IntroCl
 
             {/* CTA section */}
             <div className="pt-6 md:pt-8 space-y-3 md:space-y-4 pb-4">
+              {onStartWisdom && (
+                <button
+                  onClick={onStartWisdom}
+                  className="
+                    group relative w-full px-8 md:px-10 py-4 md:py-5 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-medium text-xs md:text-sm uppercase tracking-[0.1em]
+                    transition-all duration-300 border border-cyan-400/50
+                    hover:from-cyan-500 hover:to-blue-600 hover:scale-[1.02] active:scale-[0.98]
+                    hover:shadow-[0_0_50px_rgba(6,182,212,0.4)]
+                    overflow-hidden mb-4
+                  "
+                >
+                  <span className="relative z-10">Begin Your Wisdom Journey</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </button>
+              )}
               <button
                 onClick={onClose}
                 className="
