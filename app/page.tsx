@@ -12,12 +12,15 @@ import EmailCapture from '@/components/EmailCapture';
 import IntroClassView from '@/components/IntroClassView';
 import IntroClassCompletion from '@/components/IntroClassCompletion';
 import WisdomLessonView from '@/components/WisdomLessonView';
+import AIDiagnosticInput from '@/components/AIDiagnosticInput';
+import AIDiagnosticQuestions from '@/components/AIDiagnosticQuestions';
+import AIDiagnosticResult from '@/components/AIDiagnosticResult';
 import { saveResult } from '@/lib/analytics';
 import { archetypeIntroClasses } from '@/data/archetypeIntroClasses';
 import { createUserStateFromQuiz, getUserState, saveUserState, updateUserStateAfterLesson } from '@/lib/wisdomState';
 import { LessonRecommendation } from '@/types/wisdom';
 
-type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass' | 'wisdom';
+type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass' | 'wisdom' | 'aiDiagnosticInput' | 'aiDiagnosticQuestions' | 'aiDiagnosticResult';
 
 export default function Home() {
   const [state, setState] = useState<AppState>('landing');
@@ -29,6 +32,14 @@ export default function Home() {
   const [isInterpreting, setIsInterpreting] = useState(false);
   const [wisdomRecommendation, setWisdomRecommendation] = useState<LessonRecommendation | null>(null);
   const [isLoadingWisdom, setIsLoadingWisdom] = useState(false);
+  const [aiDiagnosticParagraph, setAiDiagnosticParagraph] = useState<string>('');
+  const [aiDiagnosticBirthday, setAiDiagnosticBirthday] = useState<string>('');
+  const [aiDiagnosticLifePath, setAiDiagnosticLifePath] = useState<{ number: number; meaning: string } | null>(null);
+  const [aiDiagnosticQuestions, setAiDiagnosticQuestions] = useState<any[]>([]);
+  const [aiDiagnosticAnswers, setAiDiagnosticAnswers] = useState<Record<string, string>>({});
+  const [aiDiagnosticInsights, setAiDiagnosticInsights] = useState<string>('');
+  const [isLoadingAIQuestions, setIsLoadingAIQuestions] = useState(false);
+  const [isLoadingAIAnalysis, setIsLoadingAIAnalysis] = useState(false);
   const quizRef = useRef<HTMLDivElement>(null);
 
   const handleStartQuiz = () => {
@@ -339,21 +350,41 @@ export default function Home() {
               Answer 11 questions and discover the dominant pattern that's slowing your money, confidence, and momentum.
             </p>
             <div className="space-y-5 pt-6">
-              <button
-                onClick={handleStartQuiz}
-                className="
-                  group px-12 py-5 bg-white text-black font-medium text-base 
-                  rounded-none border border-neutral-800
-                  transition-all duration-300 hover:bg-neutral-100 
-                  hover:scale-[1.01] active:scale-[0.99] 
-                  hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]
-                  relative overflow-hidden uppercase tracking-[0.1em]
-                  hover:border-cyan-400
-                "
-              >
-                <span className="relative z-10">Start Diagnostic</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                  onClick={handleStartQuiz}
+                  className="
+                    group px-12 py-5 bg-white text-black font-medium text-base 
+                    rounded-none border border-neutral-800
+                    transition-all duration-300 hover:bg-neutral-100 
+                    hover:scale-[1.01] active:scale-[0.99] 
+                    hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]
+                    relative overflow-hidden uppercase tracking-[0.1em]
+                    hover:border-cyan-400
+                  "
+                >
+                  <span className="relative z-10">Start Diagnostic</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+                <button
+                  onClick={() => {
+                    setState('aiDiagnosticInput');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="
+                    group px-12 py-5 border border-neutral-800 text-neutral-100 font-medium text-base 
+                    rounded-none
+                    transition-all duration-300 hover:bg-neutral-900/50
+                    hover:scale-[1.01] active:scale-[0.99] 
+                    hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]
+                    relative overflow-hidden uppercase tracking-[0.1em]
+                    hover:border-cyan-400
+                  "
+                >
+                  <span className="relative z-10">AI Diagnostic</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+              </div>
               <p className="text-xs text-neutral-600 tracking-wide font-light">
                 Takes about 2 minutes
               </p>
@@ -477,6 +508,131 @@ export default function Home() {
                 onBack={handleWisdomBack}
               />
             )}
+          </div>
+        </section>
+      )}
+
+      {/* AI Diagnostic Input Section */}
+      {state === 'aiDiagnosticInput' && (
+        <section className="min-h-screen px-4 py-20 relative z-10">
+          <div className="w-full max-w-4xl mx-auto">
+            <AIDiagnosticInput
+              onSubmit={async (paragraph, birthday) => {
+                setAiDiagnosticParagraph(paragraph);
+                setAiDiagnosticBirthday(birthday);
+                setIsLoadingAIQuestions(true);
+                setState('aiDiagnosticQuestions');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                try {
+                  const response = await fetch('/api/ai-diagnostic/generate-questions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ paragraph, birthday }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error('Failed to generate questions');
+                  }
+
+                  const data = await response.json();
+                  setAiDiagnosticQuestions(data.questions);
+                  setAiDiagnosticLifePath({ number: data.lifePathNumber, meaning: data.lifePathMeaning });
+                } catch (error) {
+                  console.error('Error generating questions:', error);
+                  alert('Failed to generate questions. Please try again.');
+                  setState('aiDiagnosticInput');
+                } finally {
+                  setIsLoadingAIQuestions(false);
+                }
+              }}
+              onBack={() => {
+                setState('landing');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* AI Diagnostic Questions Section */}
+      {state === 'aiDiagnosticQuestions' && (
+        <section className="min-h-screen px-4 py-20 relative z-10">
+          <div className="w-full max-w-4xl mx-auto">
+            {isLoadingAIQuestions ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+                  <p className="text-neutral-500 text-lg font-light">Generating personalized questions...</p>
+                </div>
+              </div>
+            ) : aiDiagnosticQuestions.length > 0 ? (
+              <AIDiagnosticQuestions
+                questions={aiDiagnosticQuestions}
+                onComplete={async (answers) => {
+                  setAiDiagnosticAnswers(answers);
+                  setIsLoadingAIAnalysis(true);
+                  setState('aiDiagnosticResult');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                  try {
+                    const response = await fetch('/api/ai-diagnostic/analyze', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        paragraph: aiDiagnosticParagraph,
+                        birthday: aiDiagnosticBirthday,
+                        lifePathNumber: aiDiagnosticLifePath?.number,
+                        lifePathMeaning: aiDiagnosticLifePath?.meaning,
+                        questions: aiDiagnosticQuestions,
+                        answers,
+                      }),
+                    });
+
+                    if (!response.ok) {
+                      throw new Error('Failed to analyze answers');
+                    }
+
+                    const data = await response.json();
+                    setAiDiagnosticInsights(data.insights);
+                  } catch (error) {
+                    console.error('Error analyzing answers:', error);
+                    alert('Failed to generate insights. Please try again.');
+                    setState('aiDiagnosticQuestions');
+                  } finally {
+                    setIsLoadingAIAnalysis(false);
+                  }
+                }}
+                onBack={() => {
+                  setState('aiDiagnosticInput');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              />
+            ) : null}
+          </div>
+        </section>
+      )}
+
+      {/* AI Diagnostic Result Section */}
+      {state === 'aiDiagnosticResult' && (
+        <section className="min-h-screen px-4 py-20 relative z-10">
+          <div className="w-full max-w-4xl mx-auto">
+            {isLoadingAIAnalysis ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+                  <p className="text-neutral-500 text-lg font-light">Analyzing your responses...</p>
+                </div>
+              </div>
+            ) : aiDiagnosticInsights ? (
+              <AIDiagnosticResult
+                insights={aiDiagnosticInsights}
+                onBack={() => {
+                  setState('aiDiagnosticQuestions');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              />
+            ) : null}
           </div>
         </section>
       )}
