@@ -9,6 +9,8 @@ import ResultPage from '@/components/ResultPage';
 import PageLayout from '@/components/landing/PageLayout';
 import HeroSection from '@/components/landing/HeroSection';
 import ModeCard from '@/components/landing/ModeCard';
+import DeepModeInput from '@/components/deepMode/DeepModeInput';
+import DeepModeQuestions from '@/components/deepMode/DeepModeQuestions';
 
 type AppState = 'landing' | 'quickMode' | 'deepMode' | 'confirmation' | 'result';
 
@@ -18,6 +20,11 @@ export default function Home() {
   const [quickModeResponses, setQuickModeResponses] = useState<QuickModeResponse[]>([]);
   const [analysis, setAnalysis] = useState<ArchetypeAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [deepModeText, setDeepModeText] = useState<string>('');
+  const [deepModeInitialAnalysis, setDeepModeInitialAnalysis] = useState<ArchetypeAnalysis | null>(null);
+  const [deepModeQuestions, setDeepModeQuestions] = useState<Array<{id: string; text: string}>>([]);
+  const [deepModeAnswers, setDeepModeAnswers] = useState<Record<string, string>>({});
+  const [isLoadingDeepAnalysis, setIsLoadingDeepAnalysis] = useState(false);
 
   const handleModeSelect = (mode: IntakeMode) => {
     setIntakeMode(mode);
@@ -134,18 +141,111 @@ export default function Home() {
         </section>
       )}
 
-      {/* Deep Mode - Placeholder */}
+      {/* Deep Mode */}
       {state === 'deepMode' && (
-        <section className="min-h-screen px-4 py-20 bg-gradient-to-br from-[#0a0a0a] via-[#1a0f1a] to-[#0a0a0a]">
-          <div className="w-full max-w-4xl mx-auto">
-            <p className="text-center text-[#826a54]">Deep Mode - Coming Soon</p>
-            <button
-              onClick={() => setState('landing')}
-              className="mt-8 px-6 py-3 bg-[#826a54] text-white rounded-lg hover:bg-[#9d8169] transition-colors"
-            >
-              Back to Home
-            </button>
-          </div>
+        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#0a0a0a] via-[#1a0f1a] to-[#0a0a0a]">
+          {!deepModeInitialAnalysis ? (
+            <DeepModeInput
+              onSubmit={async (textInput) => {
+                setDeepModeText(textInput);
+                setIsLoadingDeepAnalysis(true);
+
+                try {
+                  const response = await fetch('/api/intake-deep', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textInput }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error('Failed to analyze story');
+                  }
+
+                  const data = await response.json();
+                  setDeepModeInitialAnalysis(data);
+                  setDeepModeQuestions(data.customQuestions || []);
+                  
+                  if (data.customQuestions && data.customQuestions.length > 0) {
+                    // Move to questions
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else {
+                    // No questions, go directly to confirmation
+                    setState('confirmation');
+                    setAnalysis(data);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                } catch (error) {
+                  console.error('Error analyzing deep mode:', error);
+                  alert('Failed to analyze your story. Please try again.');
+                } finally {
+                  setIsLoadingDeepAnalysis(false);
+                }
+              }}
+              onBack={() => {
+                setState('landing');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          ) : deepModeQuestions.length > 0 && !analysis ? (
+            <DeepModeQuestions
+              questions={deepModeQuestions}
+              onComplete={async (answers) => {
+                setDeepModeAnswers(answers);
+                setIsLoadingDeepAnalysis(true);
+
+                try {
+                  // Send text + answers for final analysis
+                  const response = await fetch('/api/intake-deep/analyze-final', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      text: deepModeText,
+                      initialAnalysis: deepModeInitialAnalysis,
+                      answers,
+                    }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error('Failed to finalize analysis');
+                  }
+
+                  const finalAnalysis = await response.json();
+                  setAnalysis(finalAnalysis);
+                  setState('confirmation');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                } catch (error) {
+                  console.error('Error finalizing analysis:', error);
+                  // Use initial analysis if final fails
+                  setAnalysis(deepModeInitialAnalysis);
+                  setState('confirmation');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                } finally {
+                  setIsLoadingDeepAnalysis(false);
+                }
+              }}
+              onBack={() => {
+                setDeepModeInitialAnalysis(null);
+                setDeepModeQuestions([]);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          ) : (
+            <div className="flex items-center justify-center min-h-[60vh]">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin mx-auto"></div>
+                <p className="text-neutral-300 font-light">Analyzing your story...</p>
+              </div>
+            </div>
+          )}
+          
+          {isLoadingDeepAnalysis && (
+            <div className="fixed inset-0 bg-[#0a0a0a]/80 backdrop-blur-sm flex items-center justify-center z-50">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin mx-auto"></div>
+                <p className="text-neutral-300 font-light">Analyzing your story...</p>
+              </div>
+            </div>
+          )}
         </section>
       )}
 
