@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'Level-Up Diagnostic | Elijah',
-  description: 'Discover what\'s blocking your next level. Take the 2-minute diagnostic.',
+  title: 'CLEARPTH.IO Intake System 2.0',
+  description: 'Discover your archetype through Quick Mode or Deep Mode analysis.',
 }
 
 export default function RootLayout({
