@@ -5,6 +5,7 @@ import { IntakeMode, QuickModeResponse, ArchetypeAnalysis } from '@/types/intake
 import { quickModeQuestions } from '@/data/quickModeQuestions';
 import QuickModeFlow from '@/components/quickMode/QuickModeFlow';
 import ConfirmationPage from '@/components/ConfirmationPage';
+import ResultPage from '@/components/ResultPage';
 
 type AppState = 'landing' | 'quickMode' | 'deepMode' | 'confirmation' | 'result';
 
@@ -78,13 +79,6 @@ export default function Home() {
       // Proceed to result with initial analysis if confirmation fails
       setState('result');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-    } catch (error) {
-      console.error('Error analyzing quick mode:', error);
-      alert('Failed to analyze responses. Please try again.');
     } finally {
       setIsAnalyzing(false);
     }
@@ -227,19 +221,16 @@ export default function Home() {
         </section>
       )}
 
-      {/* Result Page - Placeholder */}
+      {/* Result Page */}
       {state === 'result' && analysis && (
         <section className="min-h-screen px-4 py-12 md:py-20">
-          <div className="w-full max-w-4xl mx-auto">
-            <p className="text-center text-[#826a54]">Result Page - Coming Soon</p>
-            <p className="text-center text-[#826a54]/70 mt-4">Primary Archetype: {analysis.primaryArchetype}</p>
-            <button
-              onClick={() => setState('landing')}
-              className="mt-8 px-6 py-3 bg-[#826a54] text-white rounded-lg hover:bg-[#9d8169] transition-colors"
-            >
-              Back to Home
-            </button>
-          </div>
+          <ResultPage
+            analysis={analysis}
+            onBack={() => {
+              setState('confirmation');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
         </section>
       )}
     </main>
