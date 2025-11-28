@@ -166,12 +166,12 @@ export default function Home() {
                   setDeepModeQuestions(data.customQuestions || []);
                   
                   if (data.customQuestions && data.customQuestions.length > 0) {
-                    // Move to questions
+                    // Stay in deepMode state to show questions
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else {
                     // No questions, go directly to confirmation
-                    setState('confirmation');
                     setAnalysis(data);
+                    setState('confirmation');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 } catch (error) {
