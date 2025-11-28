@@ -41,52 +41,57 @@ export default function ModeCard({ variant, onClick }: ModeCardProps) {
       onClick={onClick}
       className="
         group relative
-        card p-10 cursor-pointer
-        bg-gradient-to-br from-white via-white to-[#faf8f6]
-        border-2 border-[#e8dfd5]
-        hover:border-[#d4af37]/30
+        p-10 cursor-pointer rounded-2xl
+        bg-gradient-to-br from-[#1a0f1a] via-[#1a0f2a] to-[#0a0a0a]
+        border-2 border-[#2a1f3a]/50
+        hover:border-[#d4af37]/50
         transition-all duration-500 ease-out
-        hover:shadow-2xl hover:shadow-[#d4af37]/10
+        hover:shadow-2xl hover:shadow-[#d4af37]/20
         hover:-translate-y-1
         overflow-hidden
+        backdrop-blur-sm
       "
     >
-      {/* Subtle gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/0 via-transparent to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
+      {/* Mystical gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/0 via-[#8b5cf6]/0 to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
       
       {/* Glow effect on hover */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/5 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/20 to-[#8b5cf6]/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500" />
 
-      <div className="relative space-y-6">
+      {/* Subtle inner glow */}
+      <div className="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-transparent via-[#d4af37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      <div className="relative space-y-6 z-10">
         {/* Icon/Symbol */}
         <div className="
           w-16 h-16 rounded-2xl 
-          bg-gradient-to-br from-[#d4af37]/10 to-[#d4af37]/5
+          bg-gradient-to-br from-[#d4af37]/20 to-[#8b5cf6]/10
+          border border-[#d4af37]/30
           flex items-center justify-center
           group-hover:scale-110 group-hover:rotate-3
           transition-transform duration-500
-          shadow-sm
+          shadow-lg shadow-[#d4af37]/20
         ">
           {symbol}
         </div>
 
         {/* Title */}
-        <h2 className="text-3xl font-light text-[#463b32] group-hover:text-[#826a54] transition-colors duration-300">
+        <h2 className="text-3xl font-light text-white group-hover:text-[#d4af37] transition-colors duration-300">
           {title}
         </h2>
 
         {/* Description */}
-        <p className="text-[#826a54]/80 font-light leading-relaxed text-lg">
+        <p className="text-neutral-300/70 font-light leading-relaxed text-lg">
           {description}
         </p>
 
         {/* CTA Arrow */}
         <div className="pt-4 flex items-center gap-2">
-          <span className="text-sm text-[#826a54] font-medium group-hover:text-[#d4af37] transition-colors duration-300">
+          <span className="text-sm text-neutral-300 font-medium group-hover:text-[#d4af37] transition-colors duration-300">
             Begin Journey
           </span>
           <svg 
-            className="w-5 h-5 text-[#826a54] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all duration-300" 
+            className="w-5 h-5 text-neutral-300 group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all duration-300" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -97,7 +102,10 @@ export default function ModeCard({ variant, onClick }: ModeCardProps) {
       </div>
 
       {/* Decorative corner accent */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#d4af37]/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#d4af37]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+      
+      {/* Bottom accent */}
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#8b5cf6]/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
     </div>
   );
 }

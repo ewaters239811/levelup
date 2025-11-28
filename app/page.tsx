@@ -113,7 +113,7 @@ export default function Home() {
 
       {/* Quick Mode */}
       {state === 'quickMode' && (
-        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#faf8f6] via-[#f5f1ec] to-[#faf8f6]">
+        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#0a0a0a] via-[#1a0f1a] to-[#0a0a0a]">
           {isAnalyzing ? (
             <div className="flex items-center justify-center min-h-[60vh]">
               <div className="text-center space-y-4">
@@ -136,7 +136,7 @@ export default function Home() {
 
       {/* Deep Mode - Placeholder */}
       {state === 'deepMode' && (
-        <section className="min-h-screen px-4 py-20 bg-gradient-to-br from-[#faf8f6] via-[#f5f1ec] to-[#faf8f6]">
+        <section className="min-h-screen px-4 py-20 bg-gradient-to-br from-[#0a0a0a] via-[#1a0f1a] to-[#0a0a0a]">
           <div className="w-full max-w-4xl mx-auto">
             <p className="text-center text-[#826a54]">Deep Mode - Coming Soon</p>
             <button
@@ -151,7 +151,7 @@ export default function Home() {
 
       {/* Confirmation Page */}
       {state === 'confirmation' && analysis && (
-        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#faf8f6] via-[#f5f1ec] to-[#faf8f6]">
+        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#0a0a0a] via-[#1a0f1a] to-[#0a0a0a]">
           {isAnalyzing ? (
             <div className="flex items-center justify-center min-h-[60vh]">
               <div className="text-center space-y-4">
@@ -174,7 +174,7 @@ export default function Home() {
 
       {/* Result Page */}
       {state === 'result' && analysis && (
-        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#faf8f6] via-[#f5f1ec] to-[#faf8f6]">
+        <section className="min-h-screen px-4 py-12 md:py-20 bg-gradient-to-br from-[#0a0a0a] via-[#1a0f1a] to-[#0a0a0a]">
           <ResultPage
             analysis={analysis}
             onBack={() => {
