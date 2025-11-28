@@ -1,639 +1,236 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { quizData } from '@/data/quizData';
-import { archetypes } from '@/data/archetypes';
-import { ArchetypeKey, AIInterpretation } from '@/types';
-import QuestionCard from '@/components/QuestionCard';
-import TextQuestionCard from '@/components/TextQuestionCard';
-import ProgressBar from '@/components/ProgressBar';
-import ResultView from '@/components/ResultView';
-import EmailCapture from '@/components/EmailCapture';
-import IntroClassView from '@/components/IntroClassView';
-import IntroClassCompletion from '@/components/IntroClassCompletion';
-import WisdomLessonView from '@/components/WisdomLessonView';
-import AIDiagnosticInput from '@/components/AIDiagnosticInput';
-import AIDiagnosticQuestions from '@/components/AIDiagnosticQuestions';
-import AIDiagnosticResult from '@/components/AIDiagnosticResult';
-import { saveResult } from '@/lib/analytics';
-import { archetypeIntroClasses } from '@/data/archetypeIntroClasses';
-import { createUserStateFromQuiz, getUserState, saveUserState, updateUserStateAfterLesson } from '@/lib/wisdomState';
-import { LessonRecommendation } from '@/types/wisdom';
+import { useState } from 'react';
+import { IntakeMode, QuickModeResponse, ArchetypeAnalysis } from '@/types/intake';
+import { quickModeQuestions } from '@/data/quickModeQuestions';
+import QuickModeFlow from '@/components/quickMode/QuickModeFlow';
+import ConfirmationPage from '@/components/ConfirmationPage';
+import ResultPage from '@/components/ResultPage';
 
-type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass' | 'wisdom' | 'aiDiagnosticInput' | 'aiDiagnosticQuestions' | 'aiDiagnosticResult';
+type AppState = 'landing' | 'quickMode' | 'deepMode' | 'confirmation' | 'result';
 
 export default function Home() {
   const [state, setState] = useState<AppState>('landing');
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [result, setResult] = useState<ArchetypeKey | null>(null);
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [aiInterpretation, setAiInterpretation] = useState<AIInterpretation | null>(null);
-  const [isInterpreting, setIsInterpreting] = useState(false);
-  const [wisdomRecommendation, setWisdomRecommendation] = useState<LessonRecommendation | null>(null);
-  const [isLoadingWisdom, setIsLoadingWisdom] = useState(false);
-  const [aiDiagnosticParagraph, setAiDiagnosticParagraph] = useState<string>('');
-  const [aiDiagnosticBirthday, setAiDiagnosticBirthday] = useState<string>('');
-  const [aiDiagnosticLifePath, setAiDiagnosticLifePath] = useState<{ number: number; meaning: string } | null>(null);
-  const [aiDiagnosticQuestions, setAiDiagnosticQuestions] = useState<any[]>([]);
-  const [aiDiagnosticAnswers, setAiDiagnosticAnswers] = useState<Record<string, string>>({});
-  const [aiDiagnosticInsights, setAiDiagnosticInsights] = useState<string>('');
-  const [isLoadingAIQuestions, setIsLoadingAIQuestions] = useState(false);
-  const [isLoadingAIAnalysis, setIsLoadingAIAnalysis] = useState(false);
-  const quizRef = useRef<HTMLDivElement>(null);
+  const [intakeMode, setIntakeMode] = useState<IntakeMode | null>(null);
+  const [quickModeResponses, setQuickModeResponses] = useState<QuickModeResponse[]>([]);
+  const [analysis, setAnalysis] = useState<ArchetypeAnalysis | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  const handleStartQuiz = () => {
-    setState('quiz');
-    setTimeout(() => {
-      quizRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  };
-
-  const handleAnswerSelect = (optionId: string) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [quizData[currentQuestionIndex].id]: optionId,
-    }));
-  };
-
-  const handleTextAnswerChange = (value: string) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [quizData[currentQuestionIndex].id]: value,
-    }));
-  };
-
-  const handleNext = () => {
-    if (currentQuestionIndex < quizData.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      calculateResult();
-    }
-  };
-
-  const handleBack = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  const calculateResult = async () => {
-    // Calculate archetype from multiple choice questions
-    const archetypeCounts: Record<ArchetypeKey, number> = {
-      UNFOCUSED_VISIONARY: 0,
-      SILENT_GRINDER: 0,
-      OVERGIVER: 0,
-      CAGED_POTENTIAL: 0,
-      lone_wolf_thinker: 0,
-      impulsive_firestarter: 0,
-      doubt_ridden_strategist: 0,
-    };
-
-    // Only count multiple choice questions (exclude open-ended question 11)
-    quizData.forEach((question) => {
-      if (!question.isOpenEnded) {
-        const selectedOptionId = answers[question.id];
-        if (selectedOptionId) {
-          const selectedOption = question.options.find((opt) => opt.id === selectedOptionId);
-          if (selectedOption) {
-            archetypeCounts[selectedOption.archetype]++;
-          }
-        }
-      }
-    });
-
-    let maxCount = 0;
-    let dominantArchetype: ArchetypeKey = 'UNFOCUSED_VISIONARY';
-
-    (Object.keys(archetypeCounts) as ArchetypeKey[]).forEach((key) => {
-      if (archetypeCounts[key] > maxCount) {
-        maxCount = archetypeCounts[key];
-        dominantArchetype = key;
-      }
-    });
-
-    setResult(dominantArchetype);
-
-    // Get AI interpretation for the open-ended question (question 11)
-    const openEndedAnswer = answers[11];
-    console.log('Question 11 answer:', openEndedAnswer); // Debug log
-    if (openEndedAnswer && openEndedAnswer.trim().length > 0) {
-      setIsInterpreting(true);
-      try {
-        const response = await fetch('/api/interpret-answer', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ answer: openEndedAnswer }),
-        });
-
-        if (response.ok) {
-          const interpretation = await response.json();
-          console.log('✅ AI interpretation received:', interpretation); // Debug log
-          setAiInterpretation(interpretation);
-        } else {
-          const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-          console.error('❌ Failed to get AI interpretation:', {
-            status: response.status,
-            statusText: response.statusText,
-            error: errorData
-          });
-          
-          // Show user-friendly error message
-          let errorMessage = 'The AI interpretation service may not be configured.';
-          if (response.status === 503) {
-            errorMessage = errorData.details || 'The OpenAI API key is not configured in Vercel environment variables. Please check your project settings.';
-          } else if (response.status === 500) {
-            errorMessage = 'There was an error processing your answer. Please try again.';
-          }
-          
-          setAiInterpretation({
-            goal: 'Unable to analyze your answer at this time.',
-            blockage: errorMessage,
-            desired_feelings: [],
-            truth_reflection: 'Please check Vercel environment variables or try again later.',
-            integration_step: 'Your archetype results above still provide valuable insights.'
-          });
-        }
-      } catch (error) {
-        console.error('❌ Error getting AI interpretation:', error);
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        console.error('Error details:', errorMessage);
-        
-        // Still show section with error message
-        setAiInterpretation({
-          goal: 'Unable to analyze your answer at this time.',
-          blockage: `There was an error connecting to the interpretation service: ${errorMessage}. Please check your network connection and try again.`,
-          desired_feelings: [],
-          truth_reflection: 'Please try again later or contact support if this issue persists.',
-          integration_step: 'Your archetype results above still provide valuable insights.'
-        });
-      } finally {
-        setIsInterpreting(false);
-      }
-    } else {
-      console.log('No answer provided for question 11'); // Debug log
-      // Don't set interpretation, let the UI show a message
-      setAiInterpretation(null);
-    }
-    
-    // Move to email capture before showing results
-    setState('email');
+  const handleModeSelect = (mode: IntakeMode) => {
+    setIntakeMode(mode);
+    setState(mode === 'quick' ? 'quickMode' : 'deepMode');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleEmailBack = () => {
-    // Go back to last quiz question (question 11)
-    setState('quiz');
-    setCurrentQuestionIndex(quizData.length - 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const handleQuickModeComplete = async (responses: QuickModeResponse[]) => {
+    setQuickModeResponses(responses);
+    setIsAnalyzing(true);
 
-  const handleEmailSubmit = (email: string) => {
-    setUserEmail(email);
-    // Save result with email for analytics
-    if (result) {
-      saveResult(result, answers, email);
-    }
-    setState('result');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleEmailSkip = () => {
-    // Save result without email
-    if (result) {
-      saveResult(result, answers);
-    }
-    setState('result');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleResultBack = () => {
-    setState('email');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleStartIntroClass = () => {
-    setState('introClass');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleIntroClassComplete = () => {
-    // Show completion screen
-    setState('introClass'); // Will show completion screen
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleStartWisdom = async () => {
-    if (!result) return;
-
-    setIsLoadingWisdom(true);
     try {
-      // Create or get user state
-      const userId = userEmail || `user_${Date.now()}`;
-      let userState = getUserState(userId);
-      
-      if (!userState) {
-        userState = createUserStateFromQuiz(result, aiInterpretation, userEmail);
-        saveUserState(userState);
-      }
-
-      // Get next lesson recommendation
-      const response = await fetch('/api/wisdom/next-lesson', {
+      const response = await fetch('/api/analyze-quick', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userState),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          responses,
+          questions: quickModeQuestions,
+        }),
       });
 
-      if (response.ok) {
-        const recommendation = await response.json();
-        setWisdomRecommendation(recommendation);
-        setState('wisdom');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        console.error('Failed to get wisdom lesson');
+      if (!response.ok) {
+        throw new Error('Failed to analyze responses');
       }
+
+      const data = await response.json();
+      setAnalysis(data);
+      setState('confirmation');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
-      console.error('Error starting wisdom journey:', error);
+      console.error('Error analyzing quick mode:', error);
+      alert('Failed to analyze responses. Please try again.');
     } finally {
-      setIsLoadingWisdom(false);
+      setIsAnalyzing(false);
     }
   };
 
-  const handleWisdomComplete = async (reflection: string) => {
-    if (!wisdomRecommendation || !result) return;
-
-    const userId = userEmail || `user_${Date.now()}`;
-    let userState = getUserState(userId);
+  const handleConfirmation = async (selectedTraits: string[]) => {
+    if (!analysis) return;
+    setIsAnalyzing(true);
     
-    if (userState) {
-      // Update user state with completed lesson
-      const updatedState = updateUserStateAfterLesson(
-        userState,
-        wisdomRecommendation.chosen_lesson.id,
-        reflection,
-        wisdomRecommendation.chosen_lesson.pillar
-      );
-      saveUserState(updatedState);
+    try {
+      const response = await fetch('/api/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          initialAnalysis: analysis,
+          selectedTraits,
+        }),
+      });
 
-      // Get next lesson
-      setIsLoadingWisdom(true);
-      try {
-        const response = await fetch('/api/wisdom/next-lesson', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedState),
-        });
-
-        if (response.ok) {
-          const nextRecommendation = await response.json();
-          setWisdomRecommendation(nextRecommendation);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      } catch (error) {
-        console.error('Error getting next lesson:', error);
-      } finally {
-        setIsLoadingWisdom(false);
+      if (!response.ok) {
+        throw new Error('Failed to confirm analysis');
       }
+
+      const updatedAnalysis = await response.json();
+      setAnalysis(updatedAnalysis);
+      setState('result');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Error confirming analysis:', error);
+      // Proceed to result with initial analysis if confirmation fails
+      setState('result');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } finally {
+      setIsAnalyzing(false);
     }
   };
-
-  const handleWisdomBack = () => {
-    setState('result');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const currentQuestion = quizData[currentQuestionIndex];
-  const selectedAnswer = answers[currentQuestion?.id] || null;
-  const isOpenEnded = currentQuestion?.isOpenEnded || false;
-  const canProceed = isOpenEnded 
-    ? selectedAnswer !== null && selectedAnswer.trim().length > 0
-    : selectedAnswer !== null;
-  const isLastQuestion = currentQuestionIndex === quizData.length - 1;
-
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-neutral-100 relative overflow-hidden">
-      {/* Subtle grid overlay */}
-      <div className="fixed inset-0 opacity-[0.02] pointer-events-none" style={{
-        backgroundImage: `
-          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px'
-      }}></div>
-
+    <main className="min-h-screen bg-[#faf8f6] text-[#463b32] relative overflow-hidden">
       {/* Landing Section */}
       {state === 'landing' && (
         <section className="min-h-screen flex items-center justify-center px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto text-center space-y-10">
-            <div className="space-y-3">
-              <p className="text-xs uppercase tracking-[0.3em] text-neutral-500 font-medium letter-spacing-wide">
-                ELIJAH PRESENTS
-              </p>
-            </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] tracking-tight">
-              <span className="gradient-text">What's Really</span>
-              <br />
-              <span className="text-white">Blocking Your</span>
-              <br />
-              <span className="gradient-text">Next Level?</span>
-            </h1>
-            <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed font-light">
-              Answer 11 questions and discover the dominant pattern that's slowing your money, confidence, and momentum.
-            </p>
-            <div className="space-y-5 pt-6">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button
-                  onClick={handleStartQuiz}
-                  className="
-                    group px-12 py-5 bg-white text-black font-medium text-base 
-                    rounded-none border border-neutral-800
-                    transition-all duration-300 hover:bg-neutral-100 
-                    hover:scale-[1.01] active:scale-[0.99] 
-                    hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]
-                    relative overflow-hidden uppercase tracking-[0.1em]
-                    hover:border-cyan-400
-                  "
-                >
-                  <span className="relative z-10">Start Diagnostic</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
-                <button
-                  onClick={() => {
-                    setState('aiDiagnosticInput');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="
-                    group px-12 py-5 border border-neutral-800 text-neutral-100 font-medium text-base 
-                    rounded-none
-                    transition-all duration-300 hover:bg-neutral-900/50
-                    hover:scale-[1.01] active:scale-[0.99] 
-                    hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]
-                    relative overflow-hidden uppercase tracking-[0.1em]
-                    hover:border-cyan-400
-                  "
-                >
-                  <span className="relative z-10">AI Diagnostic</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
+          <div className="w-full max-w-5xl mx-auto">
+            {/* Header */}
+            <div className="text-center space-y-6 mb-16">
+              <div className="inline-block px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-[#e8dfd5] mb-4">
+                <p className="text-xs uppercase tracking-[0.3em] text-[#826a54] font-medium">
+                  CLEARPTH.IO
+                </p>
               </div>
-              <p className="text-xs text-neutral-600 tracking-wide font-light">
-                Takes about 2 minutes
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight tracking-tight">
+                <span className="text-[#463b32]">Intake System</span>
+                <br />
+                <span className="text-[#826a54]">2.0</span>
+              </h1>
+              <p className="text-lg md:text-xl text-[#826a54]/80 max-w-2xl mx-auto leading-relaxed font-light">
+                Discover your archetype through two powerful pathways
               </p>
             </div>
-          </div>
-        </section>
-      )}
 
-      {/* Quiz Section */}
-      {state === 'quiz' && (
-        <section ref={quizRef} className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            <ProgressBar current={currentQuestionIndex + 1} total={quizData.length} />
-            <div className="mb-16">
-              {isOpenEnded ? (
-                <TextQuestionCard
-                  question={currentQuestion}
-                  answer={selectedAnswer || ''}
-                  onAnswerChange={handleTextAnswerChange}
-                />
-              ) : (
-                <QuestionCard
-                  question={currentQuestion}
-                  selectedAnswer={selectedAnswer}
-                  onAnswerSelect={handleAnswerSelect}
-                />
-              )}
-            </div>
-            <div className="flex justify-between gap-6 w-full max-w-2xl mx-auto">
-              <button
-                onClick={handleBack}
-                disabled={currentQuestionIndex === 0}
-                className={`
-                  px-10 py-4 border border-neutral-800 text-neutral-400 font-medium text-sm
-                  transition-all duration-300 uppercase tracking-[0.1em]
-                  ${currentQuestionIndex === 0
-                    ? 'opacity-20 cursor-not-allowed'
-                    : 'hover:border-neutral-600 hover:text-neutral-300 hover:bg-neutral-900/50 active:scale-[0.98]'
-                  }
-                `}
-              >
-                Back
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={!canProceed}
-                className={`
-                  px-10 py-4 bg-white text-black font-medium text-sm
-                  transition-all duration-300 border border-white uppercase tracking-[0.1em]
-                  ${canProceed
-                    ? 'hover:bg-neutral-100 hover:scale-[1.01] active:scale-[0.98] hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]'
-                    : 'opacity-30 cursor-not-allowed bg-neutral-800 border-neutral-800'
-                  }
-                `}
-              >
-                {isLastQuestion ? 'View Result' : 'Next'}
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Email Capture Section */}
-      {state === 'email' && result && (
-        <section className="min-h-screen px-4 py-20 relative z-10 flex items-center justify-center">
-          <div className="w-full max-w-4xl mx-auto">
-            <EmailCapture
-              archetype={result}
-              onSubmit={handleEmailSubmit}
-              onSkip={handleEmailSkip}
-              onBack={handleEmailBack}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Result Section */}
-      {state === 'result' && result && (
-        <section className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            <ResultView 
-              archetype={archetypes[result]} 
-              onStartIntroClass={handleStartIntroClass}
-              aiInterpretation={aiInterpretation}
-              isInterpreting={isInterpreting}
-              onBack={handleResultBack}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Intro Class Section */}
-      {state === 'introClass' && result && archetypeIntroClasses[result] && (
-        <section className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            <IntroClassView
-              introClass={archetypeIntroClasses[result]}
-              onComplete={handleIntroClassComplete}
-              onBack={handleResultBack}
-              onStartWisdom={handleStartWisdom}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Wisdom Lesson Section */}
-      {state === 'wisdom' && wisdomRecommendation && (
-        <section className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            {isLoadingWisdom ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
-                  <p className="text-neutral-500 text-sm font-light">Loading your next lesson...</p>
+            {/* Mode Selection Cards */}
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Quick Mode Card */}
+              <div className="card card-hover p-8 cursor-pointer group" onClick={() => handleModeSelect('quick')}>
+                <div className="space-y-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#826a54]/10 flex items-center justify-center group-hover:bg-[#826a54]/20 transition-colors">
+                    <svg className="w-6 h-6 text-[#826a54]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <h2 className="text-2xl font-light text-[#463b32]">Quick Mode</h2>
+                  <p className="text-[#826a54]/80 font-light leading-relaxed">
+                    Fast, structured assessment with multi-select and rank-order questions. Perfect for a quick archetype determination.
+                  </p>
+                  <div className="pt-4">
+                    <span className="text-sm text-[#826a54] font-medium group-hover:translate-x-1 transition-transform inline-block">
+                      Start Quick Mode →
+                    </span>
+                  </div>
                 </div>
               </div>
-            ) : (
-              <WisdomLessonView
-                recommendation={wisdomRecommendation}
-                onComplete={handleWisdomComplete}
-                onBack={handleWisdomBack}
-              />
-            )}
+
+              {/* Deep Mode Card */}
+              <div className="card card-hover p-8 cursor-pointer group" onClick={() => handleModeSelect('deep')}>
+                <div className="space-y-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#826a54]/10 flex items-center justify-center group-hover:bg-[#826a54]/20 transition-colors">
+                    <svg className="w-6 h-6 text-[#826a54]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <h2 className="text-2xl font-light text-[#463b32]">Deep Mode</h2>
+                  <p className="text-[#826a54]/80 font-light leading-relaxed">
+                    AI-powered conversation analysis with voice-to-text support. Comprehensive archetype mapping with shadow work and alchemical stages.
+                  </p>
+                  <div className="pt-4">
+                    <span className="text-sm text-[#826a54] font-medium group-hover:translate-x-1 transition-transform inline-block">
+                      Start Deep Mode →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Note */}
+            <div className="text-center mt-16">
+              <p className="text-sm text-[#826a54]/60 font-light">
+                Both modes lead to comprehensive archetype insights
+              </p>
+            </div>
           </div>
         </section>
       )}
 
-      {/* AI Diagnostic Input Section */}
-      {state === 'aiDiagnosticInput' && (
-        <section className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            <AIDiagnosticInput
-              onSubmit={async (paragraph, birthday) => {
-                setAiDiagnosticParagraph(paragraph);
-                setAiDiagnosticBirthday(birthday);
-                setIsLoadingAIQuestions(true);
-                setState('aiDiagnosticQuestions');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                try {
-                  const response = await fetch('/api/ai-diagnostic/generate-questions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ paragraph, birthday }),
-                  });
-
-                  if (!response.ok) {
-                    throw new Error('Failed to generate questions');
-                  }
-
-                  const data = await response.json();
-                  setAiDiagnosticQuestions(data.questions);
-                  setAiDiagnosticLifePath({ number: data.lifePathNumber, meaning: data.lifePathMeaning });
-                } catch (error) {
-                  console.error('Error generating questions:', error);
-                  alert('Failed to generate questions. Please try again.');
-                  setState('aiDiagnosticInput');
-                } finally {
-                  setIsLoadingAIQuestions(false);
-                }
-              }}
+      {/* Quick Mode */}
+      {state === 'quickMode' && (
+        <section className="min-h-screen px-4 py-12 md:py-20">
+          {isAnalyzing ? (
+            <div className="flex items-center justify-center min-h-[60vh]">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 border-4 border-[#826a54]/30 border-t-[#826a54] rounded-full animate-spin mx-auto"></div>
+                <p className="text-[#826a54] font-light">Analyzing your responses...</p>
+              </div>
+            </div>
+          ) : (
+            <QuickModeFlow
+              questions={quickModeQuestions}
+              onComplete={handleQuickModeComplete}
               onBack={() => {
                 setState('landing');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             />
+          )}
+        </section>
+      )}
+
+      {/* Deep Mode - Placeholder */}
+      {state === 'deepMode' && (
+        <section className="min-h-screen px-4 py-20">
+          <div className="w-full max-w-4xl mx-auto">
+            <p className="text-center text-[#826a54]">Deep Mode - Coming Soon</p>
+            <button
+              onClick={() => setState('landing')}
+              className="mt-8 px-6 py-3 bg-[#826a54] text-white rounded-lg hover:bg-[#9d8169] transition-colors"
+            >
+              Back to Home
+            </button>
           </div>
         </section>
       )}
 
-      {/* AI Diagnostic Questions Section */}
-      {state === 'aiDiagnosticQuestions' && (
-        <section className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            {isLoadingAIQuestions ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
-                  <p className="text-neutral-500 text-lg font-light">Generating personalized questions...</p>
-                </div>
+      {/* Confirmation Page */}
+      {state === 'confirmation' && analysis && (
+        <section className="min-h-screen px-4 py-12 md:py-20">
+          {isAnalyzing ? (
+            <div className="flex items-center justify-center min-h-[60vh]">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 border-4 border-[#826a54]/30 border-t-[#826a54] rounded-full animate-spin mx-auto"></div>
+                <p className="text-[#826a54] font-light">Recalculating your archetype...</p>
               </div>
-            ) : aiDiagnosticQuestions.length > 0 ? (
-              <AIDiagnosticQuestions
-                questions={aiDiagnosticQuestions}
-                onComplete={async (answers) => {
-                  setAiDiagnosticAnswers(answers);
-                  setIsLoadingAIAnalysis(true);
-                  setState('aiDiagnosticResult');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                  try {
-                    const response = await fetch('/api/ai-diagnostic/analyze', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        paragraph: aiDiagnosticParagraph,
-                        birthday: aiDiagnosticBirthday,
-                        lifePathNumber: aiDiagnosticLifePath?.number,
-                        lifePathMeaning: aiDiagnosticLifePath?.meaning,
-                        questions: aiDiagnosticQuestions,
-                        answers,
-                      }),
-                    });
-
-                    if (!response.ok) {
-                      throw new Error('Failed to analyze answers');
-                    }
-
-                    const data = await response.json();
-                    setAiDiagnosticInsights(data.insights);
-                  } catch (error) {
-                    console.error('Error analyzing answers:', error);
-                    alert('Failed to generate insights. Please try again.');
-                    setState('aiDiagnosticQuestions');
-                  } finally {
-                    setIsLoadingAIAnalysis(false);
-                  }
-                }}
-                onBack={() => {
-                  setState('aiDiagnosticInput');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              />
-            ) : null}
-          </div>
+            </div>
+          ) : (
+            <ConfirmationPage
+              analysis={analysis}
+              onConfirm={handleConfirmation}
+              onBack={() => {
+                setState('quickMode');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          )}
         </section>
       )}
 
-      {/* AI Diagnostic Result Section */}
-      {state === 'aiDiagnosticResult' && (
-        <section className="min-h-screen px-4 py-20 relative z-10">
-          <div className="w-full max-w-4xl mx-auto">
-            {isLoadingAIAnalysis ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
-                  <p className="text-neutral-500 text-lg font-light">Analyzing your responses...</p>
-                </div>
-              </div>
-            ) : aiDiagnosticInsights ? (
-              <AIDiagnosticResult
-                insights={aiDiagnosticInsights}
-                onBack={() => {
-                  setState('aiDiagnosticQuestions');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              />
-            ) : null}
-          </div>
+      {/* Result Page */}
+      {state === 'result' && analysis && (
+        <section className="min-h-screen px-4 py-12 md:py-20">
+          <ResultPage
+            analysis={analysis}
+            onBack={() => {
+              setState('confirmation');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
         </section>
       )}
     </main>
