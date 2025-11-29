@@ -10,13 +10,18 @@ interface RankOrderQuestionProps {
 }
 
 export default function RankOrderQuestion({ question, response, onResponseChange }: RankOrderQuestionProps) {
-  // Shuffle the default order so no archetype gets an unfair advantage
+  // Use deterministic shuffle based on question ID so it's consistent but balanced
   const getShuffledDefault = () => {
     const ids = question.options?.map(opt => opt.id) || [];
-    // Fisher-Yates shuffle
+    if (ids.length === 0) return [];
+    
+    // Use question ID as seed for consistent shuffling per question
+    const seed = question.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    
+    // Deterministic shuffle using seed
     const shuffled = [...ids];
     for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = (seed + i) % (i + 1);
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
@@ -56,7 +61,7 @@ export default function RankOrderQuestion({ question, response, onResponseChange
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl md:text-3xl font-light text-[#463b32] leading-relaxed">
+      <h2 className="text-2xl md:text-3xl font-light text-white leading-relaxed">
         {question.text}
       </h2>
       <div className="space-y-3">
@@ -72,26 +77,26 @@ export default function RankOrderQuestion({ question, response, onResponseChange
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
               className="
-                p-5 rounded-xl border-2 border-[#e8dfd5] bg-white
-                cursor-move hover:border-[#d4c4b5] hover:shadow-sm
+                p-5 rounded-xl border-2 border-[#2a1f3a]/50 bg-[#1a0f1a]/50
+                cursor-move hover:border-[#d4af37]/50 hover:bg-[#1a0f1a]/70 hover:shadow-lg hover:shadow-[#d4af37]/10
                 transition-all duration-200
                 flex items-center gap-4
               "
             >
-              <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#826a54]/10 flex items-center justify-center">
-                <span className="text-[#826a54] font-medium text-sm">{index + 1}</span>
+              <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#d4af37]/10 border border-[#d4af37]/30 flex items-center justify-center">
+                <span className="text-[#d4af37] font-medium text-sm">{index + 1}</span>
               </div>
               <div className="flex-1">
-                <span className="font-light text-lg text-[#463b32]">{option.label}</span>
+                <span className="font-light text-lg text-white">{option.label}</span>
               </div>
-              <svg className="w-5 h-5 text-[#826a54]/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
               </svg>
             </div>
           );
         })}
       </div>
-      <p className="text-sm text-[#826a54]/70 font-light italic">
+      <p className="text-sm text-neutral-400 font-light italic">
         Drag items to reorder. Most important at the top.
       </p>
     </div>
