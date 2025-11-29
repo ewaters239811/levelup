@@ -10,8 +10,20 @@ interface RankOrderQuestionProps {
 }
 
 export default function RankOrderQuestion({ question, response, onResponseChange }: RankOrderQuestionProps) {
+  // Shuffle the default order so no archetype gets an unfair advantage
+  const getShuffledDefault = () => {
+    const ids = question.options?.map(opt => opt.id) || [];
+    // Fisher-Yates shuffle
+    const shuffled = [...ids];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   const [rankedOptions, setRankedOptions] = useState<string[]>(
-    response?.rankedOptions || question.options?.map(opt => opt.id) || []
+    response?.rankedOptions || getShuffledDefault()
   );
 
   const handleDragStart = (e: React.DragEvent, index: number) => {

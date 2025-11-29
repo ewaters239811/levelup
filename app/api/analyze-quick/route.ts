@@ -43,12 +43,15 @@ export async function POST(request: NextRequest) {
           }
         });
       } else if (response.type === 'rank_order' && response.rankedOptions) {
-        // Rank-order: higher rank = more points (inverse, so first = highest score)
+        // Rank-order: higher rank = more points
+        // Top 3 ranked get higher weights: 1st=5pts, 2nd=4pts, 3rd=3pts, rest get 1pt each
         response.rankedOptions.forEach((optionId, index) => {
           const option = question.options.find((opt: any) => opt.id === optionId);
           if (option?.archetype) {
-            // First ranked gets 7 points, last gets 1 point
-            const points = question.options.length - index;
+            let points = 1;
+            if (index === 0) points = 5;      // First choice: highest weight
+            else if (index === 1) points = 4; // Second choice: high weight
+            else if (index === 2) points = 3; // Third choice: medium weight
             archetypeCounts[option.archetype] = (archetypeCounts[option.archetype] || 0) + points;
           }
         });
