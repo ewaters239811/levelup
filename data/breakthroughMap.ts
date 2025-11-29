@@ -21,7 +21,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     patternSummary:
       'You give more energy, time, and emotion than you receive, then quietly carry resentment or burnout.',
     rootDriver:
-      'A fear that you'll lose love, safety, or connection if you stop being "the helpful one."',
+      'A fear that you\'ll lose love, safety, or connection if you stop being "the helpful one."',
     identityShift:
       'From "I am valuable when I give" → "My standards and presence are inherently valuable."',
     keyPractices: [
@@ -73,7 +73,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     identityShift:
       'From "I have potential" → "I am already powerful, and I act from that power now."',
     keyPractices: [
-      'Identify one decision you've been avoiding and commit to a deadline within 7 days.',
+      'Identify one decision you\'ve been avoiding and commit to a deadline within 7 days.',
       'Do one uncomfortable action that signals to your brain: "We are not the old version anymore."',
       'Audit your environment—remove one habit, space, or relationship that keeps you playing small.'
     ],
@@ -85,7 +85,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     patternSummary:
       'You think deeply in isolation, processing everything internally, but your insights rarely reach the world or get tested in reality.',
     rootDriver:
-      'A belief that working alone is superior, combined with a fear that others won't understand your depth or will dilute your vision.',
+      'A belief that working alone is superior, combined with a fear that others won\'t understand your depth or will dilute your vision.',
     identityShift:
       'From "I think best alone" → "My insights become real when they're shared and tested in collaboration."',
     keyPractices: [
@@ -106,7 +106,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
       'From "I'm a starter" → "I'm a completer who finds meaning in the full cycle, not just the spark."',
     keyPractices: [
       'Choose one fire to tend: Pick one thing you started and commit to maintaining it for 30 days.',
-      'Practice "boring consistency": Do one thing every day, even when it doesn't feel exciting.',
+      'Practice "boring consistency": Do one thing every day, even when it doesn\'t feel exciting.',
       'Notice your impulse to start new things: Before starting something new, ask: "Am I running from something I should finish?"'
     ],
     futureVision:
@@ -115,13 +115,13 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
   },
   doubt_ridden_strategist: {
     patternSummary:
-      'You're brilliant at strategy and can see all angles, but doubt keeps you from executing—you plan more instead of acting.',
+      'You\'re brilliant at strategy and can see all angles, but doubt keeps you from executing—you plan more instead of acting.',
     rootDriver:
       'Your identity is built around being smart and right, so the risk of being wrong (or imperfect) terrifies you into perpetual planning.',
     identityShift:
       'From "I need perfect strategy" → "I act from preparation, then adapt—my intelligence shows in execution, not just planning."',
     keyPractices: [
-      'Act on one plan this week: Pick a strategy and execute it, even if you don't feel 100% ready.',
+      'Act on one plan this week: Pick a strategy and execute it, even if you don\'t feel 100% ready.',
       'Practice "good enough planning": Set a time limit for planning, then force yourself to act.',
       'Notice your doubt: When doubt comes up, acknowledge it, then act anyway.'
     ],
