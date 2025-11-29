@@ -1,6 +1,7 @@
 'use client';
 
 import { ArchetypeAnalysis } from '@/types/intake';
+import { BREAKTHROUGH_MAP } from '@/data/breakthroughMap';
 
 interface ResultPageProps {
   analysis: ArchetypeAnalysis;
@@ -30,69 +31,9 @@ export const activationMessages: Record<string, string> = {
 
 const defaultActivationMessage = "Your journey of transformation begins with awareness. Recognize your patterns, honor your strengths, and take the first step toward the version of you that's waiting to emerge.";
 
-// 6-Week Plan templates
-const sixWeekPlans: Record<string, string[]> = {
-  UNFOCUSED_VISIONARY: [
-    'Week 1: Choose ONE primary goal and write it down daily',
-    'Week 2: Create a single daily non-negotiable action for that goal',
-    'Week 3: Build a tracking system and commit to daily completion',
-    'Week 4: Eliminate or defer all non-essential projects',
-    'Week 5: Deepen focus by saying "not now" to new ideas',
-    'Week 6: Celebrate small wins and build momentum through consistency',
-  ],
-  SILENT_GRINDER: [
-    'Week 1: Document your work and create visibility for your contributions',
-    'Week 2: Share progress updates with key stakeholders',
-    'Week 3: Practice articulating your value and achievements',
-    'Week 4: Seek feedback and recognition for your consistent work',
-    'Week 5: Build strategic relationships that amplify your impact',
-    'Week 6: Position yourself for opportunities that match your reliability',
-  ],
-  OVERGIVER: [
-    'Week 1: Identify where you give beyond your capacity',
-    'Week 2: Set one clear boundary and communicate it',
-    'Week 3: Practice saying "no" to non-essential requests',
-    'Week 4: Prioritize your own goals alongside helping others',
-    'Week 5: Create space for your personal projects',
-    'Week 6: Balance giving with receiving and self-care',
-  ],
-  CAGED_POTENTIAL: [
-    'Week 1: Name your biggest fear blocking your potential',
-    'Week 2: Take one small action despite the fear',
-    'Week 3: Challenge limiting beliefs with evidence',
-    'Week 4: Increase your risk tolerance with calculated steps',
-    'Week 5: Build confidence through incremental wins',
-    'Week 6: Step into your power and share your gifts',
-  ],
-  lone_wolf_thinker: [
-    'Week 1: Identify one area where collaboration could help',
-    'Week 2: Reach out to one person for a small collaboration',
-    'Week 3: Practice sharing ideas before they\'re fully formed',
-    'Week 4: Build trust through small, regular exchanges',
-    'Week 5: Leverage others\' strengths to amplify your work',
-    'Week 6: Balance independence with strategic partnerships',
-  ],
-  impulsive_firestarter: [
-    'Week 1: Commit to finishing one project before starting another',
-    'Week 2: Create systems that sustain momentum',
-    'Week 3: Build consistency through daily micro-actions',
-    'Week 4: Manage energy cycles instead of burning out',
-    'Week 5: Develop follow-through rituals',
-    'Week 6: Transform quick starts into lasting completions',
-  ],
-  doubt_ridden_strategist: [
-    'Week 1: Set a deadline for research and move to action',
-    'Week 2: Take one imperfect action daily',
-    'Week 3: Practice making decisions with 70% information',
-    'Week 4: Embrace learning through doing',
-    'Week 5: Reduce analysis time by 50%',
-    'Week 6: Trust your preparation and take bold action',
-  ],
-};
-
 export default function ResultPage({ analysis, onBack }: ResultPageProps) {
   const primaryName = archetypeNames[analysis.primaryArchetype] || analysis.primaryArchetype;
-  const sixWeekPlan = sixWeekPlans[analysis.primaryArchetype] || sixWeekPlans['UNFOCUSED_VISIONARY'];
+  const breakthroughMap = BREAKTHROUGH_MAP[analysis.primaryArchetype as keyof typeof BREAKTHROUGH_MAP] || BREAKTHROUGH_MAP.UNFOCUSED_VISIONARY;
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
@@ -191,47 +132,92 @@ export default function ResultPage({ analysis, onBack }: ResultPageProps) {
         </p>
       </div>
 
-      {/* 6-Week Plan */}
+      {/* Your Archetypal Breakthrough Map */}
       <div className="card p-8 md:p-10 space-y-6">
         <div>
-          <h3 className="text-2xl font-light text-[#463b32] mb-2">Your 6-Week Transformation Plan</h3>
+          <h2 className="text-2xl md:text-3xl font-light text-[#463b32] mb-2">
+            Your Archetypal Breakthrough Map
+          </h2>
           <p className="text-[#826a54]/80 font-light">
-            A step-by-step path to address your patterns and unlock your potential
+            This is your personalized path to break the pattern and step into your next level.
           </p>
         </div>
-        <div className="space-y-4">
-          {sixWeekPlan.map((week, index) => (
-            <div
-              key={index}
-              className="flex gap-4 p-5 rounded-xl border-2 border-[#e8dfd5] bg-white/50"
-            >
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#826a54]/10 flex items-center justify-center">
-                <span className="text-[#826a54] font-medium">{index + 1}</span>
-              </div>
-              <p className="text-[#463b32] font-light text-lg flex-1">{week}</p>
+
+        <div className="space-y-5 text-[#463b32]">
+          <div>
+            <p className="font-medium text-lg mb-1">Pattern:</p>
+            <p className="text-[#826a54]/90 font-light leading-relaxed">
+              {breakthroughMap.patternSummary}
+            </p>
+          </div>
+
+          <div>
+            <p className="font-medium text-lg mb-1">Root Driver:</p>
+            <p className="text-[#826a54]/90 font-light leading-relaxed">
+              {breakthroughMap.rootDriver}
+            </p>
+          </div>
+
+          <div>
+            <p className="font-medium text-lg mb-1">Identity Shift:</p>
+            <p className="text-[#826a54]/90 font-light leading-relaxed italic">
+              {breakthroughMap.identityShift}
+            </p>
+          </div>
+
+          <div>
+            <p className="font-medium text-lg mb-3">Key Practices:</p>
+            <ul className="space-y-2 pl-5">
+              {breakthroughMap.keyPractices.map((practice, index) => (
+                <li key={index} className="text-[#826a54]/90 font-light leading-relaxed list-disc">
+                  {practice}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-medium text-lg mb-1">When This Integrates:</p>
+            <p className="text-[#826a54]/90 font-light leading-relaxed">
+              {breakthroughMap.futureVision}
+            </p>
+          </div>
+
+          {breakthroughMap.scriptureAnchor && (
+            <div className="pt-4 border-t border-[#e8dfd5]">
+              <p className="text-sm text-[#826a54]/70 font-light italic leading-relaxed">
+                {breakthroughMap.scriptureAnchor}
+              </p>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
-      {/* CTA Button */}
-      <div className="text-center pt-8 border-t border-[#e8dfd5]">
+      {/* CTA - Work with Elijah 1:1 */}
+      <div className="card p-8 md:p-10 space-y-4 bg-gradient-to-br from-[#463b32] to-[#57473b] text-white">
+        <h3 className="text-xl md:text-2xl font-light">
+          Want a faster breakthrough?
+        </h3>
+        <p className="text-white/90 font-light leading-relaxed">
+          If you want personal guidance applying this map to your real life,
+          you can work with me 1:1. I'll decode your pattern, refine your plan,
+          and hold you accountable to the identity you're stepping into.
+        </p>
         <button
           onClick={() => {
-            // Navigate to ClearPath Mastery (placeholder)
-            window.open('https://clearpth.io/mastery', '_blank');
+            // Navigate to 1:1 application (placeholder)
+            window.open('https://clearpth.io/apply', '_blank');
           }}
           className="
-            px-10 py-4 rounded-xl bg-[#826a54] text-white font-light text-lg
-            hover:bg-[#9d8169] shadow-md hover:shadow-lg
+            inline-flex items-center justify-center
+            px-6 py-3 rounded-xl bg-white text-[#463b32] 
+            font-light text-lg hover:bg-[#faf8f6] 
+            shadow-md hover:shadow-lg
             transition-all duration-200
           "
         >
-          Access ClearPath Mastery
+          Work with Elijah 1:1
         </button>
-        <p className="text-sm text-[#826a54]/70 font-light mt-4">
-          Deep dive into your archetype with advanced teachings and practices
-        </p>
       </div>
     </div>
   );
