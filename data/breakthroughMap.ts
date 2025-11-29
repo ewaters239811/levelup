@@ -39,7 +39,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     rootDriver:
       'Avoidance of commitment and fear of failing if you go all-in on one clear path.',
     identityShift:
-      'From "I'm interested in everything" → "I'm a finisher who channels vision into one main mission."',
+      'From "I\'m interested in everything" → "I\'m a finisher who channels vision into one main mission."',
     keyPractices: [
       'Choose one primary goal for the next 90 days.',
       'Kill or pause 2–3 side projects that dilute your focus.',
@@ -55,7 +55,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     rootDriver:
       'Fear of judgment or rejection if you step into the spotlight, plus a belief that "work should speak for itself."',
     identityShift:
-      'From "I'm just doing my job" → "I'm a leader whose presence and results deserve to be seen."',
+      'From "I\'m just doing my job" → "I\'m a leader whose presence and results deserve to be seen."',
     keyPractices: [
       'Share one win per week with someone who matters (manager, audience, client).',
       'Practice speaking about your work with calm confidence.',
@@ -87,7 +87,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     rootDriver:
       'A belief that working alone is superior, combined with a fear that others won\'t understand your depth or will dilute your vision.',
     identityShift:
-      'From "I think best alone" → "My insights become real when they're shared and tested in collaboration."',
+      'From "I think best alone" → "My insights become real when they\'re shared and tested in collaboration."',
     keyPractices: [
       'Share one insight this week: Write it down, tell someone, or post it somewhere.',
       'Practice "thinking out loud": Let someone witness your thought process, even if it feels vulnerable.',
@@ -103,7 +103,7 @@ export const BREAKTHROUGH_MAP: Record<ArchetypeKey, BreakthroughMap> = {
     rootDriver:
       'Addiction to the high of starting combined with an aversion to the "boring" middle phase where real results are built.',
     identityShift:
-      'From "I'm a starter" → "I'm a completer who finds meaning in the full cycle, not just the spark."',
+      'From "I\'m a starter" → "I\'m a completer who finds meaning in the full cycle, not just the spark."',
     keyPractices: [
       'Choose one fire to tend: Pick one thing you started and commit to maintaining it for 30 days.',
       'Practice "boring consistency": Do one thing every day, even when it doesn\'t feel exciting.',
