@@ -17,6 +17,19 @@ const archetypeNames: Record<string, string> = {
   doubt_ridden_strategist: 'The Doubt-Ridden Strategist',
 };
 
+// Activation Messages - exported for reuse
+export const activationMessages: Record<string, string> = {
+  UNFOCUSED_VISIONARY: "Your visions are powerful, but your attention is scattered — and attention is the true currency of transformation. You don't need more ideas; you need to anchor your awareness into the present moment, because action is only born from presence, not fantasies of the future. Today begins your shift from drifting into the future to owning the moment in front of you. When your focus gathers, your destiny unlocks.",
+  SILENT_GRINDER: "You've carried the weight quietly, working hard in the shadows, but life mirrors the way you see yourself — and it's time to see your own value clearly. Recognition doesn't come from doing more; it comes from being someone who believes their work deserves to be seen. When you shift your perception of yourself, the world shifts with you. Your grind is real — now claim the stage it was meant for.",
+  OVERGIVER: "You've given so much of your energy away that you've forgotten your power lives in your inner world first. Life reflects your internal state, and the world cannot pour into someone who constantly empties themselves. Today is the day you reclaim your energy, your boundaries, and your worth. When you start receiving with the same openness you give, abundance finally has room to flow toward you.",
+  CAGED_POTENTIAL: "Your potential is undeniable, but your perspective has kept you trapped — not your ability. A single shift in viewpoint can dissolve the confusion, stagnation, and hesitation that's been holding you back. You don't need motivation; you need a new angle, a new way of seeing yourself. Today marks the moment you break the mental cage and step into the version of you that has always been waiting to emerge.",
+  lone_wolf_thinker: "Your mind is deep, sharp, and full of fire — but even the greatest insights need air to breathe. Isolation has kept your brilliance hidden, and your next evolution requires expression, connection, and shared presence. Your inner world is strong; now it's time to let it meet the outer world. When your thoughts stop living only inside you, your life will expand in ways you've never experienced.",
+  impulsive_firestarter: "Your speed, passion, and instinct are gifts — but without grounding, your fire burns out before it becomes something real. Consistency, not intensity, is what transforms sparks into empires. Today you shift from uncontrolled motion to intentional momentum. When your fire meets focus, you become unstoppable.",
+  doubt_ridden_strategist: "Your mind is brilliant, your plans are sharp, and your insight is real — but doubt has been stealing the life out of your execution. The world doesn't respond to perfect strategy; it responds to identity and frequency. Today is your moment to embody the version of you who already succeeds, to act from belief instead of hesitation. One imperfect move forward will break the paralysis and activate your true power.",
+};
+
+const defaultActivationMessage = "Your journey of transformation begins with awareness. Recognize your patterns, honor your strengths, and take the first step toward the version of you that's waiting to emerge.";
+
 // 6-Week Plan templates
 const sixWeekPlans: Record<string, string[]> = {
   UNFOCUSED_VISIONARY: [
@@ -121,6 +134,13 @@ export default function ResultPage({ analysis, onBack }: ResultPageProps) {
             <p className="text-xl text-[#826a54] font-light">{primaryName}</p>
           </div>
         </div>
+      </div>
+
+      {/* Activation Message */}
+      <div className="card p-8 md:p-10 space-y-4 bg-gradient-to-br from-[#826a54]/10 to-white animate-fade-in">
+        <p className="text-lg md:text-xl text-[#463b32] font-medium leading-relaxed">
+          {activationMessages[analysis.primaryArchetype] || defaultActivationMessage}
+        </p>
       </div>
 
       {/* Key Insights Grid */}
