@@ -1,6 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useEffect, useState, Suspense } from 'react';
 
 const ARCHETYPES = {
@@ -96,21 +97,58 @@ function ResultContent() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-900">
-          <a
-            href="https://form.jotform.com/253348372678065"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              block w-full text-center px-8 py-3 bg-white text-black
-              font-medium text-sm tracking-wide uppercase
-              hover:bg-gray-200 transition-all duration-200
-              relative overflow-hidden group
-            "
-          >
-            <span className="relative z-10">Apply for a 1:1 Consultation</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-          </a>
+        {/* Identity Diagnosis Section */}
+        <div className="pt-12 space-y-6 max-w-2xl mx-auto">
+          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider text-center">
+            Identity Diagnosis
+          </h3>
+          
+          <div className="space-y-5 text-gray-300 font-light leading-relaxed text-sm md:text-base">
+            <p>
+              Your Collapse Index score doesn't measure your potential — it measures the identity you're currently loyal to.
+            </p>
+            <p>
+              Right now, your results are not a reflection of your ability. They are a reflection of the identity you've been operating from.
+            </p>
+            <p>
+              Until your identity is reconstructed, your behavior will continue to default to the same patterns regardless of how much you know, want, or try.
+            </p>
+            <div className="space-y-3 pt-2">
+              <p>
+                The question is no longer:
+              </p>
+              <p className="text-gray-400 italic pl-4">
+                "Can I do it?"
+              </p>
+              <p>
+                The real question is:
+              </p>
+              <p className="text-gray-400 italic pl-4">
+                "Is the identity I'm using capable of holding the life I'm asking for?"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-12 space-y-6">
+          <p className="text-sm text-gray-500 font-light text-center max-w-xl mx-auto">
+            If you want to know whether your current identity structure qualifies you for identity reconstruction work, continue below.
+          </p>
+
+          <div className="border-t border-gray-900 pt-8">
+            <Link
+              href="/apply"
+              className="
+                block w-full text-center px-8 py-3 bg-white text-black
+                font-medium text-sm tracking-wide uppercase
+                hover:bg-gray-200 transition-all duration-200
+                relative overflow-hidden group
+              "
+            >
+              <span className="relative z-10">See If I'm Qualified</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
