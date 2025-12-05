@@ -1,25 +1,24 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useEffect, useState, Suspense } from 'react';
 
 const ARCHETYPES = {
   stable: {
     name: 'Stable Identity',
-    diagnosis: 'Your identity foundation is solid, allowing you to hold success and navigate challenges with resilience.',
+    diagnosis: 'Your identity foundation is solid. You can hold success and navigate challenges.',
   },
   fragile: {
     name: 'Fragile Identity',
-    diagnosis: 'Your identity can hold some success, but it fractures under pressure or when visibility increases.',
+    diagnosis: 'Your identity holds some success but fractures under pressure or visibility.',
   },
   collapsed: {
     name: 'Collapsed Identity',
-    diagnosis: 'Your identity structure has collapsed, causing you to sabotage opportunities and avoid responsibility.',
+    diagnosis: 'Your identity structure has collapsed. You sabotage opportunities and avoid responsibility.',
   },
   void: {
     name: 'Identity Void',
-    diagnosis: 'You are operating from an identity void, where success feels impossible because there is no stable self-concept to anchor it.',
+    diagnosis: 'You operate from an identity void. Success feels impossible without a stable self-concept.',
   },
 };
 
@@ -44,8 +43,8 @@ function ResultContent() {
 
   if (score === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-gray-400">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="text-gray-500">Loading...</div>
       </div>
     );
   }
@@ -62,40 +61,41 @@ function ResultContent() {
   }
 
   return (
-    <div className="min-h-screen bg-white px-4 py-12">
+    <div className="min-h-screen bg-black px-4 py-12">
       <div className="w-full max-w-2xl mx-auto space-y-12">
         <div className="text-center space-y-6">
           <div className="space-y-2">
-            <p className="text-sm text-gray-500 font-light uppercase tracking-wide">
+            <p className="text-xs text-gray-500 font-light uppercase tracking-wider">
               Your Identity Collapse Index
             </p>
-            <h1 className="text-5xl md:text-6xl font-light text-gray-900">
-              {score} <span className="text-gray-400">/ 40</span>
+            <h1 className="text-6xl md:text-7xl font-light text-white">
+              {score} <span className="text-gray-600">/ 40</span>
             </h1>
           </div>
 
           <div className="pt-8 space-y-4">
-            <h2 className="text-2xl md:text-3xl font-light text-gray-900">
+            <h2 className="text-2xl md:text-3xl font-light text-white">
               {archetype.name}
             </h2>
-            <p className="text-lg text-gray-600 font-light leading-relaxed max-w-xl mx-auto">
+            <p className="text-base text-gray-400 font-light leading-relaxed max-w-lg mx-auto">
               {archetype.diagnosis}
             </p>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-200">
-          <Link
-            href="/apply"
+        <div className="pt-8 border-t border-gray-900">
+          <a
+            href="https://form.jotform.com/253348372678065"
+            target="_blank"
+            rel="noopener noreferrer"
             className="
-              block w-full text-center px-8 py-4 bg-gray-900 text-white
-              font-light text-lg tracking-wide
-              hover:bg-gray-800 transition-colors duration-200
-              rounded-sm
+              block w-full text-center px-8 py-3 bg-white text-black
+              font-medium text-sm tracking-wide uppercase
+              hover:bg-gray-200 transition-colors duration-200
             "
           >
-            See if I'm Qualified to Work With Elijah
-          </Link>
+            Book a 1-on-1 Consultation to Reach Your Potential
+          </a>
         </div>
       </div>
     </div>
@@ -105,12 +105,11 @@ function ResultContent() {
 export default function ResultPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-gray-400">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="text-gray-500">Loading...</div>
       </div>
     }>
       <ResultContent />
     </Suspense>
   );
 }
-

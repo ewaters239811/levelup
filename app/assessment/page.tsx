@@ -56,14 +56,14 @@ export default function AssessmentPage() {
   const allAnswered = Object.values(scores).some((score) => score > 0);
 
   return (
-    <div className="min-h-screen bg-white px-4 py-12">
+    <div className="min-h-screen bg-black px-4 py-12">
       <div className="w-full max-w-2xl mx-auto space-y-12">
-        <div className="text-center space-y-4">
-          <h1 className="text-3xl md:text-4xl font-light text-gray-900">
+        <div className="text-center space-y-3">
+          <h1 className="text-3xl md:text-4xl font-light text-white">
             Identity Collapse Index
           </h1>
-          <p className="text-gray-600 font-light">
-            Rate each statement from 0 (not at all) to 10 (completely)
+          <p className="text-sm text-gray-500 font-light">
+            Rate each: 0 (not at all) → 10 (completely)
           </p>
         </div>
 
@@ -71,15 +71,15 @@ export default function AssessmentPage() {
           {QUESTIONS.map((question, index) => (
             <div key={question.id} className="space-y-2">
               <div className="flex items-start gap-3">
-                <span className="text-gray-400 font-light text-sm mt-1 min-w-[2rem]">
+                <span className="text-gray-600 font-light text-sm mt-1 min-w-[2rem]">
                   {index + 1}
                 </span>
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
+                    <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
                       {question.label}
                     </h3>
-                    <p className="text-lg font-light text-gray-900 leading-relaxed">
+                    <p className="text-base font-light text-gray-300 leading-relaxed">
                       {question.text}
                     </p>
                   </div>
@@ -95,23 +95,21 @@ export default function AssessmentPage() {
           ))}
         </div>
 
-        <div className="pt-8 border-t border-gray-200">
+        <div className="pt-8 border-t border-gray-900">
           <button
             onClick={handleCalculate}
             disabled={!allAnswered}
             className="
-              w-full px-8 py-4 bg-gray-900 text-white
-              font-light text-lg tracking-wide
-              hover:bg-gray-800 transition-colors duration-200
-              disabled:bg-gray-300 disabled:cursor-not-allowed
-              rounded-sm
+              w-full px-8 py-3 bg-white text-black
+              font-medium text-sm tracking-wide uppercase
+              hover:bg-gray-200 transition-colors duration-200
+              disabled:bg-gray-900 disabled:text-gray-600 disabled:cursor-not-allowed
             "
           >
-            Calculate My Collapse Index
+            Calculate Index
           </button>
         </div>
       </div>
     </div>
   );
 }
-

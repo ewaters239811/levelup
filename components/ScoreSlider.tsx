@@ -9,12 +9,14 @@ interface ScoreSliderProps {
 
 export default function ScoreSlider({ value, onChange, label, questionId }: ScoreSliderProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex justify-between items-center">
-        <label htmlFor={questionId} className="text-lg font-light text-gray-900">
-          {label}
-        </label>
-        <span className="text-2xl font-light text-gray-600 min-w-[3rem] text-right">
+        {label && (
+          <label htmlFor={questionId} className="text-sm font-light text-gray-300">
+            {label}
+          </label>
+        )}
+        <span className="text-2xl font-light text-white min-w-[3rem] text-right">
           {value}
         </span>
       </div>
@@ -25,16 +27,15 @@ export default function ScoreSlider({ value, onChange, label, questionId }: Scor
         max="10"
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value))}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gray-900"
+        className="w-full h-1 bg-gray-900 rounded-lg appearance-none cursor-pointer accent-white"
         style={{
-          background: `linear-gradient(to right, #111 0%, #111 ${(value / 10) * 100}%, #e5e7eb ${(value / 10) * 100}%, #e5e7eb 100%)`
+          background: `linear-gradient(to right, #fff 0%, #fff ${(value / 10) * 100}%, #1a1a1a ${(value / 10) * 100}%, #1a1a1a 100%)`
         }}
       />
-      <div className="flex justify-between text-xs text-gray-400 font-light">
+      <div className="flex justify-between text-xs text-gray-600 font-light">
         <span>Not at all</span>
         <span>Completely</span>
       </div>
     </div>
   );
 }
-

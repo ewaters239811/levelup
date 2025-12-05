@@ -4,45 +4,41 @@ import Link from 'next/link';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-white">
-      <div className="w-full max-w-3xl mx-auto text-center space-y-8">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-black">
+      <div className="w-full max-w-2xl mx-auto text-center space-y-8">
+        <div className="space-y-4">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white leading-tight tracking-tight">
             Identity Collapse Index
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto">
-            A 4-question diagnostic to reveal where your identity is blocking your next level
+          <p className="text-lg md:text-xl text-gray-400 font-light max-w-xl mx-auto">
+            Where your identity is blocking your next level
           </p>
         </div>
 
-        <div className="max-w-xl mx-auto space-y-4 text-gray-500 font-light leading-relaxed">
+        <div className="max-w-lg mx-auto space-y-3 text-gray-500 font-light text-sm leading-relaxed">
           <p>
-            Most people don't realize that their identity—the story they tell themselves about who they are—is the invisible force shaping every outcome in their life.
+            Your identity shapes every outcome. When it collapses, you sabotage success without knowing why.
           </p>
           <p>
-            When your identity collapses, you can't hold success, visibility, or responsibility. You sabotage yourself without knowing why.
-          </p>
-          <p>
-            This assessment reveals your Identity Collapse Index and shows you exactly where your identity is blocking you.
+            This 4-question diagnostic reveals your Identity Collapse Index.
           </p>
         </div>
 
-        <div className="pt-8">
+        <div className="pt-6">
           <Link
             href="/assessment"
             className="
-              inline-block px-8 py-4 bg-gray-900 text-white
-              font-light text-lg tracking-wide
-              hover:bg-gray-800 transition-colors duration-200
-              rounded-sm
+              inline-block px-8 py-3 bg-white text-black
+              font-medium text-sm tracking-wide uppercase
+              hover:bg-gray-200 transition-colors duration-200
             "
           >
-            Start the 4-Question Assessment
+            Start Assessment
           </Link>
         </div>
 
-        <p className="text-sm text-gray-400 font-light pt-4">
-          Takes 2 minutes • No email required
+        <p className="text-xs text-gray-600 font-light">
+          2 minutes
         </p>
       </div>
     </div>
