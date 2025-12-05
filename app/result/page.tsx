@@ -61,9 +61,22 @@ function ResultContent() {
   }
 
   return (
-    <div className="min-h-screen bg-black px-4 py-12">
-      <div className="w-full max-w-2xl mx-auto space-y-12">
-        <div className="text-center space-y-6">
+    <div className="min-h-screen bg-black px-4 py-12 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="w-full max-w-2xl mx-auto space-y-12 relative z-10">
+        {/* Clearpth Branding */}
+        <div className="absolute top-0 left-0">
+          <p className="text-xs text-gray-600 font-light tracking-widest uppercase">
+            Clearpth
+          </p>
+        </div>
+
+        <div className="text-center space-y-6 pt-8">
           <div className="space-y-2">
             <p className="text-xs text-gray-500 font-light uppercase tracking-wider">
               Your Identity Collapse Index
@@ -91,10 +104,12 @@ function ResultContent() {
             className="
               block w-full text-center px-8 py-3 bg-white text-black
               font-medium text-sm tracking-wide uppercase
-              hover:bg-gray-200 transition-colors duration-200
+              hover:bg-gray-200 transition-all duration-200
+              relative overflow-hidden group
             "
           >
-            Book a 1-on-1 Consultation to Reach Your Potential
+            <span className="relative z-10">Apply for a 1:1 Consultation</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
           </a>
         </div>
       </div>

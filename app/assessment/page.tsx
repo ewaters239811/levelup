@@ -56,9 +56,22 @@ export default function AssessmentPage() {
   const allAnswered = Object.values(scores).some((score) => score > 0);
 
   return (
-    <div className="min-h-screen bg-black px-4 py-12">
-      <div className="w-full max-w-2xl mx-auto space-y-12">
-        <div className="text-center space-y-3">
+    <div className="min-h-screen bg-black px-4 py-12 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-white/3 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-white/3 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="w-full max-w-2xl mx-auto space-y-12 relative z-10">
+        {/* Clearpth Branding */}
+        <div className="absolute top-0 left-0">
+          <p className="text-xs text-gray-600 font-light tracking-widest uppercase">
+            Clearpth
+          </p>
+        </div>
+
+        <div className="text-center space-y-3 pt-8">
           <h1 className="text-3xl md:text-4xl font-light text-white">
             Identity Collapse Index
           </h1>
@@ -102,11 +115,15 @@ export default function AssessmentPage() {
             className="
               w-full px-8 py-3 bg-white text-black
               font-medium text-sm tracking-wide uppercase
-              hover:bg-gray-200 transition-colors duration-200
+              hover:bg-gray-200 transition-all duration-200
               disabled:bg-gray-900 disabled:text-gray-600 disabled:cursor-not-allowed
+              relative overflow-hidden group
             "
           >
-            Calculate Index
+            <span className="relative z-10">Calculate Index</span>
+            {allAnswered && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            )}
           </button>
         </div>
       </div>
