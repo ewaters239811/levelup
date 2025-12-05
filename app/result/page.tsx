@@ -1,7 +1,6 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useEffect, useState, Suspense } from 'react';
 
 const ARCHETYPES = {
@@ -136,8 +135,10 @@ function ResultContent() {
           </p>
 
           <div className="border-t border-gray-900 pt-8">
-            <Link
-              href="/apply"
+            <a
+              href="https://form.jotform.com/253348372678065"
+              target="_blank"
+              rel="noopener noreferrer"
               className="
                 block w-full text-center px-8 py-3 bg-white text-black
                 font-medium text-sm tracking-wide uppercase
@@ -147,7 +148,7 @@ function ResultContent() {
             >
               <span className="relative z-10">See If I'm Qualified</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
