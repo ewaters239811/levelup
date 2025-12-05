@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'CLEARPTH.IO Intake System 2.0',
-  description: 'Discover your archetype through Quick Mode or Deep Mode analysis.',
+  title: 'Identity Collapse Index',
+  description: 'A 4-question diagnostic to reveal where your identity is blocking your next level.',
 }
 
 export default function RootLayout({
