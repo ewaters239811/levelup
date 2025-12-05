@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 
 const ARCHETYPES = {
   stable: {
@@ -23,7 +23,7 @@ const ARCHETYPES = {
   },
 };
 
-export default function ResultPage() {
+function ResultContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [score, setScore] = useState<number | null>(null);
@@ -99,6 +99,18 @@ export default function ResultPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-gray-400">Loading...</div>
+      </div>
+    }>
+      <ResultContent />
+    </Suspense>
   );
 }
 
