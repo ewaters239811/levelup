@@ -37,6 +37,18 @@ export default function LandingPage() {
           </p>
         </div>
 
+        <div className="pt-4 max-w-md mx-auto">
+          <p className="text-xs text-gray-500 font-light uppercase tracking-wider">
+            Your results aren't blocked. Your identity is incompatible.
+          </p>
+        </div>
+
+        <div className="pt-2 max-w-md mx-auto">
+          <p className="text-sm text-gray-600 font-light italic border-t border-gray-900 pt-6">
+            I don't coach people. I reconstruct identities.
+          </p>
+        </div>
+
         <div className="pt-6">
           <Link
             href="/assessment"
