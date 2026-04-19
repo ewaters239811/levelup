@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageBack from '@/components/PageBack';
 import { currentWeeklyPost, type PostBlock } from '@/data/weeklyPost';
 
 function Block({ block }: { block: PostBlock }) {
@@ -45,13 +46,14 @@ export default function WeeklyPage() {
       </div>
 
       <article className="w-full max-w-2xl mx-auto relative z-10 space-y-10">
-        <div className="absolute top-0 left-0">
-          <p className="text-xs text-gray-600 font-light tracking-widest uppercase">
+        <div className="flex items-start justify-between gap-4 pt-8">
+          <PageBack />
+          <p className="text-xs text-gray-600 font-light tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
-        <header className="pt-8 space-y-3 border-b border-gray-900 pb-8">
+        <header className="space-y-3 border-b border-gray-900 pb-8">
           <p className="text-xs text-gray-600 font-light uppercase tracking-wider">
             Weekly · {post.weekOfLabel}
           </p>

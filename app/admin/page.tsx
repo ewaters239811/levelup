@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import PageBack from '@/components/PageBack';
 import { getResults, getArchetypeCounts } from '@/lib/analytics';
 
 interface EmailRecord {
@@ -97,6 +98,9 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-neutral-100 px-4 py-20">
       <div className="w-full max-w-6xl mx-auto space-y-8">
+        <nav className="-mt-4 mb-2">
+          <PageBack />
+        </nav>
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-4xl font-extralight mb-2">Email Database</h1>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import PageBack from '@/components/PageBack';
 import ApplicationForm from '@/components/ApplicationForm';
 import { ApplicationData } from '@/types/assessment';
 
@@ -19,6 +20,9 @@ export default function ApplyPage() {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
         </div>
         <div className="w-full max-w-2xl mx-auto text-center space-y-6 relative z-10">
+          <div className="flex justify-start pt-8">
+            <PageBack />
+          </div>
           <div className="space-y-3">
             <h1 className="text-3xl md:text-4xl font-light text-white">
               Application Received
@@ -39,14 +43,14 @@ export default function ApplyPage() {
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-white/3 rounded-full blur-3xl"></div>
       </div>
       <div className="w-full max-w-2xl mx-auto space-y-8 relative z-10">
-        {/* Clearpth Branding */}
-        <div className="absolute top-0 left-0">
-          <p className="text-xs text-gray-600 font-light tracking-widest uppercase">
+        <div className="flex items-start justify-between gap-4 pt-8">
+          <PageBack />
+          <p className="text-xs text-gray-600 font-light tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
-        <div className="text-center space-y-3 pt-8">
+        <div className="text-center space-y-3">
           <h1 className="text-3xl md:text-4xl font-light text-white">
             Application
           </h1>

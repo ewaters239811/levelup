@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import PageBack from '@/components/PageBack';
 import ScoreSlider from '@/components/ScoreSlider';
 
 const QUESTIONS = [
@@ -64,14 +65,14 @@ export default function AssessmentPage() {
       </div>
 
       <div className="w-full max-w-2xl mx-auto space-y-12 relative z-10">
-        {/* Clearpth Branding */}
-        <div className="absolute top-0 left-0">
-          <p className="text-xs text-gray-600 font-light tracking-widest uppercase">
+        <div className="flex items-start justify-between gap-4 pt-8">
+          <PageBack />
+          <p className="text-xs text-gray-600 font-light tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
-        <div className="text-center space-y-3 pt-8">
+        <div className="text-center space-y-3">
           <h1 className="text-3xl md:text-4xl font-light text-white">
             Identity Collapse Index
           </h1>

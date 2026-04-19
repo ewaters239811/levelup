@@ -49,9 +49,9 @@ export default function LandingPage() {
           </p>
         </div>
 
-        <div className="pt-6">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="/weekly"
+            href="/assessment"
             className="
               inline-block px-8 py-3 bg-white text-black
               font-medium text-sm tracking-wide uppercase
@@ -61,6 +61,16 @@ export default function LandingPage() {
           >
             <span className="relative z-10">Start Assessment</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+          </Link>
+          <Link
+            href="/weekly"
+            className="
+              inline-block px-8 py-3 border border-gray-700 text-gray-300
+              font-medium text-sm tracking-wide uppercase
+              hover:border-gray-500 hover:text-white transition-all duration-200
+            "
+          >
+            Weekly blog
           </Link>
         </div>
 

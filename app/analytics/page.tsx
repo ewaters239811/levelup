@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import PageBack from '@/components/PageBack';
 import { getResults, getArchetypeCounts, exportResults, clearResults } from '@/lib/analytics';
 
 export default function AnalyticsPage() {
@@ -53,6 +54,9 @@ export default function AnalyticsPage() {
   return (
     <main className="min-h-screen bg-black text-neutral-100 px-4 py-20">
       <div className="w-full max-w-6xl mx-auto space-y-8">
+        <nav className="-mt-4 mb-2">
+          <PageBack />
+        </nav>
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold">Analytics Dashboard</h1>
           <div className="flex gap-4">

@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
+import PageBack from '@/components/PageBack';
 
 const ARCHETYPES = {
   stable: {
@@ -69,14 +70,14 @@ function ResultContent() {
       </div>
 
       <div className="w-full max-w-2xl mx-auto space-y-12 relative z-10">
-        {/* Clearpth Branding */}
-        <div className="absolute top-0 left-0">
-          <p className="text-xs text-gray-600 font-light tracking-widest uppercase">
+        <div className="flex items-start justify-between gap-4 pt-8">
+          <PageBack />
+          <p className="text-xs text-gray-600 font-light tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
-        <div className="text-center space-y-6 pt-8">
+        <div className="text-center space-y-6">
           <div className="space-y-2">
             <p className="text-xs text-gray-500 font-light uppercase tracking-wider">
               Your Identity Collapse Index
