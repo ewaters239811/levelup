@@ -8,7 +8,6 @@ import QuestionCard from '@/components/QuestionCard';
 import TextQuestionCard from '@/components/TextQuestionCard';
 import ProgressBar from '@/components/ProgressBar';
 import ResultView from '@/components/ResultView';
-import EmailCapture from '@/components/EmailCapture';
 import IntroClassView from '@/components/IntroClassView';
 import IntroClassCompletion from '@/components/IntroClassCompletion';
 import WisdomLessonView from '@/components/WisdomLessonView';
@@ -20,14 +19,15 @@ import { archetypeIntroClasses } from '@/data/archetypeIntroClasses';
 import { createUserStateFromQuiz, getUserState, saveUserState, updateUserStateAfterLesson } from '@/lib/wisdomState';
 import { LessonRecommendation } from '@/types/wisdom';
 
-type AppState = 'landing' | 'quiz' | 'email' | 'result' | 'introClass' | 'wisdom' | 'aiDiagnosticInput' | 'aiDiagnosticQuestions' | 'aiDiagnosticResult';
+type AppState = 'landing' | 'quiz' | 'result' | 'introClass' | 'wisdom' | 'aiDiagnosticInput' | 'aiDiagnosticQuestions' | 'aiDiagnosticResult';
 
 export default function Home() {
   const [state, setState] = useState<AppState>('landing');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<ArchetypeKey | null>(null);
-  const [userEmail, setUserEmail] = useState<string>('');
+  /** Stable anonymous id for wisdom session (replaces old email-based id). */
+  const wisdomUserIdRef = useRef<string | null>(null);
   const [aiInterpretation, setAiInterpretation] = useState<AIInterpretation | null>(null);
   const [isInterpreting, setIsInterpreting] = useState(false);
   const [wisdomRecommendation, setWisdomRecommendation] = useState<LessonRecommendation | null>(null);
@@ -180,39 +180,17 @@ export default function Home() {
       setAiInterpretation(null);
     }
     
-    // Move to email capture before showing results
-    setState('email');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleEmailBack = () => {
-    // Go back to last quiz question (question 11)
-    setState('quiz');
-    setCurrentQuestionIndex(quizData.length - 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleEmailSubmit = (email: string) => {
-    setUserEmail(email);
-    // Save result with email for analytics
-    if (result) {
-      saveResult(result, answers, email);
-    }
-    setState('result');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleEmailSkip = () => {
-    // Save result without email
-    if (result) {
-      saveResult(result, answers);
-    }
+    // Go straight to results (no email capture or outbound email)
+    wisdomUserIdRef.current = `user_${Date.now()}`;
+    saveResult(dominantArchetype, answers);
     setState('result');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleResultBack = () => {
-    setState('email');
+    wisdomUserIdRef.current = null;
+    setState('quiz');
+    setCurrentQuestionIndex(quizData.length - 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -233,11 +211,13 @@ export default function Home() {
     setIsLoadingWisdom(true);
     try {
       // Create or get user state
-      const userId = userEmail || `user_${Date.now()}`;
+      const userId =
+        wisdomUserIdRef.current ?? `user_${Date.now()}`;
+      wisdomUserIdRef.current = userId;
       let userState = getUserState(userId);
-      
+
       if (!userState) {
-        userState = createUserStateFromQuiz(result, aiInterpretation, userEmail);
+        userState = createUserStateFromQuiz(result, aiInterpretation, userId);
         saveUserState(userState);
       }
 
@@ -268,7 +248,9 @@ export default function Home() {
   const handleWisdomComplete = async (reflection: string) => {
     if (!wisdomRecommendation || !result) return;
 
-    const userId = userEmail || `user_${Date.now()}`;
+    const userId =
+      wisdomUserIdRef.current ?? `user_${Date.now()}`;
+    wisdomUserIdRef.current = userId;
     let userState = getUserState(userId);
     
     if (userState) {
@@ -443,20 +425,6 @@ export default function Home() {
                 {isLastQuestion ? 'View Result' : 'Next'}
               </button>
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* Email Capture Section */}
-      {state === 'email' && result && (
-        <section className="min-h-screen px-4 py-20 relative z-10 flex items-center justify-center">
-          <div className="w-full max-w-4xl mx-auto">
-            <EmailCapture
-              archetype={result}
-              onSubmit={handleEmailSubmit}
-              onSkip={handleEmailSkip}
-              onBack={handleEmailBack}
-            />
           </div>
         </section>
       )}

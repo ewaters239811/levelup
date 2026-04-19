@@ -18,7 +18,6 @@ Webapp/
 │   ├── QuestionCard.tsx          # Individual quiz question UI
 │   ├── ProgressBar.tsx            # Quiz progress indicator
 │   ├── ResultView.tsx             # Archetype result display
-│   └── EmailCapture.tsx           # Email collection form
 │
 ├── data/                          # Static data files
 │   ├── quizData.ts               # 10 quiz questions & options
@@ -79,18 +78,7 @@ Webapp/
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │  1. Count archetype votes from answers              │  │
 │  │  2. Find dominant archetype (highest count)         │  │
-│  │  3. Set state: 'email' (show email capture)        │  │
-│  └───────────────────────────────────────────────────────┘  │
-└───────────────────────┬─────────────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────────────┐
-│              EMAIL CAPTURE (Same Page)
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │  State: 'email'                                      │  │
-│  │  • EmailCapture component                            │  │
-│  │  • Email validation                                 │  │
-│  │  • Optional: User can skip                          │  │
+│  │  3. Set state: 'result' (show results)            │  │
 │  └───────────────────────────────────────────────────────┘  │
 └───────────────────────┬─────────────────────────────────────┘
                         │
@@ -126,13 +114,9 @@ app/page.tsx (Home)
 │   └── QuestionCard
 │       └── Props: question, selectedAnswer, onSelect, onNext, onBack
 │
-├── Email Capture (conditional: state === 'email')
-│   └── EmailCapture
-│       └── Props: archetype, onSubmit, onSkip
-│
 └── Result Section (conditional: state === 'result')
     └── ResultView
-        └── Props: archetype, email
+        └── Props: archetype, callbacks
 ```
 
 ---
