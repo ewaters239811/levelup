@@ -32,7 +32,9 @@ export default function WeeklyBlogSubscribe() {
       }
 
       setStatus('success');
-      setMessage('You are in. Weekly blogs will be sent to your inbox.');
+      setMessage(
+        "You're on the list. You'll get the weekly note when it's sent out."
+      );
       setEmail('');
     } catch (error) {
       setStatus('error');
@@ -77,7 +79,7 @@ export default function WeeklyBlogSubscribe() {
         </p>
       ) : null}
       <p className="text-xs text-neutral-500 font-light">
-        One weekly blog email. Unsubscribe anytime.
+        Your email is only used for this list. Reply to any weekly message if you want off.
       </p>
     </section>
   );

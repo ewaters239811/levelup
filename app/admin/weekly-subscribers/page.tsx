@@ -52,8 +52,8 @@ export default function WeeklySubscribersAdminPage() {
         <header className="space-y-2">
           <h1 className="text-3xl font-extralight tracking-tight">Weekly blog subscribers</h1>
           <p className="text-sm text-neutral-400 font-light">
-            Private list — only you should have the admin secret. Copy emails and send your weekly
-            note manually from your inbox or tool of choice.
+            Upstash-only list — no Resend here. Only you should have the admin secret. Copy
+            addresses and send your weekly note yourself.
           </p>
         </header>
 
