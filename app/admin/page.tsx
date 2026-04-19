@@ -4,65 +4,54 @@ import { useState, useEffect } from 'react';
 import PageBack from '@/components/PageBack';
 import { getResults, getArchetypeCounts } from '@/lib/analytics';
 
-interface EmailRecord {
-  email: string;
+interface CompletionRow {
   archetype: string;
-  created_at: string | Date;
+  date: string;
 }
 
-interface EmailCount {
+interface ArchetypeCountRow {
   archetype: string;
   count: number;
 }
 
 export default function AdminPage() {
-  const [emails, setEmails] = useState<EmailRecord[]>([]);
-  const [counts, setCounts] = useState<EmailCount[]>([]);
+  const [rows, setRows] = useState<CompletionRow[]>([]);
+  const [counts, setCounts] = useState<ArchetypeCountRow[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedArchetype, setSelectedArchetype] = useState<string>('all');
 
   useEffect(() => {
-    loadEmails();
+    loadData();
   }, [selectedArchetype]);
 
-  const loadEmails = () => {
+  const loadData = () => {
     setLoading(true);
     try {
       const allResults = getResults();
       const archetypeCounts = getArchetypeCounts();
-      
-      // Filter results with emails
-      const allEmailsWithData = allResults
-        .filter((r) => r.email)
-        .map((r) => ({
-          email: r.email!,
-          archetype: r.archetype,
-          created_at: r.date,
-        }));
 
-      // Filter by archetype if selected
-      let emailResults = allEmailsWithData;
-      if (selectedArchetype !== 'all') {
-        emailResults = allEmailsWithData.filter((e) => e.archetype === selectedArchetype);
-      }
-
-      // Convert counts to array format (only for emails)
-      const emailCountsByArchetype: Record<string, number> = {};
-      allEmailsWithData.forEach((e) => {
-        emailCountsByArchetype[e.archetype] = (emailCountsByArchetype[e.archetype] || 0) + 1;
-      });
-
-      const countsArray: EmailCount[] = Object.entries(emailCountsByArchetype).map(([archetype, count]) => ({
-        archetype,
-        count,
+      let list: CompletionRow[] = allResults.map((r) => ({
+        archetype: r.archetype,
+        date: r.date,
       }));
+      if (selectedArchetype !== 'all') {
+        list = list.filter((r) => r.archetype === selectedArchetype);
+      }
+      list.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-      setEmails(emailResults);
+      const countsArray: ArchetypeCountRow[] = Object.entries(archetypeCounts).map(
+        ([archetype, count]) => ({
+          archetype,
+          count,
+        })
+      );
+
+      setRows(list);
       setCounts(countsArray);
-      setTotal(allEmailsWithData.length); // Total emails across all archetypes
+      setTotal(allResults.length);
     } catch (error) {
-      console.error('Error loading emails:', error);
+      console.error('Error loading completions:', error);
     } finally {
       setLoading(false);
     }
@@ -70,15 +59,20 @@ export default function AdminPage() {
 
   const handleExport = () => {
     const csv = [
-      ['Email', 'Archetype', 'Date'],
-      ...emails.map(e => [e.email, e.archetype, new Date(e.created_at).toLocaleString()])
-    ].map(row => row.join(',')).join('\n');
+      ['Archetype', 'Date'],
+      ...rows.map((r) => [
+        archetypeNames[r.archetype] || r.archetype,
+        new Date(r.date).toLocaleString(),
+      ]),
+    ]
+      .map((row) => row.join(','))
+      .join('\n');
 
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `emails-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `quiz-completions-${new Date().toISOString().split('T')[0]}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -103,8 +97,10 @@ export default function AdminPage() {
         </nav>
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-4xl font-extralight mb-2">Email Database</h1>
-            <p className="text-neutral-400 font-light">View and manage all collected emails (stored locally in your browser)</p>
+            <h1 className="text-4xl font-extralight mb-2">Quiz completions</h1>
+            <p className="text-neutral-400 font-light">
+              Local browser storage only — archetype and time per completion.
+            </p>
           </div>
           <div className="flex gap-4">
             <button
@@ -114,7 +110,7 @@ export default function AdminPage() {
               Export CSV
             </button>
             <button
-              onClick={loadEmails}
+              onClick={loadData}
               className="px-6 py-3 border border-neutral-800 text-neutral-400 font-medium text-sm uppercase tracking-[0.1em] hover:border-neutral-700 hover:text-neutral-300 transition-all"
             >
               Refresh
@@ -124,17 +120,19 @@ export default function AdminPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="bg-neutral-900 border border-neutral-800 p-6">
-            <h3 className="text-sm text-neutral-400 mb-2 uppercase tracking-[0.1em] font-light">Total Emails</h3>
+            <h3 className="text-sm text-neutral-400 mb-2 uppercase tracking-[0.1em] font-light">
+              Total completions
+            </h3>
             <p className="text-3xl font-extralight text-neutral-100">{total}</p>
           </div>
-          {counts.map((count) => (
-            <div key={count.archetype} className="bg-neutral-900 border border-neutral-800 p-6">
+          {counts.map((c) => (
+            <div key={c.archetype} className="bg-neutral-900 border border-neutral-800 p-6">
               <h3 className="text-sm text-neutral-400 mb-2 uppercase tracking-[0.1em] font-light">
-                {archetypeNames[count.archetype] || count.archetype}
+                {archetypeNames[c.archetype] || c.archetype}
               </h3>
-              <p className="text-3xl font-extralight text-neutral-100">{count.count}</p>
+              <p className="text-3xl font-extralight text-neutral-100">{c.count}</p>
               <p className="text-xs text-neutral-500 mt-2 font-light">
-                {total > 0 ? Math.round((count.count / total) * 100) : 0}%
+                {total > 0 ? Math.round((c.count / total) * 100) : 0}%
               </p>
             </div>
           ))}
@@ -142,7 +140,7 @@ export default function AdminPage() {
 
         <div className="bg-neutral-900 border border-neutral-800 p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-extralight uppercase tracking-[0.1em]">All Emails</h2>
+            <h2 className="text-2xl font-extralight uppercase tracking-[0.1em]">All completions</h2>
             <select
               value={selectedArchetype}
               onChange={(e) => setSelectedArchetype(e.target.value)}
@@ -161,34 +159,32 @@ export default function AdminPage() {
 
           {loading ? (
             <p className="text-neutral-400 text-center py-8">Loading...</p>
-          ) : emails.length === 0 ? (
-            <p className="text-neutral-400 text-center py-8">No emails found.</p>
+          ) : rows.length === 0 ? (
+            <p className="text-neutral-400 text-center py-8">No completions in this filter.</p>
           ) : (
             <div className="space-y-2">
-              {emails.map((email, index) => (
+              {rows.map((row, index) => (
                 <div
-                  key={`${email.email}-${index}`}
+                  key={`${row.archetype}-${row.date}-${index}`}
                   className="flex justify-between items-center p-4 bg-neutral-950 border border-neutral-800 hover:border-neutral-700 transition-colors"
                 >
                   <div className="flex-1">
-                    <p className="text-neutral-100 font-light">{email.email}</p>
-                    <div className="flex gap-4 mt-2">
-                      <span className="text-xs text-neutral-500">
-                        {archetypeNames[email.archetype] || email.archetype}
-                      </span>
-                      <span className="text-xs text-neutral-600">
-                        {new Date(email.created_at).toLocaleString()}
-                      </span>
-                    </div>
+                    <p className="text-neutral-100 font-light">
+                      {archetypeNames[row.archetype] || row.archetype}
+                    </p>
+                    <span className="text-xs text-neutral-600">
+                      {new Date(row.date).toLocaleString()}
+                    </span>
                   </div>
                   <button
+                    type="button"
                     onClick={() => {
-                      navigator.clipboard.writeText(email.email);
-                      alert('Email copied!');
+                      const line = `${archetypeNames[row.archetype] || row.archetype}\t${new Date(row.date).toLocaleString()}`;
+                      void navigator.clipboard.writeText(line);
                     }}
                     className="text-xs text-cyan-400 hover:text-cyan-300 px-3 py-1 border border-cyan-400/30 rounded hover:border-cyan-400 transition-colors font-light"
                   >
-                    Copy
+                    Copy row
                   </button>
                 </div>
               ))}
@@ -199,4 +195,3 @@ export default function AdminPage() {
     </main>
   );
 }
-

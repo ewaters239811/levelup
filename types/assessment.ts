@@ -24,7 +24,6 @@ export interface IdentityResult {
 
 export interface ApplicationData {
   name: string;
-  email: string;
   socialHandle: string;
   currentWork: string;
   stuckAreas: string;

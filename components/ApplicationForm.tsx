@@ -10,7 +10,6 @@ interface ApplicationFormProps {
 export default function ApplicationForm({ onSubmit }: ApplicationFormProps) {
   const [formData, setFormData] = useState<ApplicationData>({
     name: '',
-    email: '',
     socialHandle: '',
     currentWork: '',
     stuckAreas: '',
@@ -51,21 +50,6 @@ export default function ApplicationForm({ onSubmit }: ApplicationFormProps) {
           id="name"
           name="name"
           value={formData.name}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 bg-black border border-gray-900 text-white placeholder-gray-600 focus:outline-none focus:border-gray-700 font-light"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="email" className="block text-xs font-light text-gray-500 mb-2 uppercase tracking-wider">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
           onChange={handleChange}
           required
           className="w-full px-4 py-3 bg-black border border-gray-900 text-white placeholder-gray-600 focus:outline-none focus:border-gray-700 font-light"

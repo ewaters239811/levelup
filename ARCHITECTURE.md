@@ -125,13 +125,12 @@ app/page.tsx (Home)
 
 ### **Main App State** (`app/page.tsx`)
 ```typescript
-type AppState = 'landing' | 'quiz' | 'email' | 'result';
+type AppState = 'landing' | 'quiz' | 'result';
 
 state: AppState                    // Current app phase
 currentQuestionIndex: number        // Which question (0-9)
 answers: Record<number, string>     // Question ID → Option ID
 result: ArchetypeKey | null         // Calculated archetype
-userEmail: string                  // Collected email
 ```
 
 ### **Data Flow**
@@ -154,12 +153,11 @@ interface QuizResult {
   timestamp: number;               // Date.now()
   date: string;                   // ISO string
   answers: Record<number, string>; // Question ID → Option ID
-  email?: string;                 // Optional email
 }
 ```
 
 ### **Functions** (`lib/analytics.ts`):
-- `saveResult()` - Save quiz result + email
+- `saveResult()` - Save quiz result
 - `getResults()` - Get all results
 - `getArchetypeCounts()` - Count by archetype
 - `exportResults()` - Export as JSON
@@ -194,8 +192,8 @@ type ArchetypeKey =
 
 | Route | Component | Purpose |
 |-------|-----------|---------|
-| `/` | `app/page.tsx` | Main SPA (landing → quiz → email → result) |
-| `/admin` | `app/admin/page.tsx` | View emails from localStorage |
+| `/` | `app/page.tsx` | Main landing / assessment flow |
+| `/admin` | `app/admin/page.tsx` | View quiz completions from localStorage |
 | `/analytics` | `app/analytics/page.tsx` | View quiz analytics from localStorage |
 
 ---
@@ -267,7 +265,6 @@ Previously used:
 4. **Analytics**
    - Local storage tracking
    - Archetype distribution
-   - Email collection (optional)
 
 5. **Responsive Design**
    - Mobile-first approach
@@ -291,9 +288,6 @@ User Input
                                     [Dominant Archetype]
                                               │
                                               ▼
-                                    [Email Capture]
-                                              │
-                                              ▼
                                     [Save to localStorage]
                                               │
                                               ▼
@@ -314,10 +308,8 @@ User Input
 
 ## 🎯 Future Enhancements (Not Implemented)
 
-- Server-side email storage
 - User authentication
 - Multi-device sync
-- Email notifications
 - Analytics dashboard with charts
 - A/B testing for questions
 

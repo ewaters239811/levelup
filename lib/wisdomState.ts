@@ -39,7 +39,7 @@ export function getDefaultFrequencyScores(): FrequencyScores {
 export function createUserStateFromQuiz(
   archetypeKey: ArchetypeKey,
   aiInterpretation: AIInterpretation | null,
-  userEmail?: string
+  userId?: string
 ): UserState {
   const archetype = archetypeKeyToTag(archetypeKey);
   
@@ -55,7 +55,7 @@ export function createUserStateFromQuiz(
   };
 
   return {
-    user_id: userEmail || `user_${Date.now()}`,
+    user_id: userId || `user_${Date.now()}`,
     archetype,
     frequency_scores: getDefaultFrequencyScores(),
     heaven_score: 0.3, // Start in moderate survival mode
