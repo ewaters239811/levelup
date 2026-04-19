@@ -51,7 +51,7 @@ export default function LandingPage() {
 
         <div className="pt-6">
           <Link
-            href="/assessment"
+            href="/weekly"
             className="
               inline-block px-8 py-3 bg-white text-black
               font-medium text-sm tracking-wide uppercase
