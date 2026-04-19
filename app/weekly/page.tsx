@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import BlogListenControls from '@/components/BlogListenControls';
 import PageBack from '@/components/PageBack';
+import WeeklyBlogSubscribe from '@/components/WeeklyBlogSubscribe';
 import { currentWeeklyPost, type PostBlock } from '@/data/weeklyPost';
 import { weeklyPostToPlainSpeechText } from '@/lib/weeklyPostSpeech';
 
@@ -68,6 +69,7 @@ export default function WeeklyPage() {
         </header>
 
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
+        <WeeklyBlogSubscribe />
 
         <div className="space-y-12">
           {post.sections.map((section) => (
