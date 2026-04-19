@@ -22,7 +22,12 @@ export async function POST(request: NextRequest) {
         {
           error: 'Signups are not enabled on the server yet.',
           hint:
-            'Add Upstash Redis: UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN. Set WEEKLY_ADMIN_SECRET to view addresses at /admin/weekly-subscribers. Redeploy after saving env vars.',
+            'This app only stores emails in Upstash Redis. In your host (e.g. Vercel → Settings → Environment Variables), add BOTH:\n' +
+            '• UPSTASH_REDIS_REST_URL\n' +
+            '• UPSTASH_REDIS_REST_TOKEN\n' +
+            '(Copy from Upstash → your database → REST API → “.env” snippet. If Vercel’s integration named them KV_REST_API_URL / KV_REST_API_TOKEN, those work too.)\n\n' +
+            'WEEKLY_ADMIN_SECRET is only for viewing the list at /admin/weekly-subscribers — it is not required for someone to subscribe.\n\n' +
+            'After saving env vars, redeploy — new variables are not picked up until a new deployment.',
         },
         { status: 503 }
       );
