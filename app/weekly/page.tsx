@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import BlogListenControls from '@/components/BlogListenControls';
 import PageBack from '@/components/PageBack';
 import { currentWeeklyPost, type PostBlock } from '@/data/weeklyPost';
+import { weeklyPostToPlainSpeechText } from '@/lib/weeklyPostSpeech';
 
 function Block({ block }: { block: PostBlock }) {
   switch (block.kind) {
@@ -37,6 +39,7 @@ function Block({ block }: { block: PostBlock }) {
 
 export default function WeeklyPage() {
   const post = currentWeeklyPost;
+  const speechText = weeklyPostToPlainSpeechText(post);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-100 to-stone-200 px-4 py-10 pb-24 text-neutral-900">
@@ -63,6 +66,8 @@ export default function WeeklyPage() {
             {post.title}
           </h1>
         </header>
+
+        <BlogListenControls key={post.weekOfLabel} text={speechText} />
 
         <div className="space-y-12">
           {post.sections.map((section) => (
