@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-
-const resend = process.env.RESEND_API_KEY
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
+import { getRedis, WEEKLY_SUBSCRIBERS_SET_KEY } from '@/lib/redis';
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -20,44 +17,74 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!resend) {
-      return NextResponse.json(
-        { error: 'Email service not configured.' },
-        { status: 503 }
-      );
+    const normalized = email.trim().toLowerCase();
+
+    const redis = getRedis();
+    let storedInRedis = false;
+    if (redis) {
+      await redis.sadd(WEEKLY_SUBSCRIBERS_SET_KEY, normalized);
+      storedInRedis = true;
     }
 
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
-    if (!audienceId) {
+    const apiKey = process.env.RESEND_API_KEY?.trim();
+    const ownerInbox = process.env.WEEKLY_SUBSCRIBER_OWNER_EMAIL?.trim();
+    const fromEmail =
+      process.env.RESEND_FROM_EMAIL?.trim() ||
+      'Level-Up Diagnostic <onboarding@resend.dev>';
+
+    let notifiedOwner = false;
+    if (apiKey && ownerInbox) {
+      const resend = new Resend(apiKey);
+      const { error } = await resend.emails.send({
+        from: fromEmail,
+        to: ownerInbox,
+        subject: `[Weekly blog] New subscriber: ${normalized}`,
+        text: [
+          'New weekly blog signup',
+          '',
+          `Email: ${normalized}`,
+          `Time (UTC): ${new Date().toISOString()}`,
+          '',
+          storedInRedis
+            ? 'This address was also saved to your private subscriber list (Upstash).'
+            : 'This address was NOT saved to Upstash — add UPSTASH_REDIS_* env vars if you want a copy/paste list in /admin/weekly-subscribers.',
+        ].join('\n'),
+      });
+      if (error) {
+        console.error('Weekly subscribe notify email error:', error);
+        if (!storedInRedis) {
+          return NextResponse.json(
+            {
+              error: 'Could not record signup.',
+              hint:
+                typeof error === 'object' && error && 'message' in error
+                  ? String((error as { message: unknown }).message)
+                  : 'Check RESEND_API_KEY and RESEND_FROM_EMAIL.',
+            },
+            { status: 500 }
+          );
+        }
+      } else {
+        notifiedOwner = true;
+      }
+    }
+
+    if (!storedInRedis && !notifiedOwner) {
       return NextResponse.json(
         {
-          error:
-            'Missing RESEND_AUDIENCE_ID. Create an Audience in Resend and add its ID to env vars.',
+          error: 'Subscriber capture is not set up yet.',
+          hint:
+            'Pick at least one:\n' +
+            '• Private list you open in the browser: add Upstash Redis (UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN), set WEEKLY_ADMIN_SECRET, then visit /admin/weekly-subscribers.\n' +
+            '• Or email-only: set RESEND_API_KEY and WEEKLY_SUBSCRIBER_OWNER_EMAIL (and RESEND_FROM_EMAIL if needed) — you get one email per signup and can mail people manually.',
         },
         { status: 503 }
       );
     }
 
-    // Keep typed loosely for SDK compatibility across minor versions.
-    const contactsApi = (resend as unknown as { contacts: { create: Function } })
-      .contacts;
-
-    try {
-      await contactsApi.create({
-        audienceId,
-        email: email.trim().toLowerCase(),
-        unsubscribed: false,
-      });
-    } catch (err) {
-      // If already exists, still return success for idempotent UX.
-      const msg = err instanceof Error ? err.message.toLowerCase() : '';
-      if (!msg.includes('already') && !msg.includes('exists')) {
-        throw err;
-      }
-    }
-
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, storedInRedis, notifiedOwner });
   } catch (error) {
+    console.error('subscribe-weekly:', error);
     return NextResponse.json(
       {
         error: 'Could not subscribe right now.',

@@ -23,7 +23,12 @@ export default function WeeklyBlogSubscribe() {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data?.error || 'Failed to subscribe');
+        const base = data?.error || 'Failed to subscribe';
+        const hint =
+          typeof data?.hint === 'string' && data.hint.trim()
+            ? `\n\n${data.hint.trim()}`
+            : '';
+        throw new Error(`${base}${hint}`);
       }
 
       setStatus('success');
@@ -66,7 +71,7 @@ export default function WeeklyBlogSubscribe() {
         <p
           className={`text-xs font-light ${
             status === 'success' ? 'text-emerald-700' : 'text-red-700'
-          }`}
+          } ${status === 'error' ? 'whitespace-pre-wrap' : ''}`}
         >
           {message}
         </p>
