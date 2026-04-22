@@ -57,26 +57,26 @@ export default function AssessmentPage() {
   const allAnswered = Object.values(scores).some((score) => score > 0);
 
   return (
-    <div className="min-h-screen bg-black px-4 py-12 relative overflow-hidden">
+    <div className="bronze-shell min-h-screen px-4 py-12 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-96 h-96 bg-white/3 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-white/3 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-orange-400/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="w-full max-w-2xl mx-auto space-y-12 relative z-10">
+      <div className="bronze-panel w-full max-w-2xl mx-auto space-y-12 relative z-10 rounded-3xl px-6 py-8 md:px-10">
         <div className="flex items-start justify-between gap-4 pt-8">
           <PageBack />
-          <p className="text-xs text-gray-600 font-light tracking-widest uppercase shrink-0 pt-0.5">
+          <p className="text-xs text-amber-200/60 font-light tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
         <div className="text-center space-y-3">
-          <h1 className="text-3xl md:text-4xl font-light text-white">
+          <h1 className="text-3xl md:text-4xl font-light text-amber-50 text-glow">
             Identity Collapse Index
           </h1>
-          <p className="text-sm text-gray-500 font-light">
+          <p className="text-sm text-amber-100/65 font-light">
             Rate each: 0 (not at all) → 10 (completely)
           </p>
         </div>
@@ -85,15 +85,15 @@ export default function AssessmentPage() {
           {QUESTIONS.map((question, index) => (
             <div key={question.id} className="space-y-2">
               <div className="flex items-start gap-3">
-                <span className="text-gray-600 font-light text-sm mt-1 min-w-[2rem]">
+                <span className="text-amber-200/45 font-light text-sm mt-1 min-w-[2rem]">
                   {index + 1}
                 </span>
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                    <h3 className="text-xs font-medium text-amber-200/60 uppercase tracking-wider mb-2">
                       {question.label}
                     </h3>
-                    <p className="text-base font-light text-gray-300 leading-relaxed">
+                    <p className="text-base font-light text-amber-50/85 leading-relaxed">
                       {question.text}
                     </p>
                   </div>
@@ -109,21 +109,21 @@ export default function AssessmentPage() {
           ))}
         </div>
 
-        <div className="pt-8 border-t border-gray-900">
+        <div className="pt-8 border-t border-amber-900/50">
           <button
             onClick={handleCalculate}
             disabled={!allAnswered}
             className="
-              w-full px-8 py-3 bg-white text-black
+              bronze-button-primary w-full px-8 py-3
               font-medium text-sm tracking-wide uppercase
-              hover:bg-gray-200 transition-all duration-200
-              disabled:bg-gray-900 disabled:text-gray-600 disabled:cursor-not-allowed
+              transition-all duration-200
+              disabled:bg-amber-950/40 disabled:text-amber-100/30 disabled:cursor-not-allowed
               relative overflow-hidden group
             "
           >
             <span className="relative z-10">Calculate Index</span>
             {allAnswered && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-50/40 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
             )}
           </button>
         </div>

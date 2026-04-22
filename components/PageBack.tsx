@@ -9,7 +9,7 @@ type PageBackProps = {
 };
 
 const toneClasses: Record<NonNullable<PageBackProps['tone']>, string> = {
-  dark: 'text-gray-500 hover:text-gray-300 focus-visible:ring-gray-500',
+  dark: 'text-amber-200/60 hover:text-amber-100 focus-visible:ring-amber-300/70',
   light:
     'text-neutral-600 hover:text-neutral-950 focus-visible:ring-neutral-400',
 };

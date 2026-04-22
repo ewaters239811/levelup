@@ -8,34 +8,80 @@
   }
 
   body {
-    @apply bg-black text-gray-100 antialiased;
+    @apply antialiased;
     font-family: var(--font-inter);
-    background-image: 
-      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
-      linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+    color: #f7ede1;
+    background-color: #160f0a;
+    background-image:
+      radial-gradient(circle at 14% 12%, rgba(217, 119, 6, 0.25) 0%, transparent 42%),
+      radial-gradient(circle at 84% 78%, rgba(251, 191, 36, 0.15) 0%, transparent 42%),
+      linear-gradient(rgba(255, 213, 162, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 213, 162, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px;
   }
 }
 
 @layer utilities {
+  .bronze-shell {
+    background-color: #160f0a;
+    background-image:
+      radial-gradient(circle at 12% 0%, rgba(217, 119, 6, 0.2) 0%, transparent 48%),
+      radial-gradient(circle at 88% 100%, rgba(251, 191, 36, 0.14) 0%, transparent 44%);
+  }
+
+  .bronze-panel {
+    background: linear-gradient(
+      145deg,
+      rgba(58, 33, 20, 0.62) 0%,
+      rgba(33, 20, 13, 0.82) 100%
+    );
+    border: 1px solid rgba(251, 191, 36, 0.22);
+    box-shadow:
+      0 1px 0 rgba(255, 233, 194, 0.1) inset,
+      0 22px 36px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(2px);
+  }
+
+  .bronze-button-primary {
+    background: linear-gradient(180deg, #fcd68b 0%, #d7a646 100%);
+    color: #2e1a0f;
+    box-shadow:
+      0 1px 0 rgba(255, 248, 224, 0.55) inset,
+      0 10px 20px rgba(0, 0, 0, 0.28);
+  }
+
+  .bronze-button-primary:hover {
+    background: linear-gradient(180deg, #fde0a3 0%, #e2b455 100%);
+  }
+
+  .bronze-button-secondary {
+    border: 1px solid rgba(217, 119, 6, 0.55);
+    background: rgba(86, 45, 24, 0.28);
+    color: rgba(255, 236, 203, 0.9);
+  }
+
+  .bronze-button-secondary:hover {
+    border-color: rgba(251, 191, 36, 0.85);
+    background: rgba(132, 71, 40, 0.35);
+    color: #fff3dc;
+  }
+
   .text-glow {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
   }
   
   .border-glow {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 14px rgba(217, 119, 6, 0.16);
   }
 
   .gradient-mask {
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(22, 15, 10, 0.86) 100%);
   }
 
   .tech-grid {
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-image:
+      linear-gradient(rgba(255, 213, 162, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 213, 162, 0.05) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 }

@@ -42,12 +42,16 @@ export default function WeeklyPage() {
   const speechText = weeklyPostToPlainSpeechText(post);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-100 to-stone-200 px-4 py-10 pb-24 text-neutral-900">
+    <div className="min-h-screen bg-gradient-to-b from-[#f6ead9] via-[#ecd2ad] to-[#d6b083] px-4 py-10 pb-24 text-neutral-900 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-8 left-1/3 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl" />
+      </div>
       <article
         className="
-          w-full max-w-2xl mx-auto relative z-10 space-y-10
-          rounded-2xl border border-stone-200/90 bg-stone-50
-          px-6 py-10 shadow-sm shadow-stone-900/10
+          bronze-panel w-full max-w-2xl mx-auto relative z-10 space-y-10
+          rounded-2xl border border-amber-300/70 bg-[#fbf3e6]/95
+          px-6 py-10 shadow-lg shadow-amber-900/15
           sm:px-10 sm:py-12
         "
       >
@@ -58,11 +62,11 @@ export default function WeeklyPage() {
           </p>
         </div>
 
-        <header className="space-y-3 border-b border-stone-200 pb-8">
-          <p className="text-xs text-neutral-500 font-light uppercase tracking-wider">
+        <header className="space-y-3 border-b border-amber-300/70 pb-8">
+          <p className="text-xs text-amber-900/55 font-light uppercase tracking-wider">
             Weekly · {post.weekOfLabel}
           </p>
-          <h1 className="text-2xl md:text-3xl font-light text-neutral-950 leading-snug tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-light text-[#3b2617] leading-snug tracking-tight">
             {post.title}
           </h1>
         </header>
@@ -84,21 +88,21 @@ export default function WeeklyPage() {
           ))}
         </div>
 
-        <footer className="pt-8 border-t border-stone-200 space-y-4">
-          <p className="text-sm text-neutral-600 font-light">
+        <footer className="pt-8 border-t border-amber-300/70 space-y-4">
+          <p className="text-sm text-amber-900/70 font-light">
             When you are ready, continue to the four-question diagnostic.
           </p>
           <Link
             href="/assessment"
             className="
-              inline-block w-full text-center px-8 py-3 bg-neutral-900 text-white
+              bronze-button-primary inline-block w-full text-center px-8 py-3
               font-medium text-sm tracking-wide uppercase
-              hover:bg-neutral-800 transition-all duration-200
+              transition-all duration-200
               relative overflow-hidden group rounded-sm
             "
           >
             <span className="relative z-10">Continue to assessment</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-100/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
           </Link>
         </footer>
       </article>

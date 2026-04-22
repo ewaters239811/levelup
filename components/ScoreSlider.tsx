@@ -27,12 +27,12 @@ export default function ScoreSlider({ value, onChange, label, questionId }: Scor
         max="10"
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value))}
-        className="w-full h-1 bg-gray-900 rounded-lg appearance-none cursor-pointer accent-white"
+        className="w-full h-1 rounded-lg appearance-none cursor-pointer accent-amber-400"
         style={{
-          background: `linear-gradient(to right, #fff 0%, #fff ${(value / 10) * 100}%, #1a1a1a ${(value / 10) * 100}%, #1a1a1a 100%)`
+          background: `linear-gradient(to right, #fbbf24 0%, #fbbf24 ${(value / 10) * 100}%, #3f2a1f ${(value / 10) * 100}%, #3f2a1f 100%)`
         }}
       />
-      <div className="flex justify-between text-xs text-gray-600 font-light">
+      <div className="flex justify-between text-xs text-amber-200/55 font-light">
         <span>Not at all</span>
         <span>Completely</span>
       </div>

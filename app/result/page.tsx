@@ -44,8 +44,8 @@ function ResultContent() {
 
   if (score === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="text-gray-500">Loading...</div>
+      <div className="bronze-shell min-h-screen flex items-center justify-center">
+        <div className="text-amber-100/65">Loading...</div>
       </div>
     );
   }
@@ -62,36 +62,36 @@ function ResultContent() {
   }
 
   return (
-    <div className="min-h-screen bg-black px-4 py-12 relative overflow-hidden">
+    <div className="bronze-shell min-h-screen px-4 py-12 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-orange-400/15 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="w-full max-w-2xl mx-auto space-y-12 relative z-10">
+      <div className="bronze-panel w-full max-w-2xl mx-auto space-y-12 relative z-10 rounded-3xl px-6 py-8 md:px-10">
         <div className="flex items-start justify-between gap-4 pt-8">
           <PageBack />
-          <p className="text-xs text-gray-600 font-light tracking-widest uppercase shrink-0 pt-0.5">
+          <p className="text-xs text-amber-200/60 font-light tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
         <div className="text-center space-y-6">
           <div className="space-y-2">
-            <p className="text-xs text-gray-500 font-light uppercase tracking-wider">
+            <p className="text-xs text-amber-200/60 font-light uppercase tracking-wider">
               Your Identity Collapse Index
             </p>
-            <h1 className="text-6xl md:text-7xl font-light text-white">
-              {score} <span className="text-gray-600">/ 40</span>
+            <h1 className="text-6xl md:text-7xl font-light text-amber-50 text-glow">
+              {score} <span className="text-amber-200/40">/ 40</span>
             </h1>
           </div>
 
           <div className="pt-8 space-y-4">
-            <h2 className="text-2xl md:text-3xl font-light text-white">
+            <h2 className="text-2xl md:text-3xl font-light text-amber-50">
               {archetype.name}
             </h2>
-            <p className="text-base text-gray-400 font-light leading-relaxed max-w-lg mx-auto">
+            <p className="text-base text-amber-100/75 font-light leading-relaxed max-w-lg mx-auto">
               {archetype.diagnosis}
             </p>
           </div>
@@ -99,11 +99,11 @@ function ResultContent() {
 
         {/* Identity Diagnosis Section */}
         <div className="pt-12 space-y-6 max-w-2xl mx-auto">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider text-center">
+          <h3 className="text-sm font-medium text-amber-200/60 uppercase tracking-wider text-center">
             Identity Diagnosis
           </h3>
           
-          <div className="space-y-5 text-gray-300 font-light leading-relaxed text-sm md:text-base">
+          <div className="space-y-5 text-amber-50/85 font-light leading-relaxed text-sm md:text-base">
             <p>
               Your Collapse Index score doesn't measure your potential — it measures the identity you're currently loyal to.
             </p>
@@ -117,13 +117,13 @@ function ResultContent() {
               <p>
                 The question is no longer:
               </p>
-              <p className="text-gray-400 italic pl-4">
+              <p className="text-amber-100/70 italic pl-4">
                 "Can I do it?"
               </p>
               <p>
                 The real question is:
               </p>
-              <p className="text-gray-400 italic pl-4">
+              <p className="text-amber-100/70 italic pl-4">
                 "Is the identity I'm using capable of holding the life I'm asking for?"
               </p>
             </div>
@@ -131,24 +131,24 @@ function ResultContent() {
         </div>
 
         <div className="pt-12 space-y-6">
-          <p className="text-sm text-gray-500 font-light text-center max-w-xl mx-auto">
+          <p className="text-sm text-amber-100/65 font-light text-center max-w-xl mx-auto">
             If you want to know whether your current identity structure qualifies you for identity reconstruction work, continue below.
           </p>
 
-          <div className="border-t border-gray-900 pt-8">
+          <div className="border-t border-amber-900/50 pt-8">
             <a
               href="https://form.jotform.com/253348372678065"
               target="_blank"
               rel="noopener noreferrer"
               className="
-                block w-full text-center px-8 py-3 bg-white text-black
+                bronze-button-primary block w-full text-center px-8 py-3
                 font-medium text-sm tracking-wide uppercase
-                hover:bg-gray-200 transition-all duration-200
+                transition-all duration-200
                 relative overflow-hidden group
               "
             >
               <span className="relative z-10">See If I'm Qualified</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-50/40 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
             </a>
           </div>
         </div>
@@ -160,8 +160,8 @@ function ResultContent() {
 export default function ResultPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="text-gray-500">Loading...</div>
+      <div className="bronze-shell min-h-screen flex items-center justify-center">
+        <div className="text-amber-100/65">Loading...</div>
       </div>
     }>
       <ResultContent />
