@@ -8,25 +8,25 @@ function Block({ block }: { block: PostBlock }) {
   switch (block.kind) {
     case 'p':
       return (
-        <p className="text-base font-light text-neutral-800 leading-relaxed">
+        <p className="text-base font-normal text-[#2f2118] leading-relaxed">
           {block.text}
         </p>
       );
     case 'h3':
       return (
-        <h3 className="text-sm font-medium text-neutral-600 uppercase tracking-wider pt-2">
+        <h3 className="text-sm font-semibold text-[#5b3a24] uppercase tracking-wider pt-2">
           {block.text}
         </h3>
       );
     case 'quote':
       return (
-        <blockquote className="border-l-2 border-stone-300 pl-4 my-6 text-neutral-700 font-light italic text-base leading-relaxed bg-stone-100/80 py-3 pr-2 rounded-r-sm">
+        <blockquote className="border-l-2 border-[#c2905e] pl-4 my-6 text-[#4a311f] font-normal italic text-base leading-relaxed bg-[#f4e3cf] py-3 pr-2 rounded-r-sm">
           {block.text}
         </blockquote>
       );
     case 'ul':
       return (
-        <ul className="list-disc pl-5 space-y-3 text-base font-light text-neutral-800 leading-relaxed marker:text-neutral-500">
+        <ul className="list-disc pl-5 space-y-3 text-base font-normal text-[#2f2118] leading-relaxed marker:text-[#7a4d2d]">
           {block.items.map((item, idx) => (
             <li key={idx}>{item}</li>
           ))}
@@ -42,31 +42,31 @@ export default function WeeklyPage() {
   const speechText = weeklyPostToPlainSpeechText(post);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f6ead9] via-[#ecd2ad] to-[#d6b083] px-4 py-10 pb-24 text-neutral-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-[#fcf4e9] via-[#f7ead8] to-[#efd8ba] px-4 py-10 pb-24 text-neutral-900 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-8 left-1/3 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl" />
+        <div className="absolute -top-8 left-1/3 w-80 h-80 bg-amber-400/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-300/10 rounded-full blur-3xl" />
       </div>
       <article
         className="
-          bronze-panel w-full max-w-2xl mx-auto relative z-10 space-y-10
-          rounded-2xl border border-amber-300/70 bg-[#fbf3e6]/95
-          px-6 py-10 shadow-lg shadow-amber-900/15
+          w-full max-w-2xl mx-auto relative z-10 space-y-10
+          rounded-2xl border border-[#dab793] bg-[#fffaf2]
+          px-6 py-10 shadow-lg shadow-amber-900/10
           sm:px-10 sm:py-12
         "
       >
         <div className="flex items-start justify-between gap-4">
           <PageBack tone="light" />
-          <p className="text-xs text-neutral-500 font-light tracking-widest uppercase shrink-0 pt-0.5">
+          <p className="text-xs text-[#7d563b] font-medium tracking-widest uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
-        <header className="space-y-3 border-b border-amber-300/70 pb-8">
-          <p className="text-xs text-amber-900/55 font-light uppercase tracking-wider">
+        <header className="space-y-3 border-b border-[#d8b28c] pb-8">
+          <p className="text-xs text-[#8e6242] font-medium uppercase tracking-wider">
             Weekly · {post.weekOfLabel}
           </p>
-          <h1 className="text-2xl md:text-3xl font-light text-[#3b2617] leading-snug tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-medium text-[#2a1a0f] leading-snug tracking-tight">
             {post.title}
           </h1>
         </header>
@@ -76,7 +76,7 @@ export default function WeeklyPage() {
         <div className="space-y-12">
           {post.sections.map((section) => (
             <section key={section.title} className="space-y-4">
-              <h2 className="text-lg md:text-xl font-light text-neutral-900">
+              <h2 className="text-lg md:text-xl font-semibold text-[#3f2a1c]">
                 {section.title}
               </h2>
               <div className="space-y-4">
@@ -88,8 +88,8 @@ export default function WeeklyPage() {
           ))}
         </div>
 
-        <footer className="pt-8 border-t border-amber-300/70 space-y-4">
-          <p className="text-sm text-amber-900/70 font-light">
+        <footer className="pt-8 border-t border-[#d8b28c] space-y-4">
+          <p className="text-sm text-[#6b4a33] font-normal">
             When you are ready, continue to the four-question diagnostic.
           </p>
           <Link
