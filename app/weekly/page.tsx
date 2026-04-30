@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import BlogListenControls from '@/components/BlogListenControls';
 import PageBack from '@/components/PageBack';
+import WeeklyViewCounts from '@/components/WeeklyViewCounts';
 import { currentWeeklyPost, weeklyPosts, type PostBlock } from '@/data/weeklyPost';
 import { weeklyPostToPlainSpeechText } from '@/lib/weeklyPostSpeech';
 
@@ -79,31 +80,7 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
           </h1>
         </header>
 
-        {weeklyPosts.length > 1 && (
-          <section className="space-y-3 border-b border-[#e2c3a4] pb-6">
-            <p className="text-xs uppercase tracking-wider text-[#8e6242] font-semibold">
-              Previous Notes
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {weeklyPosts.map((entry) => {
-                const isActive = entry.slug === post.slug;
-                return (
-                  <Link
-                    key={entry.slug}
-                    href={`/weekly?post=${entry.slug}`}
-                    className={`px-3 py-1.5 rounded-sm text-xs uppercase tracking-wide transition-colors ${
-                      isActive
-                        ? 'bg-[#7a4d2d] text-amber-50'
-                        : 'bg-[#f4e3cf] text-[#6b4a33] hover:bg-[#ecd3b6]'
-                    }`}
-                  >
-                    {entry.weekOfLabel}
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
+        <WeeklyViewCounts posts={weeklyPosts} activeSlug={post.slug} />
 
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
 
