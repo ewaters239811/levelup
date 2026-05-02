@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BeehiivSubscribeEmbed from '@/components/BeehiivSubscribeEmbed';
 import BlogListenControls from '@/components/BlogListenControls';
 import PageBack from '@/components/PageBack';
 import { currentWeeklyPost, weeklyPosts, type PostBlock } from '@/data/weeklyPost';
@@ -106,6 +107,8 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
         )}
 
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
+
+        <BeehiivSubscribeEmbed />
 
         <div className="space-y-12">
           {post.sections.map((section) => (
