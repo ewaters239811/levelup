@@ -1,8 +1,25 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
-const SCRIPT_URL = process.env.NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_SCRIPT_URL;
+function normalizeBeehiivScriptUrl(raw: string | undefined): string | null {
+  if (!raw) return null;
+  let u = raw.trim();
+  if (
+    (u.startsWith('"') && u.endsWith('"')) ||
+    (u.startsWith("'") && u.endsWith("'"))
+  ) {
+    u = u.slice(1, -1).trim();
+  }
+  if (!u.startsWith('http')) return null;
+  // Common mistake: use the form embed URL, not attribution.js
+  if (u.includes('attribution.js')) return null;
+  return u;
+}
+
+const SCRIPT_URL = normalizeBeehiivScriptUrl(
+  process.env.NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_SCRIPT_URL,
+);
 
 /**
  * Inline Beehiiv subscribe form.
@@ -21,25 +38,25 @@ const SCRIPT_URL = process.env.NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_SCRIPT_URL;
 export default function BeehiivSubscribeEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_SCRIPT_URL;
+  // useLayoutEffect + no cleanup: Beehiiv's embed.js sets a global singleton
+  // (`beehiivEmbedLoaded`). React Strict Mode runs effects twice; removing the
+  // script in cleanup can abort the first load so the second load skips init.
+  useLayoutEffect(() => {
+    const url = normalizeBeehiivScriptUrl(
+      process.env.NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_SCRIPT_URL,
+    );
     if (!url || typeof window === 'undefined') return;
 
     const el = containerRef.current;
     if (!el) return;
 
-    const already = el.querySelector('script[data-beehiiv-app-embed]');
-    if (already) return;
+    if (el.querySelector('script[src*="beehiiv.com"]')) return;
 
     const script = document.createElement('script');
+    script.type = 'text/javascript';
     script.async = true;
     script.src = url;
-    script.dataset.beehiivAppEmbed = '1';
     el.appendChild(script);
-
-    return () => {
-      el.replaceChildren();
-    };
   }, []);
 
   if (!SCRIPT_URL?.trim()) {
@@ -54,7 +71,11 @@ export default function BeehiivSubscribeEmbed() {
       <p className="text-xs font-semibold uppercase tracking-wider text-[#8e6242] mb-3">
         Get the weekly note by email
       </p>
-      <div ref={containerRef} className="min-h-[4rem] w-full" />
+      <div
+        ref={containerRef}
+        className="min-h-[12rem] w-full overflow-visible"
+        data-beehiiv-inline-host
+      />
     </section>
   );
 }
