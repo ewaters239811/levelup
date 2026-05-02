@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import BeehiivSubscribeEmbed from '@/components/BeehiivSubscribeEmbed';
 import BlogListenControls from '@/components/BlogListenControls';
 import PageBack from '@/components/PageBack';
 import { currentWeeklyPost, weeklyPosts, type PostBlock } from '@/data/weeklyPost';
@@ -51,7 +50,7 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
   const speechText = weeklyPostToPlainSpeechText(post);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#fcf4e9] via-[#f7ead8] to-[#efd8ba] px-4 py-10 pb-24 text-neutral-900 relative overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-[#fcf4e9] via-[#f7ead8] to-[#efd8ba] px-4 py-10 pb-24 text-neutral-900 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-8 left-1/3 w-80 h-80 bg-amber-400/15 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-orange-300/10 rounded-full blur-3xl" />
@@ -107,8 +106,6 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
         )}
 
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
-
-        <BeehiivSubscribeEmbed />
 
         <div className="space-y-12">
           {post.sections.map((section) => (
