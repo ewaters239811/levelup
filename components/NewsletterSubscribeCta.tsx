@@ -1,8 +1,8 @@
 import { getBeehiivSubscribeUrl } from '@/lib/beehiivSubscribeUrl';
 
 type NewsletterSubscribeCtaProps = {
-  /** `weekly` = card on /weekly reader; `landing` = slim link on home. */
-  variant?: 'weekly' | 'landing';
+  /** `weekly` = card; `landing` = slim link on home; `compact` = one line at page foot. */
+  variant?: 'weekly' | 'landing' | 'compact';
 };
 
 /** Hides when `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` is unset. */
@@ -11,6 +11,21 @@ export default function NewsletterSubscribeCta({
 }: NewsletterSubscribeCtaProps) {
   const href = getBeehiivSubscribeUrl();
   if (!href) return null;
+
+  if (variant === 'compact') {
+    return (
+      <p className="text-center text-[11px] text-[#8e6242]/90 font-normal">
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 decoration-[#c2905e]/40 hover:text-[#5b3a24]"
+        >
+          Newsletter on beehiiv
+        </a>
+      </p>
+    );
+  }
 
   if (variant === 'landing') {
     return (

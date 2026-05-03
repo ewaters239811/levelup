@@ -109,11 +109,6 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
 
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
 
-        <div className="space-y-4">
-          <BeehiivV3SubscribeSlot />
-          <NewsletterSubscribeCta />
-        </div>
-
         <div className="space-y-12">
           {post.sections.map((section) => (
             <section key={section.title} className="space-y-4">
@@ -129,22 +124,28 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
           ))}
         </div>
 
-        <footer className="pt-8 border-t border-[#d8b28c] space-y-4">
-          <p className="text-sm text-[#6b4a33] font-normal">
-            When you are ready, continue to the four-question diagnostic.
-          </p>
-          <Link
-            href="/assessment"
-            className="
+        <footer className="pt-8 border-t border-[#d8b28c] space-y-6">
+          <div className="space-y-4">
+            <p className="text-sm text-[#6b4a33] font-normal">
+              When you are ready, continue to the four-question diagnostic.
+            </p>
+            <Link
+              href="/assessment"
+              className="
               bronze-button-primary inline-block w-full text-center px-8 py-3
               font-medium text-sm tracking-wide uppercase
               transition-all duration-200
               relative overflow-hidden group rounded-sm
             "
-          >
-            <span className="relative z-10">Continue to assessment</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-100/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-          </Link>
+            >
+              <span className="relative z-10">Continue to assessment</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-100/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            </Link>
+          </div>
+          <div className="space-y-2 border-t border-[#ead4be] pt-5">
+            <BeehiivV3SubscribeSlot compact />
+            <NewsletterSubscribeCta variant="compact" />
+          </div>
         </footer>
       </article>
     </div>
