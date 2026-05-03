@@ -1,6 +1,5 @@
-'use client';
-
 import Link from 'next/link';
+import NewsletterSubscribeCta from '@/components/NewsletterSubscribeCta';
 
 export default function LandingPage() {
   return (
@@ -73,6 +72,8 @@ export default function LandingPage() {
             Weekly blog
           </Link>
         </div>
+
+        <NewsletterSubscribeCta variant="landing" />
 
         <p className="text-xs text-amber-200/55 font-light">
           2 minutes
