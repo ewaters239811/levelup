@@ -1,6 +1,7 @@
 /**
  * Weekly blog posts shown before the Identity Collapse Index assessment.
- * Keep newest post first in `weeklyPosts`.
+ * Only `currentWeeklyPost` (newest, `weeklyPosts[0]`) is shown on `/weekly`;
+ * older entries stay in the array as your archive while drafting.
  */
 
 export type PostBlock =

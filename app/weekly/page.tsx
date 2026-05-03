@@ -3,7 +3,7 @@ import BeehiivV3SubscribeSlot from '@/components/BeehiivV3SubscribeSlot';
 import BlogListenControls from '@/components/BlogListenControls';
 import NewsletterSubscribeCta from '@/components/NewsletterSubscribeCta';
 import PageBack from '@/components/PageBack';
-import { currentWeeklyPost, weeklyPosts, type PostBlock } from '@/data/weeklyPost';
+import { currentWeeklyPost, type PostBlock } from '@/data/weeklyPost';
 import { weeklyPostToPlainSpeechText } from '@/lib/weeklyPostSpeech';
 
 function Block({ block }: { block: PostBlock }) {
@@ -39,16 +39,8 @@ function Block({ block }: { block: PostBlock }) {
   }
 }
 
-type WeeklyPageProps = {
-  searchParams?: {
-    post?: string;
-  };
-};
-
-export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
-  const requestedSlug = searchParams?.post;
-  const post =
-    weeklyPosts.find((entry) => entry.slug === requestedSlug) || currentWeeklyPost;
+export default function WeeklyPage() {
+  const post = currentWeeklyPost;
   const speechText = weeklyPostToPlainSpeechText(post);
 
   return (
@@ -80,32 +72,6 @@ export default function WeeklyPage({ searchParams }: WeeklyPageProps) {
             {post.title}
           </h1>
         </header>
-
-        {weeklyPosts.length > 1 && (
-          <section className="space-y-3 border-b border-[#e2c3a4] pb-6">
-            <p className="text-xs uppercase tracking-wider text-[#8e6242] font-semibold">
-              Previous Notes
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {weeklyPosts.map((entry) => {
-                const isActive = entry.slug === post.slug;
-                return (
-                  <Link
-                    key={entry.slug}
-                    href={`/weekly?post=${entry.slug}`}
-                    className={`px-3 py-1.5 rounded-sm text-xs uppercase tracking-wide transition-colors ${
-                      isActive
-                        ? 'bg-[#7a4d2d] text-amber-50'
-                        : 'bg-[#f4e3cf] text-[#6b4a33] hover:bg-[#ecd3b6]'
-                    }`}
-                  >
-                    {entry.weekOfLabel}
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
 
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
 
