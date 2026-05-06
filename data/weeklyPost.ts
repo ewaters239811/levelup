@@ -312,10 +312,6 @@ export const weeklyPosts: WeeklyPost[] = [
             kind: 'quote',
             text: 'Your life doesn’t change when your actions change.\n\nIt changes when your emotional patterns do.',
           },
-          {
-            kind: 'p',
-            text: 'Reply and tell me: what’s one emotional pattern you’ve noticed in your own life lately?',
-          },
         ],
       },
     ],
