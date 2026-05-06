@@ -24,6 +24,303 @@ export type WeeklyPost = {
 
 export const weeklyPosts: WeeklyPost[] = [
   {
+    slug: 'emotion-trap-identity-loop-may-5-2026',
+    weekOfLabel: 'Week of May 5, 2026',
+    title: "The Identity Loop: The Emotional Trap Beneath Discipline and Strategy",
+    sections: [
+      {
+        title: "This Week's Note",
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Most people think they’re stuck because they lack discipline, strategy, or motivation.',
+          },
+          { kind: 'p', text: 'But that’s not the real trap.' },
+          { kind: 'p', text: 'The real trap is emotional.' },
+          {
+            kind: 'h3',
+            text: 'The Emotion Trap You Don’t Know You’re In',
+          },
+          {
+            kind: 'p',
+            text: 'There’s a pattern most people never notice:',
+          },
+          {
+            kind: 'p',
+            text: 'One week you’re locked in. Focused. Disciplined. Aligned.',
+          },
+          { kind: 'p', text: 'The next week? Low energy. Doubt. Self-sabotage.' },
+          { kind: 'p', text: 'Then you try again.' },
+          { kind: 'p', text: 'And the cycle repeats.' },
+          {
+            kind: 'p',
+            text: 'This isn’t random. It’s what I call the identity loop.',
+          },
+          {
+            kind: 'p',
+            text: 'Your emotions shape how you see reality.',
+          },
+          {
+            kind: 'p',
+            text: 'And how you see reality reinforces those same emotions.',
+          },
+          {
+            kind: 'p',
+            text: 'So if you feel off… you start seeing everything through that lens.',
+          },
+          {
+            kind: 'p',
+            text: 'One bad moment turns into a bad day. A bad day becomes a bad week.',
+          },
+          {
+            kind: 'p',
+            text: 'Not because of what happened—but because of how you emotionally aligned with it.',
+          },
+          {
+            kind: 'h3',
+            text: 'Emotion Is the Language of Your Reality',
+          },
+          {
+            kind: 'p',
+            text: 'The word “emotion” comes from emovere—meaning “to disturb.”',
+          },
+          {
+            kind: 'p',
+            text: 'Emotion is literally a disturbance in your internal state.',
+          },
+          { kind: 'p', text: 'But it’s more than that.' },
+          {
+            kind: 'p',
+            text: 'Emotion is the language of the universe.',
+          },
+          {
+            kind: 'p',
+            text: 'It’s how you “communicate” what you’re aligned with.',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Gratitude → expansion',
+              'Joy → flow',
+              'Scarcity → limitation',
+              'Fear → contraction',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'What you consistently feel, you reinforce.',
+          },
+          {
+            kind: 'p',
+            text: 'So guarding your energy isn’t just about avoiding negativity—it’s about being intentional with what you emotionally invest in.',
+          },
+          {
+            kind: 'h3',
+            text: 'Why You Keep Repeating the Same Patterns',
+          },
+          {
+            kind: 'p',
+            text: 'Most emotional patterns don’t start today.',
+          },
+          { kind: 'p', text: 'They were learned.' },
+          { kind: 'p', text: 'Stored.' },
+          { kind: 'p', text: 'Embedded.' },
+          {
+            kind: 'p',
+            text: 'What we call “trauma” isn’t always dramatic—it’s unresolved emotional experiences that your body never processed.',
+          },
+          {
+            kind: 'p',
+            text: 'Your body remembers:',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'How money felt in your household',
+              'How love was modeled to you',
+              'What success looked like emotionally',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'So even if you want something different…',
+          },
+          {
+            kind: 'p',
+            text: 'Your nervous system will recreate what feels familiar.',
+          },
+          {
+            kind: 'p',
+            text: 'If money was tied to stress or conflict, you won’t just chase money—you’ll recreate the same emotional experience around it.',
+          },
+          {
+            kind: 'p',
+            text: 'Desire doesn’t override conditioning.',
+          },
+          { kind: 'p', text: 'Emotion does.' },
+          {
+            kind: 'h3',
+            text: 'Breaking the Loop in Real Time',
+          },
+          { kind: 'p', text: 'You don’t break cycles by force.' },
+          { kind: 'p', text: 'You break them with awareness.' },
+          {
+            kind: 'p',
+            text: 'In the moment you feel triggered:',
+          },
+          { kind: 'p', text: 'Pause.' },
+          { kind: 'p', text: 'Breathe.' },
+          { kind: 'p', text: 'Observe.' },
+          {
+            kind: 'p',
+            text: 'Don’t immediately identify with the emotion.',
+          },
+          {
+            kind: 'p',
+            text: 'Because the second you say “this is me,” you’re already back in the loop.',
+          },
+          {
+            kind: 'p',
+            text: 'Practices like meditation and prayer aren’t abstract—they train you to separate awareness from reaction.',
+          },
+          { kind: 'p', text: 'To feel without becoming.' },
+          { kind: 'p', text: 'To observe without spiraling.' },
+          {
+            kind: 'p',
+            text: 'And here’s the key:',
+          },
+          {
+            kind: 'p',
+            text: 'Emotions have to be felt to be released.',
+          },
+          {
+            kind: 'p',
+            text: 'Suppressing them doesn’t solve anything—it stores them.',
+          },
+          {
+            kind: 'p',
+            text: 'And stored emotions compound over time.',
+          },
+          {
+            kind: 'h3',
+            text: 'Rewriting What’s Been Stored',
+          },
+          {
+            kind: 'p',
+            text: 'Real change doesn’t just happen in the present.',
+          },
+          {
+            kind: 'p',
+            text: 'It happens when you go back.',
+          },
+          {
+            kind: 'p',
+            text: 'When you revisit the emotional roots.',
+          },
+          {
+            kind: 'p',
+            text: 'Through deep reflection (or meditation), you can:',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Re-enter past experiences',
+              'Feel what you couldn’t feel then',
+              'Reimagine them in alignment with who you are now',
+            ],
+          },
+          { kind: 'p', text: 'This isn’t denial.' },
+          { kind: 'p', text: 'It’s recalibration.' },
+          {
+            kind: 'p',
+            text: 'You’re teaching your nervous system a new emotional truth.',
+          },
+          {
+            kind: 'p',
+            text: 'And once the emotion changes…',
+          },
+          {
+            kind: 'p',
+            text: 'The pattern loses its grip.',
+          },
+          {
+            kind: 'h3',
+            text: 'Triggers Aren’t Setbacks — They’re Signals',
+          },
+          {
+            kind: 'p',
+            text: 'Even after doing the work, triggers will still show up.',
+          },
+          {
+            kind: 'p',
+            text: 'That’s part of the process.',
+          },
+          {
+            kind: 'p',
+            text: 'The difference is how you respond.',
+          },
+          {
+            kind: 'p',
+            text: 'Triggers are echoes of old emotional imprints.',
+          },
+          {
+            kind: 'p',
+            text: 'They’re not here to stop you—they’re here to show you what still needs awareness.',
+          },
+          {
+            kind: 'p',
+            text: 'The moment you can see the pattern instead of react from it…',
+          },
+          {
+            kind: 'p',
+            text: 'You begin to outgrow it.',
+          },
+          {
+            kind: 'h3',
+            text: 'Emotional Authority Changes Everything',
+          },
+          {
+            kind: 'p',
+            text: 'At the highest level, this is what it comes down to:',
+          },
+          {
+            kind: 'p',
+            text: 'If you don’t have control over your emotional state… you don’t have control over your direction.',
+          },
+          {
+            kind: 'p',
+            text: 'Emotional mastery isn’t about being numb.',
+          },
+          { kind: 'p', text: 'It’s about being aware.' },
+          {
+            kind: 'p',
+            text: 'Because awareness is what breaks cycles.',
+          },
+          {
+            kind: 'p',
+            text: 'Awareness is what rewrites identity.',
+          },
+          {
+            kind: 'p',
+            text: 'Awareness is what changes your reality.',
+          },
+          {
+            kind: 'p',
+            text: 'If you take one thing from this, let it be this:',
+          },
+          {
+            kind: 'quote',
+            text: 'Your life doesn’t change when your actions change.\n\nIt changes when your emotional patterns do.',
+          },
+          {
+            kind: 'p',
+            text: 'Reply and tell me: what’s one emotional pattern you’ve noticed in your own life lately?',
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: 'alignment-trap-apr-28-2026',
     weekOfLabel: 'Week of April 28, 2026',
     title: "The Alignment Trap: Why You Know What to Do But Don't Do It",

@@ -42,12 +42,6 @@ export default function LandingPage() {
           </p>
         </div>
 
-        <div className="pt-2 max-w-md mx-auto">
-          <p className="text-sm text-amber-200/55 font-light italic border-t border-amber-900/50 pt-6">
-            I don't coach people. I reconstruct identities.
-          </p>
-        </div>
-
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/assessment"

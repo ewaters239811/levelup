@@ -22,7 +22,7 @@ function Block({ block }: { block: PostBlock }) {
       );
     case 'quote':
       return (
-        <blockquote className="border-l-2 border-[#c2905e] pl-4 my-6 text-[#4a311f] font-normal italic text-base leading-relaxed bg-[#f4e3cf] py-3 pr-2 rounded-r-sm">
+        <blockquote className="whitespace-pre-line border-l-2 border-[#c2905e] pl-4 my-6 text-[#4a311f] font-normal italic text-base leading-relaxed bg-[#f4e3cf] py-3 pr-2 rounded-r-sm">
           {block.text}
         </blockquote>
       );
