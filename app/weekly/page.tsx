@@ -73,6 +73,8 @@ export default function WeeklyPage() {
           </h1>
         </header>
 
+        <BeehiivV3SubscribeSlot variant="strip" />
+
         <BlogListenControls key={post.weekOfLabel} text={speechText} />
 
         <div className="space-y-12">
@@ -90,8 +92,15 @@ export default function WeeklyPage() {
           ))}
         </div>
 
-        <footer className="pt-8 border-t border-[#d8b28c] space-y-6">
-          <div className="space-y-4">
+        <footer className="space-y-8 border-t border-[#d8b28c] pt-8">
+          <div className="space-y-2">
+            <p className="text-center text-[11px] font-semibold uppercase tracking-wider text-[#8e6242] sm:text-left">
+              Before you go
+            </p>
+            <BeehiivV3SubscribeSlot variant="compact" />
+            <NewsletterSubscribeCta variant="compact" />
+          </div>
+          <div className="space-y-4 border-t border-[#ead4be] pt-8">
             <p className="text-sm text-[#6b4a33] font-normal">
               When you are ready, continue to the four-question diagnostic.
             </p>
@@ -107,10 +116,6 @@ export default function WeeklyPage() {
               <span className="relative z-10">Continue to assessment</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-100/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </Link>
-          </div>
-          <div className="space-y-2 border-t border-[#ead4be] pt-5">
-            <BeehiivV3SubscribeSlot compact />
-            <NewsletterSubscribeCta variant="compact" />
           </div>
         </footer>
       </article>
