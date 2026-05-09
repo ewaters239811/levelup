@@ -6,29 +6,42 @@ import PageBack from '@/components/PageBack';
 import { currentWeeklyPost, type PostBlock } from '@/data/weeklyPost';
 import { weeklyPostToPlainSpeechText } from '@/lib/weeklyPostSpeech';
 
-function Block({ block }: { block: PostBlock }) {
+function Block({
+  block,
+  leadParagraph,
+}: {
+  block: PostBlock;
+  leadParagraph?: boolean;
+}) {
   switch (block.kind) {
     case 'p':
       return (
-        <p className="text-base font-normal text-[#2f2118] leading-relaxed">
+        <p
+          className={[
+            'text-[1.0625rem] md:text-lg leading-[1.72] text-[#2a221c]',
+            leadParagraph
+              ? 'md:first-letter:float-left md:first-letter:mr-2 md:first-letter:font-semibold md:first-letter:font-article md:first-letter:text-[2.65rem] md:first-letter:leading-[0.85] md:first-letter:text-[#4a3428]'
+              : '',
+          ].join(' ')}
+        >
           {block.text}
         </p>
       );
     case 'h3':
       return (
-        <h3 className="text-sm font-semibold text-[#5b3a24] uppercase tracking-wider pt-2">
+        <h3 className="font-article mb-3 text-xl font-semibold leading-snug tracking-tight text-[#3d2b1f] md:text-[1.35rem]">
           {block.text}
         </h3>
       );
     case 'quote':
       return (
-        <blockquote className="whitespace-pre-line border-l-2 border-[#c2905e] pl-4 my-6 text-[#4a311f] font-normal italic text-base leading-relaxed bg-[#f4e3cf] py-3 pr-2 rounded-r-sm">
+        <blockquote className="font-article my-9 whitespace-pre-line border-l-[3px] border-[#b8895e] pl-6 text-[1.0625rem] italic leading-[1.72] text-[#403529] md:text-lg md:leading-relaxed">
           {block.text}
         </blockquote>
       );
     case 'ul':
       return (
-        <ul className="list-disc pl-5 space-y-3 text-base font-normal text-[#2f2118] leading-relaxed marker:text-[#7a4d2d]">
+        <ul className="font-article my-7 space-y-2.5 pl-6 text-[1.0625rem] leading-[1.72] text-[#2a221c] marker:text-[#9a704e] md:text-lg [&>li]:pl-1">
           {block.items.map((item, idx) => (
             <li key={idx}>{item}</li>
           ))}
@@ -51,57 +64,68 @@ export default function WeeklyPage() {
       </div>
       <article
         className="
-          w-full max-w-2xl mx-auto relative z-10 space-y-10
-          rounded-2xl border border-[#dab793] bg-[#fffaf2]
-          px-6 py-10 shadow-lg shadow-amber-900/10
-          sm:px-10 sm:py-12
+          font-article
+          w-full max-w-[42rem] mx-auto relative z-10 space-y-10
+          rounded-sm border border-[#dccfb8]/90 bg-[#fffdfb]
+          px-5 py-11 shadow-[0_1px_4px_rgba(42,28,18,0.06)]
+          sm:px-10 sm:py-14
         "
       >
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-between gap-4 font-sans">
           <PageBack tone="light" />
-          <p className="text-xs text-[#7d563b] font-medium tracking-widest uppercase shrink-0 pt-0.5">
+          <p className="text-[11px] text-[#7d563b] font-medium tracking-[0.2em] uppercase shrink-0 pt-0.5">
             Clearpth
           </p>
         </div>
 
-        <header className="space-y-3 border-b border-[#d8b28c] pb-8">
-          <p className="text-xs text-[#8e6242] font-medium uppercase tracking-wider">
+        <header className="space-y-4 border-b border-[#e5d4c4] pb-10 font-sans">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#9a704e]">
             Weekly · {post.weekOfLabel}
           </p>
-          <h1 className="text-2xl md:text-3xl font-medium text-[#2a1a0f] leading-snug tracking-tight">
+          <h1 className="font-article text-[1.65rem] font-semibold leading-[1.25] tracking-tight text-[#231810] md:text-[2rem] md:leading-tight">
             {post.title}
           </h1>
         </header>
 
-        <BeehiivV3SubscribeSlot variant="strip" />
+        <div className="font-sans">
+          <BeehiivV3SubscribeSlot variant="strip" />
+        </div>
 
-        <BlogListenControls key={post.weekOfLabel} text={speechText} />
+        <div className="rounded-md border border-[#e8dfd4] bg-[#fefbf7]/90 px-4 py-3 font-sans shadow-sm shadow-amber-900/[0.04]">
+          <BlogListenControls key={post.weekOfLabel} text={speechText} />
+        </div>
 
-        <div className="space-y-12">
-          {post.sections.map((section) => (
-            <section key={section.title} className="space-y-4">
-              <h2 className="text-lg md:text-xl font-semibold text-[#3f2a1c]">
+        <div className="space-y-14">
+          {post.sections.map((section, sectionIndex) => (
+            <section key={section.title} className="space-y-6">
+              <h2 className="font-sans text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#a87e5c]">
                 {section.title}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {section.blocks.map((block, i) => (
-                  <Block key={`${section.title}-${i}`} block={block} />
+                  <Block
+                    key={`${section.title}-${i}`}
+                    block={block}
+                    leadParagraph={
+                      sectionIndex === 0 && i === 0 && block.kind === 'p'
+                    }
+                  />
                 ))}
               </div>
             </section>
           ))}
         </div>
 
-        <footer className="space-y-8 border-t border-[#d8b28c] pt-8">
+        <footer className="space-y-8 border-t border-[#e5d4c4] pt-10 font-sans">
           <div className="space-y-2">
-            <p className="text-center text-[11px] font-semibold uppercase tracking-wider text-[#8e6242] sm:text-left">
+            <p className="text-center text-[11px] font-semibold uppercase tracking-[0.28em] text-[#9a704e] sm:text-left">
               Before you go
             </p>
             <BeehiivV3SubscribeSlot variant="compact" />
             <NewsletterSubscribeCta variant="compact" />
           </div>
           <div className="space-y-4 border-t border-[#ead4be] pt-8">
-            <p className="text-sm text-[#6b4a33] font-normal">
+            <p className="text-sm text-[#6b4a33] font-normal leading-relaxed">
               When you are ready, continue to the four-question diagnostic.
             </p>
             <Link
