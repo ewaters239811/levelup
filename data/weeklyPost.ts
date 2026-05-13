@@ -24,6 +24,389 @@ export type WeeklyPost = {
 
 export const weeklyPosts: WeeklyPost[] = [
   {
+    slug: 'heal-body-master-presence-may-12-2026',
+    weekOfLabel: 'Week of May 12, 2026',
+    title:
+      'Heal the Body & Master Presence: The Hidden Reason You Feel Stuck, Drained, and Trapped in Your Mind',
+    sections: [
+      {
+        title: 'Introduction',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Most people believe their suffering begins in the mind.',
+          },
+          {
+            kind: 'p',
+            text: 'They assume the problem is anxiety, stress, overthinking, or negative thoughts.',
+          },
+          {
+            kind: 'p',
+            text: 'But Heal the Body and Master Presence offers a deeper perspective:',
+          },
+          {
+            kind: 'h3',
+            text: 'The mind is often reacting to pain the body has never processed.',
+          },
+          {
+            kind: 'p',
+            text: 'Beneath constant thinking lives a buildup of suppressed emotions — unresolved sadness, anger, fear, shame, and tension stored in the body over time.',
+          },
+          {
+            kind: 'p',
+            text: 'The book refers to this accumulated emotional energy as the pain body.',
+          },
+          {
+            kind: 'p',
+            text: 'Until it is acknowledged, it quietly shapes your thoughts, reactions, and daily experience.',
+          },
+        ],
+      },
+      {
+        title: 'Best Quote',
+        blocks: [
+          {
+            kind: 'quote',
+            text: "If you cannot access what’s inside, you’re locked outside the gates of heaven, and you’ll be trapped in your mind.",
+          },
+        ],
+      },
+      {
+        title: 'The Pain Body',
+        blocks: [
+          {
+            kind: 'h3',
+            text: 'Why Your Mind Never Stops Racing',
+          },
+          {
+            kind: 'p',
+            text: 'The pain body is more than emotional memory.',
+          },
+          {
+            kind: 'p',
+            text: 'It is stored emotional energy that influences:',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Your thoughts',
+              'Your reactions',
+              'Your stress levels',
+              'Your energy',
+              'Your relationships',
+              'Your ability to feel peace',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'When emotional pain is ignored, the mind often becomes louder and more reactive.',
+          },
+          {
+            kind: 'h3',
+            text: 'This Can Show Up As',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Chronic overthinking',
+              'Irritability',
+              'Emotional numbness',
+              'Anxiety',
+              'Restlessness',
+              'Low self-awareness',
+              'Constant mental noise',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'The mind becomes overactive because the body feels uncomfortable to fully experience.',
+          },
+          {
+            kind: 'p',
+            text: 'So instead of feeling emotions directly, many people stay trapped in cycles of thought.',
+          },
+        ],
+      },
+      {
+        title: 'Presence Starts in the Body',
+        blocks: [
+          {
+            kind: 'h3',
+            text: 'You Cannot Think Your Way Into Healing',
+          },
+          {
+            kind: 'p',
+            text: 'One of the book’s central teachings is that true healing cannot happen through mental analysis alone.',
+          },
+          {
+            kind: 'p',
+            text: 'You do not heal by endlessly trying to “figure yourself out.”',
+          },
+          {
+            kind: 'p',
+            text: 'You heal by becoming present enough to feel what has been buried.',
+          },
+          {
+            kind: 'h3',
+            text: 'The Body Is the Doorway to Presence.',
+          },
+          {
+            kind: 'p',
+            text: 'And presence is the doorway to peace.',
+          },
+          {
+            kind: 'p',
+            text: 'Many people remain disconnected from themselves because going inward feels uncomfortable. The body often carries years of emotional tension, and silence can bring that tension to the surface.',
+          },
+          {
+            kind: 'p',
+            text: 'As a result, the mind stays busy to avoid discomfort.',
+          },
+          {
+            kind: 'p',
+            text: 'But healing begins the moment awareness returns to the body.',
+          },
+        ],
+      },
+      {
+        title: 'Silence Is Essential',
+        blocks: [
+          {
+            kind: 'h3',
+            text: 'Stillness Allows Emotions to Surface',
+          },
+          {
+            kind: 'p',
+            text: 'The book emphasizes that silence is not a luxury.',
+          },
+          {
+            kind: 'p',
+            text: 'It is necessary.',
+          },
+          {
+            kind: 'p',
+            text: 'A constantly stimulated environment keeps the nervous system overwhelmed and prevents emotional release from happening naturally.',
+          },
+          {
+            kind: 'p',
+            text: 'Noise distracts. Stillness reveals.',
+          },
+          {
+            kind: 'p',
+            text: 'External silence supports internal silence.',
+          },
+          {
+            kind: 'p',
+            text: 'And internal silence creates space for stored emotions to finally surface.',
+          },
+          {
+            kind: 'h3',
+            text: 'Simple Practices That Restore Presence',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Slow your breathing',
+              'Reduce unnecessary stimulation',
+              'Spend time in silence',
+              'Sit in stillness daily',
+              'Observe bodily sensations',
+              'Become aware of emotional tension',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'As the breath slows, awareness gradually moves from the mind into the body.',
+          },
+          {
+            kind: 'p',
+            text: 'That shift changes everything.',
+          },
+        ],
+      },
+      {
+        title: 'Emotional Alchemy',
+        blocks: [
+          {
+            kind: 'h3',
+            text: 'Emotions Heal When They Are Observed',
+          },
+          {
+            kind: 'p',
+            text: 'One of the book’s most powerful lessons is that emotions do not need to be controlled.',
+          },
+          {
+            kind: 'p',
+            text: 'They need to be acknowledged.',
+          },
+          {
+            kind: 'p',
+            text: 'Much emotional suffering continues because people resist what they feel.',
+          },
+          {
+            kind: 'p',
+            text: 'They judge emotions.',
+          },
+          {
+            kind: 'p',
+            text: 'Suppress them.',
+          },
+          {
+            kind: 'p',
+            text: 'Distract themselves.',
+          },
+          {
+            kind: 'p',
+            text: 'Or escape into productivity, entertainment, or overthinking.',
+          },
+          {
+            kind: 'p',
+            text: 'But emotions often soften when they are fully observed without resistance.',
+          },
+          {
+            kind: 'p',
+            text: 'The book compares emotions to a person who simply wants to be heard.',
+          },
+          {
+            kind: 'h3',
+            text: 'The Practice',
+          },
+          {
+            kind: 'p',
+            text: 'Observe emotions without:',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Judgment',
+              'Resistance',
+              'Overanalyzing',
+              'Creating stories around them',
+              'Trying to immediately “fix” yourself',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'Instead, allow the feeling to exist without fighting it.',
+          },
+          {
+            kind: 'p',
+            text: 'Over time, this weakens the pain body and creates greater emotional clarity and inner peace.',
+          },
+        ],
+      },
+      {
+        title: 'The Physical Cost of Emotional Suppression',
+        blocks: [
+          {
+            kind: 'h3',
+            text: 'Emotional Pain Can Become Physical Tension',
+          },
+          {
+            kind: 'p',
+            text: 'The book suggests that unprocessed emotions can eventually affect the body itself.',
+          },
+          {
+            kind: 'p',
+            text: 'Suppressed emotional energy may contribute to chronic stress, exhaustion, and emotional heaviness.',
+          },
+          {
+            kind: 'p',
+            text: 'Over time, this can lead to:',
+          },
+          {
+            kind: 'ul',
+            items: [
+              'Fatigue',
+              'Low vitality',
+              'Physical tension',
+              'Emotional burnout',
+              'Feeling disconnected from life',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'When emotional energy is processed in a healthy way, the body often feels lighter and more relaxed.',
+          },
+          {
+            kind: 'p',
+            text: 'Presence deepens.',
+          },
+          {
+            kind: 'p',
+            text: 'Energy returns.',
+          },
+          {
+            kind: 'p',
+            text: 'And authentic self-expression becomes easier.',
+          },
+        ],
+      },
+      {
+        title: 'True Presence Changes Everything',
+        blocks: [
+          {
+            kind: 'h3',
+            text: 'Peace Is Not Something You Chase',
+          },
+          {
+            kind: 'p',
+            text: 'The book ultimately teaches that presence is your natural state beneath mental noise and emotional resistance.',
+          },
+          {
+            kind: 'p',
+            text: 'Inner peace is not something you create.',
+          },
+          {
+            kind: 'p',
+            text: 'It is something you uncover.',
+          },
+          {
+            kind: 'p',
+            text: 'The moment you stop running from yourself, healing begins.',
+          },
+          {
+            kind: 'p',
+            text: 'The moment you allow emotions instead of suppressing them, the mind gradually becomes quieter.',
+          },
+          {
+            kind: 'p',
+            text: 'And when the mind quiets, life becomes clearer.',
+          },
+        ],
+      },
+      {
+        title: 'Final Reflection',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Healing is not about becoming someone new.',
+          },
+          {
+            kind: 'p',
+            text: 'It is about reconnecting with what has always existed beneath the noise.',
+          },
+          {
+            kind: 'p',
+            text: 'Beneath overthinking is awareness.',
+          },
+          {
+            kind: 'p',
+            text: 'Beneath tension is stillness.',
+          },
+          {
+            kind: 'p',
+            text: 'Beneath emotional pain is presence.',
+          },
+          {
+            kind: 'p',
+            text: 'The path to peace begins when you stop escaping your inner world and allow yourself to fully experience it with awareness and compassion.',
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: 'emotion-trap-identity-loop-may-5-2026',
     weekOfLabel: 'Week of May 5, 2026',
     title: "The Identity Loop: The Emotional Trap Beneath Discipline and Strategy",
